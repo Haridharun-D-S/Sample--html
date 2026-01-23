@@ -1,37 +1,233 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$app-primary: mat.define-palette(mat.$indigo-palette);
+$app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$app-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$app-theme: mat.define-light-theme((
+  color: (
+    primary: $app-primary,
+    accent: $app-accent,
+    warn: $app-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($app-theme);
+
 /* You can add global styles to this file, and also import other style files */
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
-html, body { height: 100%; }
-body {
-  margin: 0;
-  font-family: 'Open Sans', sans-serif !important;
-  overflow: hidden;
+
+/* Core Grid CSS */
+@import 'ag-grid-community/styles/ag-grid.css';
+/* Quartz Theme Specific CSS */
+@import 'ag-grid-community/styles/ag-theme-quartz.css';
+/*  Application Stylesheet */
+@import './scss/Main.scss';
+/*  Bootstap V5.2.3 */
+// @import url('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css');
+@import url('assets/css/bootstrap.min.css');
+/*  Font Awesome V6.0.0  & V5.5.0 & V4.7.0 */
+// @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+@import url('assets/fontawesome-6/css/all.min.css');
+// @import url('https://use.fontawesome.com/releases/v5.5.0/css/all.css');
+@import url('assets/fontawesome-5/css/all.css');
+// @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+@import url('assets/fontawesome-4/css/font-awesome.min.css');
+/*  Icon Scount Line and Thin line */
+// @import url('https://unicons.iconscout.com/release/v4.0.8/css/line.css');
+// @import url('https://unicons.iconscout.com/release-pro/v4.0.8/css/thinline.css?key=0b2c9410-bd04-11ee-a39f-0242ac140003');
+/*  Material Icons */
+// @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+
+// font-family
+@font-face {
+  font-family: 'Source Sans Pro';
+  src: url('assets/Font/SourceSansPro-BlackIt.eot');
+  src: url('assets/Font/SourceSansPro-BlackIt.eot?#iefix') format('embedded-opentype'),
+      url('assets/Font/SourceSansPro-BlackIt.woff2') format('woff2'),
+      url('assets/Font/SourceSansPro-BlackIt.woff') format('woff'),
+      url('assets/Font/SourceSansPro-BlackIt.ttf') format('truetype'),
+      url('assets/Font/SourceSansPro-BlackIt.svg#assets/Font/SourceSansPro-BlackIt') format('svg');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
 }
-@import url('https://fonts.googleapis.com/css?family=Titillium+Web:200,200i,300,300i,400,400i,600,600i,700,700i,900');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap');
 
-/* ✅ Bootstrap 5 */
-@import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css');
+@font-face {
+  font-family: 'Source Sans Pro';
+  src: url('assets/Font/SourceSansPro-Bold.eot');
+  src: url('assets/Font/SourceSansPro-Bold.eot?#iefix') format('embedded-opentype'),
+      url('assets/Font/SourceSansPro-Bold.woff2') format('woff2'),
+      url('assets/Font/SourceSansPro-Bold.woff') format('woff'),
+      url('assets/Font/SourceSansPro-Bold.ttf') format('truetype'),
+      url('assets/Font/SourceSansPro-Bold.svg#assets/Font/SourceSansPro-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
 
-/* ✅ Latest Font Awesome */
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
-@import url('https://use.fontawesome.com/releases/v5.5.0/css/all.css');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+@font-face {
+  font-family: 'Source Sans Pro';
+  src: url('assets/Font/SourceSansPro-ExtraLight.eot');
+  src: url('assets/Font/SourceSansPro-ExtraLight.eot?#iefix') format('embedded-opentype'),
+      url('assets/Font/SourceSansPro-ExtraLight.woff2') format('woff2'),
+      url('assets/Font/SourceSansPro-ExtraLight.woff') format('woff'),
+      url('assets/Font/SourceSansPro-ExtraLight.ttf') format('truetype'),
+      url('assets/Font/SourceSansPro-ExtraLight.svg#assets/Font/SourceSansPro-ExtraLight') format('svg');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
 
-/* ✅ Material Icons */
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@font-face {
+  font-family: 'Source Sans Pro';
+  src: url('assets/Font/SourceSansPro-BoldIt.eot');
+  src: url('assets/Font/SourceSansPro-BoldIt.eot?#iefix') format('embedded-opentype'),
+      url('assets/Font/SourceSansPro-BoldIt.woff2') format('woff2'),
+      url('assets/Font/SourceSansPro-BoldIt.woff') format('woff'),
+      url('assets/Font/SourceSansPro-BoldIt.ttf') format('truetype'),
+      url('assets/Font/SourceSansPro-BoldIt.svg#assets/Font/SourceSansPro-BoldIt') format('svg');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
 
+@font-face {
+  font-family: 'Source Sans Pro';
+  src: url('assets/Font/SourceSansPro-ExtraLightIt.eot');
+  src: url('assets/Font/SourceSansPro-ExtraLightIt.eot?#iefix') format('embedded-opentype'),
+      url('assets/Font/SourceSansPro-ExtraLightIt.woff2') format('woff2'),
+      url('assets/Font/SourceSansPro-ExtraLightIt.woff') format('woff'),
+      url('assets/Font/SourceSansPro-ExtraLightIt.ttf') format('truetype'),
+      url('assets/Font/SourceSansPro-ExtraLightIt.svg#assets/Font/SourceSansPro-ExtraLightIt') format('svg');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
 
-.ag-aria-description-container{
-    display: none !important;
+@font-face {
+  font-family: 'Source Sans Pro';
+  src: url('assets/Font/SourceSansPro-Black.eot');
+  src: url('assets/Font/SourceSansPro-Black.eot?#iefix') format('embedded-opentype'),
+      url('assets/Font/SourceSansPro-Black.woff2') format('woff2'),
+      url('assets/Font/SourceSansPro-Black.woff') format('woff'),
+      url('assets/Font/SourceSansPro-Black.ttf') format('truetype'),
+      url('assets/Font/SourceSansPro-Black.svg#assets/Font/SourceSansPro-Black') format('svg');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  src: url('assets/Font/SourceSansPro-It.eot');
+  src: url('assets/Font/SourceSansPro-It.eot?#iefix') format('embedded-opentype'),
+      url('assets/Font/SourceSansPro-It.woff2') format('woff2'),
+      url('assets/Font/SourceSansPro-It.woff') format('woff'),
+      url('assets/Font/SourceSansPro-It.ttf') format('truetype'),
+      url('assets/Font/SourceSansPro-It.svg#assets/Font/SourceSansPro-It') format('svg');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  src: url('assets/Font/SourceSansPro-LightIt.eot');
+  src: url('assets/Font/SourceSansPro-LightIt.eot?#iefix') format('embedded-opentype'),
+      url('assets/Font/SourceSansPro-LightIt.woff2') format('woff2'),
+      url('assets/Font/SourceSansPro-LightIt.woff') format('woff'),
+      url('assets/Font/SourceSansPro-LightIt.ttf') format('truetype'),
+      url('assets/Font/SourceSansPro-LightIt.svg#assets/Font/SourceSansPro-LightIt') format('svg');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  src: url('assets/Font/SourceSansPro-Regular.eot');
+  src: url('assets/Font/SourceSansPro-Regular.eot?#iefix') format('embedded-opentype'),
+      url('assets/Font/SourceSansPro-Regular.woff2') format('woff2'),
+      url('assets/Font/SourceSansPro-Regular.woff') format('woff'),
+      url('assets/Font/SourceSansPro-Regular.ttf') format('truetype'),
+      url('assets/Font/SourceSansPro-Regular.svg#assets/Font/SourceSansPro-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  src: url('assets/Font/SourceSansPro-Light.eot');
+  src: url('assets/Font/SourceSansPro-Light.eot?#iefix') format('embedded-opentype'),
+      url('assets/Font/SourceSansPro-Light.woff2') format('woff2'),
+      url('assets/Font/SourceSansPro-Light.woff') format('woff'),
+      url('assets/Font/SourceSansPro-Light.ttf') format('truetype'),
+      url('assets/Font/SourceSansPro-Light.svg#assets/Font/SourceSansPro-Light') format('svg');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  src: url('assets/Font/SourceSansPro-Semibold.eot');
+  src: url('assets/Font/SourceSansPro-Semibold.eot?#iefix') format('embedded-opentype'),
+      url('assets/Font/SourceSansPro-Semibold.woff2') format('woff2'),
+      url('assets/Font/SourceSansPro-Semibold.woff') format('woff'),
+      url('assets/Font/SourceSansPro-Semibold.ttf') format('truetype'),
+      url('assets/Font/SourceSansPro-Semibold.svg#assets/Font/SourceSansPro-Semibold') format('svg');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  src: url('assets/Font/SourceSansPro-SemiboldIt.eot');
+  src: url('assets/Font/SourceSansPro-SemiboldIt.eot?#iefix') format('embedded-opentype'),
+      url('assets/Font/SourceSansPro-SemiboldIt.woff2') format('woff2'),
+      url('assets/Font/SourceSansPro-SemiboldIt.woff') format('woff'),
+      url('assets/Font/SourceSansPro-SemiboldIt.ttf') format('truetype'),
+      url('assets/Font/SourceSansPro-SemiboldIt.svg#assets/Font/SourceSansPro-SemiboldIt') format('svg');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
 }
 
 
-.mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab{
-    width: 33%;
+// font-family
+
+/*  Common html and body style */
+html, body { 
+    height: 100%; 
 }
-.mat-mdc-tab-body-content{
-    padding: 15px;
-    border: 1px solid #ccc;
+body { 
+    margin: 0; 
+    font-feature-settings: "kern" 1;
+    font-kerning: normal;
+    font-family: 'Source Sans Pro' !important;
+    line-height: 1.5; 
+    font-weight: 400; 
+    background-color: #f1f1f1;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,0 +1,145 @@
+<app-header-apps></app-header-apps>
+<!-- <app-side-menu></app-side-menu> -->
+
+<!-- Case List Screen Starts -->
+<div class="col content-headermenu-top">
+    <!-- Breadcrumb starts -->
+    <div class="row m-0">
+        <ol class="breadcrumb mb-0 disp-flex">
+            <li class="breadcrumb-parent-label">Cases</li>
+            <li class="breadcrumb-separator"><i class="fas fa-angle-right"></i></li>
+            <li class="breadcrumb-child-label">Case List
+            </li>
+        </ol>
+    </div>
+    <!-- Breadcrumb Ends -->
+    <!-- Case List starts -->
+    <!-- Card starts -->
+    <div class="row m-0 col-12 mt-2">
+        <div class="card-body">
+            <div class="card-content">
+                <div class="row m-0 col-12 card-header">
+                    <div class="col-12 disp-flex">
+                        <label class="card-header-lab"><span>
+                                <svg class="margin-top-minus-5 me-1" width="23" height="23" viewBox="0 0 26 26" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_2126_208209)">
+                                        <path
+                                            d="M23.1115 9.62962V7.70369C23.1115 7.27553 22.4601 7.04349 22.1485 6.74073C21.837 6.43798 21.6261 5.77777 21.1856 5.77777H10.593L8.66707 3.85184H2.88929C2.44873 3.85184 2.23784 3.54909 1.92632 3.85184C1.61481 4.1546 0.963361 5.34961 0.963361 5.77777V20.2222C0.965042 20.4252 0.884565 20.9971 0.963361 21.1852M0.963361 21.1852C1.08697 21.4837 1.65205 21.9679 1.92632 22.1481C2.2006 22.3284 2.55818 22.1478 2.88929 22.1481H21.1856C21.5556 22.1467 21.8577 22.3704 22.1485 22.1481C22.4394 21.9259 23.0227 21.5343 23.1115 21.1852"
+                                            stroke="#005EA2" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path
+                                            d="M23.111 21.1852L25.9999 11.5555C26.0407 11.3985 26.0118 11.7169 25.9999 11.5555C25.9999 11.1399 25.3446 9.92353 25.037 9.62962C24.7293 9.33571 24.5091 9.62962 24.074 9.62962H5.77771C5.40596 9.63039 5.10483 9.40753 4.81474 9.62962C4.52465 9.85171 3.93356 10.2461 3.85178 10.5926L0.962891 21.1852"
+                                            stroke="#005EA2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_2126_208209">
+                                            <rect width="26" height="26" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </span> Case List</label>
+                        <span class="col p-0 text-end filter-section-workqueue">
+                            <div class="btn-group" role="group">
+                                <input type="radio" class="btn-check filter-check" name="btnradiocase"
+                                    id="btnradiocase1" checked>
+                                <label class="btn btn-filter" for="btnradiocase1">
+                                    <span class="disp-flex"><i class="fa-solid fa-check filter-active me-2"></i><i
+                                            class="fas fa-list"></i></span>
+                                </label>
+
+                                <input type="radio" class="btn-check filter-check" name="btnradiocase"
+                                    id="btnradiocase2">
+                                <label class="btn btn-filter" for="btnradiocase2">
+                                    <span class="disp-flex"><i class="fa-solid fa-check filter-active me-2"></i>
+                                        <svg width="21" height="21" viewBox="0 0 21 21" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_2043_215366)">
+                                                <path
+                                                    d="M18.6669 7.77779V6.22223C18.6669 5.87641 18.1407 5.68899 17.8891 5.44446C17.6375 5.19992 17.4672 4.66668 17.1113 4.66668H8.55577L7.00021 3.11112H2.33354C1.97771 3.11112 1.80738 2.86659 1.55576 3.11112C1.30415 3.35566 0.777987 4.32086 0.777987 4.66668V16.3333C0.779344 16.4973 0.714343 16.9592 0.777987 17.1111M0.777987 17.1111C0.877827 17.3522 1.33424 17.7433 1.55576 17.8889C1.77729 18.0345 2.06611 17.8886 2.33354 17.8889H17.1113C17.4102 17.8877 17.6541 18.0684 17.8891 17.8889C18.1241 17.7094 18.5952 17.3931 18.6669 17.1111"
+                                                    stroke="#181D1F" stroke-linecap="round" stroke-linejoin="round" />
+                                                <path
+                                                    d="M18.6672 17.1111L21.0005 9.3333C21.0335 9.20647 21.0101 9.46367 21.0005 9.3333C21.0005 8.99759 20.4712 8.01513 20.2228 7.77775C19.9743 7.54036 19.7964 7.77775 19.445 7.77775H4.66721C4.36695 7.77837 4.12374 7.59836 3.88943 7.77775C3.65513 7.95713 3.17771 8.2757 3.11165 8.55552L0.77832 17.1111"
+                                                    stroke="#181D1F" stroke-linecap="round" stroke-linejoin="round" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_2043_215366">
+                                                    <rect width="21" height="21" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </span>
+                                </label>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <!-- Search box starts -->
+                <div class="row m-0 search-box-container">
+                    <div class="col-5 mb-2 disp-flex">
+                        <input class="search-input" type="search" [(ngModel)] ="globalSerach" placeholder="Search">
+                        <button class="btn-search" (click)="globalSearch()"><i class="fa fa-search"  ></i></button>
+                    </div>
+                </div>
+                <!-- Search box ends -->
+                <!-- Case Filters starts -->
+                <div class="row m-0 case-filters">
+                    <div class="col-12 case-filter-select-container">
+                        <form class="w-100" [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+                            <div class="col-12 p-0 disp-flex">
+                            <div class="row col p-0 m-0">
+                            <div class="col-4 filter-select-container" *ngFor="let field of filterFields">
+                                <ng-container  *ngIf="field.DefaultFilter || field.Added">
+                                    <div class="col-12 p-0" [ngSwitch]="field.FieldType">
+                                        <div *ngSwitchCase="'Input'">
+                                            <mat-form-field class="col-12 p-0">
+                                              <input matInput class="case-filter-input" formControlName="{{field.ColumnName}}" placeholder="{{field.ColumnName}}">
+                                            </mat-form-field>
+                                          </div>
+                                          <div *ngSwitchCase="'dropdown'">
+                                            <mat-form-field class="col-12 p-0">
+                                              <!-- <mat-label>{{field.ColumnName}}</mat-label> -->
+                                              <mat-select class="case-filter-select" placeholder="{{field.ColumnName}}" formControlName="{{field.ColumnName}}">
+                                                <mat-option value= ""> Select {{field.ColumnName}} </mat-option>
+                                                <mat-option *ngFor="let lookup of field.Lookups" [value]="lookup.lookupCode">{{lookup.lookupName}}</mat-option>
+                                              </mat-select>
+                                            </mat-form-field>
+                                          </div>
+                                          <div *ngSwitchCase="'datepicker'">
+                                            <!-- <mat-form-field>
+                                                <input matInput [matDatepicker]="datepickerMap['mat-datepicker-' + field.ColumnName]" formControlName="{{field.ColumnName}}" placeholder="{{field.ColumnName}}">
+                                                <mat-datepicker-toggle matSuffix [for]="datepickerMap['mat-datepicker-' + field.ColumnName]"></mat-datepicker-toggle>
+                                                <mat-datepicker #datepicker [id]="'mat-datepicker-' + field.ColumnName"></mat-datepicker>
+                                              </mat-form-field> -->
+                                              <mat-form-field class="col-12 p-0">
+                                                <input class="case-filter-input" matInput [matDatepicker]="datepicker" formControlName="{{field.ColumnName}}" placeholder="{{field.ColumnName}}">
+                                                <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                                                <mat-datepicker #datepicker ></mat-datepicker>
+                                              </mat-form-field>
+                                          </div>
+                                    </div>
+                                  
+                                </ng-container>
+                              </div>
+                            </div>
+                            <div class="p-0 case-filter-button-set">
+                                <button class="btn btn-primary ms-0" type="submit"><i class="fa fa-search me-0"></i></button>
+                            </div>
+                            </div>
+                          </form>
+                          <button class="btn btn-primary me-0" type="button" (click)="addFilter()">Add Filter</button>
+                        
+                        <div class="col p-0 case-filter-button-set">
+                        </div>
+                    </div>
+                </div>
+                <!-- Case Filters ends -->
+                <div class="col-12 p-0 case-list-workqueue">
+                    <app-work-queue [filters]="submittedFilters" (gridFilter)="gridFilter($event)" (FiltersClear)="clearFilter($event)">
+                    </app-work-queue>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Case List ends -->
+</div>
+<!-- Case List Screen Ends -->

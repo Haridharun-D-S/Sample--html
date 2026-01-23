@@ -1,0 +1,68 @@
+<app-header-apps></app-header-apps>
+
+<div class="row px-3 m-0">
+  <div class="process-batch pt-2">
+    <div class="col-12 p-0 process-header">
+      <span class="header-icon">
+        <i class="fa-solid fa-gear"></i>
+      </span>
+      <span class="widget-heading">Process New Batch</span>
+      <p class="mb-0 card-instruction">To process new batches of files, follow the instructions provided below.</p>
+    </div>
+    <div class="col-lg-12 px-3 py-4 back-light mt-2">
+      <div class="d-flex m-0 p-0">
+        <!-- <div class="col-1 p-0"></div> -->
+        <div class="p-0 img-side">
+          <img src="../../../assets/Images/process-img.png" alt="img" width="400" height="240">
+        </div>
+        <div class="col p-0 right-content">
+          <div class="col-1 p-0"></div>
+          <div class="col-10 p-0 py-2 pt-3 process-batch-side">
+            <div class="svg-img text-center pt-1">
+              <img src="../../../assets/Images/process-icon.png" alt="img" width="60" height="60">
+            </div>
+            <div class="row m-0 bacth-cont py-2">
+              <div class="col-2 p-0"></div>
+              <div class="col-10 m-0"><b>Step 1:</b> Ensure that the new batch files to be processed is moved under the
+                input folder.</div>
+              <div class="col-2 p-0"></div>
+              <div class="col-10 m-0"><b>Step 2:</b> Click the "Process Batch" button below to start processing the new
+                batch.</div>
+            </div>
+            <div class="row m-0 py-2">
+              <div class="col-lg-12 process-bottom">
+                <button class="btn btn-primary process-btn" (click)="processBatch()">Process Batch</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="processSuccess" class="modal fade form-modal custom-modal flipIn info-alert-modal" role="dialog"
+  data-bs-backdrop="static">
+  <div class="modal-dialog simple-modal" style="min-width: 33% !important; height: 400px;">
+    <div class="modal-content" style="height: 400px;">
+      <div class="modal-header">
+        <h4 class="modal-title"><i class="fa-regular fa-bell"></i>Alert</h4>
+        <div class="col cls2">
+          <button class="close" data-bs-dismiss="modal" type="button" (click)="gotoBatchPage()"></button>
+        </div>
+      </div>
+      <!-- <hr class="hr-nova-d"> -->
+      <p class="text-offset-1 pt-2 pb-2 ps-4 pe-4 m-0">Batch Update</p>
+      <div class="modal-body short-simple-content">
+        <span class="text-offset-3a mb-0">
+          <p class="text-offset-3a mb-0" [innerHTML]="message"></p>
+        </span>       
+      </div>
+      <div class="modal-footer">
+        <button id=bckToTaskList #okButton type="button" class="btn btn-primary me-0" (click)="gotoBatchPage()"
+          data-bs-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>

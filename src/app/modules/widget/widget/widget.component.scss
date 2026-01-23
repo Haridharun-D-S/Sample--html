@@ -1,0 +1,13 @@
+.infoModal.modal {
+    height: 380px;
+    width: 400px;
+    right: auto;
+  }
+
+  .infoModal.modal .modal-body {
+    font-size: 80%;
+    padding: 6px 10px;
+    min-height: 300px !important;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }

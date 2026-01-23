@@ -1,0 +1,555 @@
+@import '../../../../scss/Variables.scss';
+
+
+
+// * Login Starts
+
+
+
+.form-lg-sgb {
+
+    .btn-ln {
+        float: none;
+        text-decoration: none;
+        height: 40px;
+        font-size: 16px;
+        margin-bottom: 0px;
+    }
+
+}
+
+
+.divider-nova {
+    border-right: 1px solid #CDCDCD;
+    height: 500px;
+    position: relative;
+    top: 70px;
+}
+
+.lg-nova {
+    max-width: 30rem;
+    border-color: rgba(0, 0, 0, 0);
+    box-shadow: none !important;
+    padding: 20px 10px 20px 10px;
+    border-radius: 0px;
+
+    .px-4 {
+        padding-left: 1.5rem !important;
+        padding-top: 15px;
+    }
+
+    .lead-nova {
+        color: black;
+        font-size: 30px;
+        font-weight: 700;
+        margin-top: 10px;
+    }
+
+    .form-lg-btn {
+
+        .btn-lg {
+            float: left;
+            text-decoration: none !important;
+            height: 27px;
+        }
+
+        .btn-lg-out {
+            margin-left: 10px;
+            text-decoration: none !important;
+            font-size: 16px !important;
+            padding-top: 2px;
+            height: 30px;
+        }
+
+    }
+
+    .small,
+    small {
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+
+    .mr {
+        margin-top: 5px;
+    }
+
+}
+
+.lg-nova-lft {
+    width: 100%;
+    border-color: rgba(0, 0, 0, 0);
+    box-shadow: none !important;
+    min-height: 550px;
+    margin-top: 21px;
+
+    .px-4 {
+        padding-left: 1.5rem !important;
+        padding-top: 15px;
+
+        .fnt {
+            font-size: $font-13;
+            font-weight: 300;
+        }
+
+    }
+
+    .fa,
+    .fas {
+        color: $Primary !important;
+        font-size: $font-40;
+    }
+
+
+    .pb-4,
+    .py-4 {
+        padding-bottom: .1rem !important;
+        padding-top: 5px;
+    }
+
+    .pb-3,
+    .py-3 {
+        padding-bottom: .5rem !important;
+        margin-top: .5rem !important;
+    }
+
+    .lead {
+
+        font-size: 1.25rem;
+        font-weight: 300;
+    }
+
+
+    .box-item {
+        border: 1px solid #CDCDCD;
+        background-color: #eaeef1;
+
+    }
+
+
+}
+
+.loginLayout {
+    display: flex;
+    margin: auto;
+    border-right: 1px solid #e0e0e0;
+    padding-left: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+.loginCard {
+    margin: auto;
+}
+
+.loginCard {
+    padding-left: 30px;
+    padding-right: 30px;
+    a{
+        color: $Accordion_Header_Font_Color;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+.lg-head-nova {
+    margin-bottom: 0px;
+    background-color: #fff !important;
+    border-bottom: 2px solid #656565 !important;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    .logo-nova-head {
+        padding-top: 7px;
+        padding-left: 20px
+    }
+}
+
+/*******************************************************************************************/
+
+
+.img-one {
+
+    .fa,
+    .fas {
+        color: $Primary !important;
+    }
+}
+
+.img-two {
+
+    .fa,
+    .fas {
+        color: $Secondary !important;
+    }
+}
+
+.img-three {
+
+    .fa,
+    .fas {
+        color: $Tertiary !important;
+    }
+}
+
+
+.loader-overlay {
+    position: absolute;
+    top: 0;
+    right: 50%;
+    bottom: 0;
+    left: 0;
+    z-index: 1100;
+    opacity: 1;
+}
+
+.loader-overlay:before {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('../../../../assets/Images/loader-svam.gif') 50% 50% no-repeat transparent;
+    background-color: rgba(0, 0, 0, 0.65);
+    background-size: 50% 30% !important;
+    content: '';
+}
+
+.disableSignup {
+    pointer-events: none !important;
+    cursor: not-allowed;
+}
+
+/* New Login Class Define*/
+
+.lft_background_image {
+    // background-image: url('../../../../assets/Images/Vaccine_Cover_Login.png');
+    background-image: url('/assets/Images/login-left1.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+    //height: 85.5vh !important;
+    height: 93.5vh !important;
+    width: 100% !important;
+    margin-left: auto;
+    margin-right: auto;
+
+    hr {
+        border-top: 1px solid #e0e0e0 !important;
+    }
+
+    h4,
+    .control-label {
+        color: #000 !important;
+    }
+
+    .abs {
+        position: absolute;
+        margin-top: 35px;
+    }
+
+    .abs1 {
+        position: relative;
+        margin-top: 35px;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .media-body {
+        flex: 1;
+    }
+
+    .fa {
+        font-size: 64px;
+        color: #53ba00;
+        display: block;
+        background: -webkit-linear-gradient(#a6e72a, #2176d3);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+    }
+
+    .icon {
+        background-color: #0000;
+        border: 1px solid #0000;
+        text-align: center;
+        width: 100px;
+        height: 100px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px;
+        transition: all .2s;
+    }
+
+}
+
+.statement {
+    font-size: 15px;
+}
+
+/*New Login Class Ends*/
+
+.hr-nova-logon {
+    border-top: 1px solid #AD7A0F;
+    margin-bottom: 2px;
+}
+
+.imagelogo {
+    padding-top: 20px;
+    height: 75px;
+}
+
+.statement1 {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 19px;
+}
+
+.logo-nova-head {
+    margin-top: 22px;
+}
+
+
+.mgt-login-15 {
+    margin-top: 1.5rem;
+}
+
+.mgt1-login-15 {
+    margin-top: 15px;
+}
+
+.mgr-15 {
+    margin-right: -15px;
+}
+
+.rgt_content_footer {
+    text-align: right;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    margin-top: 2.5rem;
+    bottom: -47px;
+}
+
+.mar-auto {
+    margin: auto !important;
+}
+
+.vertical-center-content {
+    height: 93vh;
+    display: flex;
+}
+
+
+/*  Login Mode Style Starts */
+
+.login{
+    .data-content-input{
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .data-content-label{
+        margin-top: 18px;
+        font-size: 16px;
+        color: $Black;
+    }
+
+    .sign-in-sub-header{
+        font-size: 13px;
+        margin-bottom: 0px;
+        color: $Black;
+    }
+}
+
+.login-top-logo{
+    width: 490px;
+    height: 46px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 28px;
+}
+
+.login-top-logo-border{
+    border-bottom: 5px solid #075492;
+}
+
+.login-bottom-border{
+    height: 20px;
+    background: linear-gradient(90deg, #737373 0%, #D9D9D9 171%);
+    z-index: 1;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+/*  Login Mode - ends */
+/* NEW IFP BROCHURE STYLE LEFT STARTS*/ 
+.lft_background_image2 {
+    // background-image: url('/assets/Images/login-left1.png');
+    background-image: url('/assets/Images/login-left2.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+    //  height: 89vh !important;
+    height: 93.5vh !important;
+
+    hr {
+        border-top: 1px solid #e0e0e0 !important;
+    }
+
+    h4,
+    .control-label {
+        color: #000 !important;
+        cursor: default;
+    }
+
+    .abs {
+        position: absolute;
+        margin-top: 35px;
+    }
+
+    .abs1 {
+        position: relative;
+        margin-top: 16px;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .media-body {
+        flex: 1;
+    }
+
+    .fa {
+        font-size: 64px;
+        color: #53ba00;
+        display: block;
+        // background: -webkit-linear-gradient(#a6e72a, #3CC47C);
+        background: -webkit-linear-gradient(#a6e72a, #2176d3);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+    }
+
+    .icon {
+        background-color: $Transparent;
+        // border: 1px solid #eee;
+        border: 1px solid $Transparent;
+        text-align: center;
+        width: 100px;
+        height: 100px;
+        display: inline-flex;
+        align-items: center;
+        // align-items: baseline;
+        justify-content: center;
+        margin: 10px;
+        transition: all .2s;
+        // margin-top: 14px;
+        // margin-top: 20px;
+    }
+
+.header-logo{
+    display: flex;
+    .left-image-logo{
+        // background-color: #fff;
+    border-radius: 50%;
+    // height: 100px;
+
+img{
+    height: 100px;
+    width: 100px;
+
+}
+
+    }
+
+.text-bold{
+    color: #4a7d4e;
+    font-size: 71px;
+}
+.text-sub{
+    color:#4a7d4e;
+    font-size: 23px;
+    font-weight: 600;
+}
+
+h2{
+    margin-left: 5px;
+    margin-top: 15px;
+    line-height: 32px;
+}
+
+
+}
+
+.footer-logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // bottom: -101px;
+    position: absolute;
+    bottom: 0;
+
+    .left-image-logo{
+        // background-color: #fff;
+    border-radius: 50%;
+    // height: 100px;
+    
+    img{
+    // height: 100px;
+    // width: 100px;
+        height: 70px;
+        width: 72px;
+    }
+    }
+
+    h2{
+        margin-bottom: 0px;
+        margin-left: 6px;
+        line-height: normal;
+    }
+
+    .logo-first-content{
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 0px;
+    }
+
+    .text-sub{
+        font-size: 20px;
+        font-weight: 600;
+        color: $Gray;
+    }
+
+}
+
+.new-statement {
+    font-size: 27px;
+    cursor: default;
+    color: #fff;
+    line-height: 39px;
+
+    .emphasis{
+        font-size: 40px;
+    }
+}
+.new-statement2{
+    font-size: 17px;
+    color: #fff;
+}
+
+
+}
+/* NEW IFP BROCHURE STYLE LEFT ENDS*/

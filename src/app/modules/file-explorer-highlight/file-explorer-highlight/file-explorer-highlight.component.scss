@@ -1,0 +1,9 @@
+.imageContainer {
+    position: relative;
+    height: 400px;
+    width: 400px;
+}
+
+img:focus {
+    outline: 2px solid blue;
+}

@@ -1,0 +1,50 @@
+<div class="row m-0 col-12 p-0 panel-section">
+    <div id="container_summary">
+        <div id="left_panel_summary" class="ls{{offsetValues}}">
+    <div *ngIf="showGenerateOutputFile" class="col-12 ps-0 left-panel Summary-output">
+        <div class="card-body-panel Tree">
+            <div class="col-12 card-body-panel-header">
+                <label class="card-body-panel-header-label ps-0">Output Files</label>
+            </div>
+            <div class="row m-0 card-body-panel-content withoutnav">
+                <!----UX Summary Output  Starts-->
+                <div class="container p-0">
+                    <div class="col-12 ps-0 text-end">
+                        <button class="btn btn-primary"  (click)="viewSourcFile()">View Source File</button>
+                        <button class="btn btn-secondary" [disabled]="PageFieldType === 'readonly'" (click)="uploadToVaers()">Upload to VAERS</button>
+                        <!-- <button class="btn btn-secondary" (click)="triggerGenerateOutput()">Generate Output</button> -->
+                    </div>
+                    <ul class="summarytree">
+                        <div class="col source-file p-0" (click)="showoutputfile('pdf', sampleJsonOutputFiles?.fileDetails, 'Parent')">
+                            <label [ngClass]="sampleJsonOutputFiles?.fileDetails?.selected == true ? 'active' : ''" ><span class="Icon parent-icon"><i class="fa-output-file"
+                                        aria-hidden="true"></i></span><label class="parent-label">{{sampleJsonOutputFiles?.fileDetails?.pdffilename}}</label></label>
+                        </div>
+                        <li class="col-12" *ngFor="let childFileView of sampleJsonOutputFiles?.fileDetails?.child; let i = index">
+                            <!--For active use this class="active"  -->
+                            <span [ngClass]="childFileView?.selected == true ? 'active' : ''" class="col-12 p-0">
+                                <mat-checkbox [(ngModel)]="childFileView.checked"  [disabled]="PageFieldType === 'readonly'" (ngModelChange)="selectedFormation()"> </mat-checkbox>
+                                <span class="Icon child-icon">
+                                    <i class="fa-output-file" aria-hidden="true"></i></span><a (click)="showoutputfile('pdf', childFileView, 'Child', i)">
+                                        {{childFileView?.pdffilename}}</a></span>
+                        </li>
+                    </ul>
+
+                </div>
+                <!----UX Summary Output  Ends-->
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="right_panel_summary"  class="rs{{offsetValues}}">
+        <div id="drag_summary" class="drag-knob"></div>
+    <div *ngIf="showGenerateOutputFile" class="col-12 p-0 right-panel">
+        <!-- <app-file-explorer-view #GenerateOutputFile *ngIf="showGenerateOutputFile" [fileDetails]="fileDetails" [PageType]="PageType"
+            [popoutPath]="popoutPath" [viewPath]="'summaryOutput'">
+        </app-file-explorer-view> -->
+        <app-file-explorer-basic  #GenerateOutputFile *ngIf="showGenerateOutputFile" [fileDetails]="fileDetails" [PageType]="PageType"
+        [popoutPath]="popoutPath"></app-file-explorer-basic>
+    </div>
+    </div>
+    </div>
+</div>
+

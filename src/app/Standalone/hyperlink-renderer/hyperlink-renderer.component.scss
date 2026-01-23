@@ -1,0 +1,34 @@
+.hyperlink {
+  color: #005EA2;
+  cursor: pointer; 
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding-right: 6px;
+  float: right !important;
+}
+
+.hyperlink:hover {
+  text-decoration: none;
+}
+
+.text-wrap-right{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  float: right !important;
+}
+
+.text-wrap-left{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  float: left !important;
+}
+
+.hyperlink-icon{
+  color: #005EA2; 
+  cursor: pointer;
+}

@@ -1,0 +1,11 @@
+<div *ngIf="showChart" class="chart-element" #chartEl></div>
+<!-- <div #legend class="row m-0 col-12 pr-0 custom-leg-others" style="text-align: left;justify-content: center;max-height: 32px;line-height: 16px;overflow: hidden;padding-left: 100px;"></div> -->
+<div *ngIf="!showChart"  class="col-12 p-0 chart-nodata">
+    <p class="text-center centered">No data available. You may choose a different time period and check</p>
+    <img src="../../../../assets/Images/on_load.png">
+  </div>
+
+<app-context-menu *ngIf="showContextMenu" [chartData]="chartData" 
+[drilldownActions]="chartData?.drilldownActions"
+(contextMenuEmit)="ContextMenuEmitter($event)"></app-context-menu>
+

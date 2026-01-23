@@ -1,0 +1,84 @@
+<div *ngIf="loadPage" class="col p-0" (mouseenter)="toggleSideMenu($event);toggleTopMenu($event)">
+  <!--  Split Screen Starts -->
+  <div class="row m-0 col-12 p-0 panel-section">
+    <div id="container">
+      <!-- For Establish Case use this class="establish_case" [ngClass]="PageType === 'Establish Case' ? 'establish_case': ''"-->
+      <div id="left_panel" [ngClass]="PageType === 'Establish Case' ? 'establish_case': 'recordsplit'" class="ls{{offsetValues}}">
+        <div class="col-12 ps-0 left-panel">
+          <div class="card-body-panel">
+            <div class="col-12 card-body-panel-header">
+              <label *ngIf="PageType === 'Establish Case'" class="card-body-panel-header-label">Case Details</label>
+              <label *ngIf="PageType === 'Record Split'" class="card-body-panel-header-label">Record Details</label>
+            </div>
+            <div class="col-12 navigation-controls" *ngIf="showRecordNav && PageType === 'Record Split'">
+              <!-- *ngIf="!showTORNavigation" -->
+              <label *ngIf="!showTORNavigation" [ngClass]="!showTORNavigation ? 'record-visible-show': 'record-visible-hidden'" class="navigation-controls-label">Record Splits: {{recordDetails.TotalRecords}}</label>
+              <label *ngIf="showTORNavigation" class="navigation-controls-label">Record Splits</label>
+              <!-- <label >{{recordDetails.TotalRecords}}</label> -->
+              <label *ngIf="!showTORNavigation" class="navigation-view col p-0">
+              <a class="navigation-view col p-0" (click)="viewRecords()">View</a>
+              </label>
+              <span class="col pe-0 navigation-controls-container" *ngIf="showTORNavigation">
+                <span class="navigation-controls-container-set">
+                  <button class="navigation-button" title="First Record" (click)="recordNavigation('First')"><i
+                      class="fas fa-fast-backward"></i></button>
+                  <button class="navigation-button ms-0" title="Previous" (click)="recordNavigation('Previous')"><i
+                      class="fas fa-step-backward"></i></button>
+                  <span>
+                    <label class="navigation-control-value ps-1">{{RecordNo}}/{{TotalRecordNo}}</label>
+                  </span>
+                  <button class="navigation-button" title="Next" (click)="recordNavigation('Next')"><i
+                      class="fa fa-step-forward"></i></button>
+                  <button class="navigation-button ms-0 me-1" title="Last Record" (click)="recordNavigation('Last')"><i
+                      class="fas fa-fast-forward"></i></button>
+                </span>
+              </span>
+              <label *ngIf="showTORNavigation" class="navigation-back col">
+              <a class="navigation-back col" (click)="backToEdit()">Back To Edit</a>
+              </label>
+            </div>
+            <div [ngClass]="PageType === 'Establish Case' ? 'row m-0 card-body-panel-content withoutnav establishcase': 'row m-0 card-body-panel-content'" (scroll)="onContainerScroll()">
+              <div class="col-12 p-0">
+                <app-data-entry-details [bookmarkValuesEmitter]="bookmarkValuesEmitter"
+                [PageFieldType]="PageFieldType" [TemplateName]="TemplateName" [FromPage]="FromPage"
+                  [highlightPopup]="highlightPopup" [resetFilterData]="ResetFilteredData"
+                  (pageBunchingEmitter)="pageBunchingEmitter($event)" [pageNumber]="pageNumber"
+                  [filteredPageNo]="filteredPageNum" [pageNoEmit]="pageNoEmit"
+                  [clinicalPdfHighLightArrayValue]="ClinicalPdfHighLightArrayValue"
+                  [clinicalHighlightReq]="ClinicalPdfHighLightKey" (filehighlighter)="handleHightlightvalueEmit($event)"
+                  (tabIndexEmit)="TabIndexEmit($event)" (GroupviewEmit)="viewTabEmit()"
+                  (clearConfidenceTypeBtnSelections)=clearConfidenceBtn($event)
+                  [ProcessingCardDetails]="ProcessingCardDetails"
+                  (PageNumbersForRecordNav)="PageNumbersForRecordNav($event)"
+                  (scrollToFieldEvent)="scrollToField($event)" (RecordNoUpdate)="RecordNoUpdate($event)"
+                  (multipleRecordPages)="multipleRecordPages($event)"
+                  (saveRecordDetailsData)="saveRecordDetailsDataEmitter($event)"
+                  (closeCompleteEventEmitter)="DynamicEntryPageCloseCompleteEventEmitter($event)"
+                  (recordDetailsUpdate)="recordDetailsUpdate($event)"
+                  (bulkSaveCompleteFlag)="bulkSaveCompleteFlag($event)"
+                  (noTORData)="NoTORDataEmitter($event)">
+                </app-data-entry-details>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="right_panel" [ngClass]="PageType === 'Establish Case' ? 'establish_case': 'recordsplit'" class="rs{{offsetValues}}">
+        <div id="drag" class="drag-knob"></div>
+        <div class="col-12 p-0 right-panel">
+          <app-file-explorer-highlight #AiExtractFile *ngIf="fileExplorerPageActive" [popoutPath]="popoutPath" [FromPage]="FromPage"
+            [fileDetails]='fileDetails' [pageBunchEmitter]="pageBunchEmitter" [tabEmitter]="tabEmitter"
+            [viewEmitter]="ViewEmitter" [HighlightKeywordArray]="HighLightArraywords"
+            (resetFiltrPageList)="resetFilteredPageList()" (mrrSelectedHghlght)="openHghlght($event)"
+            (bookmarkPagesEmitter)="bookmarkPagesEmitter($event)" (pageNumberEmitter)="handlePageNumberEvent($event)">
+          </app-file-explorer-highlight>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  Split Screen Ends -->
+</div>
+
+
+
+<div *ngIf="defaultLoader" [ngClass]="defaultLoader ? 'loader-overlay2 text-center' : 'load-loading'"></div>

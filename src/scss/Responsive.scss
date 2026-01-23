@@ -1,0 +1,71 @@
+@media (min-height: 750px) and (max-height: 900px) {
+    .lft_background_image{
+        width: 90% !important;
+    }
+}
+
+@media (min-height: 901px) {
+    .lft_background_image{
+        width: 93% !important;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1280px){
+    .dynamic-grid,.record-list-grid{
+        .ag-paging-panel .ag-paging-page-size, .ag-paging-panel .ag-paging-row-summary-panel, .ag-paging-panel .ag-paging-page-summary-panel {
+            white-space: nowrap;
+            padding: 8px 0px 8px 0px;
+            font-size: 12px;
+        }
+
+        .ag-paging-page-summary-panel{
+            font-size: 12px;
+        }
+
+        .ag-paging-description{
+            font-size: 12px;
+            margin: 0px;
+            margin-left: 5px;
+        }
+    
+        .ag-paging-panel > *{
+            margin: 0 2px;
+        }
+    
+        .ag-paging-button{
+            margin: 0;
+        }
+    
+        .ag-paging-panel > .ag-paging-page-size .ag-wrapper{
+            min-width: 10px;
+            padding: 0px 4px;
+        }
+    
+        .ag-paging-panel {
+            height: auto;
+            flex-wrap: nowrap;
+        }
+
+        .ag-ltr .ag-label {
+            font-size: 12px;
+            margin-right: 4px;
+        }
+
+        .ag-select .ag-picker-field-display{
+            font-size: 12px;
+        }
+
+        .ag-select .ag-picker-field-icon{
+            width: 12px;
+        }
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1099px){
+    #left_panel.recordsplit{
+        right: 67%;
+    }
+    #right_panel.recordsplit{
+        width: 67%;
+    }
+}

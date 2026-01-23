@@ -1,0 +1,16 @@
+   
+      <div class="sapphire-context-menu">
+        <span *ngFor="let action of chartData?.drilldownActions">
+          <i *ngIf="action === 'Measure Scatter Chart'" title="Measure Scatter Chart" class="fa fa-try"
+            (click)="onChartActionClicked('scatter')"></i>
+          <i *ngIf="action === 'Pattern Score Distribution'" title="Pattern Scatter" class="fa fa-try"
+            (click)="onChartActionClicked('scatter')"></i>
+          <i *ngIf="action === 'Dimensional Scatter Chart'" title="Dimensional Scatter Chart" class="fa fa-braille"
+            (click)="onChartActionClicked('dimensionalScatter')"></i>
+          <i *ngIf="action === 'View Additional Profiles'" title="View Additional Profiles" class="fa fa-bar-chart"
+            (click)="onChartActionClicked('additionalProfiles')"></i>
+          <i *ngIf="action === 'Drilldown to Chart'" title="Drilldown to Chart" class="fa fa-refresh"
+            (click)="onChartActionClicked('drilldowntochart')"></i>
+        </span>
+      </div>
+   

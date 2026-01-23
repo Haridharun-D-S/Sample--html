@@ -1,0 +1,120 @@
+<div (click)="toggleSideMenu($event);" *ngIf="router.url != '/pages/aiTemplateSetup'">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+        <a class="logo navbar-brand" href="javascript:;"
+            style="margin-left:0px;margin-top:0px;font-size: 14px;font-weight: 700;color: #000 !important;transition: all 0.3s ease-in-out;padding-top: 0px;padding-bottom: 0px;margin-right: 0px !important;">
+            <img src="assets\Images\Vaers Logo 3.png" alt="Docpro"
+                style="width:125px;height: 42px;display: inline-block;margin-right: 5px;vertical-align: top;animation: .75s ease-out 0s .5 logoTrans;">
+        </a>
+        <!--? Navigation Hamburger Button -->
+        <button class="navbar-toggler" type="button">
+            <span class="navbar-toggler-icon" style="width: 25px; height: 25px;"></span>
+        </button>
+        <br>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- <app-search> </app-search> -->
+            <ul class="nav navbar-nav flex-row ml-md-auto d-none d-md-flex" routerLinkActive="active">
+                <!-- Below <li> for Single App module -->
+                <span *ngIf="!showModule" class="disp-flex">
+                    <li [class]="((apppage.appName === pagename)) ? 'nav-item nav-link active' : 'nav-item nav-link '"
+                        *ngFor="let apppage of sharedmodel?.appsPages">
+                        <a class="disp-flex text-decoration-none" (click)="appName(apppage)">
+                            <i class="{{apppage.IconClass}}"></i>
+                            <span class="text2 visible-xs-inline">{{apppage.appName}}</span></a>
+                    </li>
+                </span>
+                <!-- Multi App module -->
+                <li class="nav-item dropdown" *ngIf="showModule" ngbDropdown #pageHeader>
+
+                    <a ngbDropdownToggle class="nav-link" data-toggle="dropdown" role="button"
+                        aria-haspopup="true" data-toggle="tooltip" id="coDiv" (click)="topmenuIcon()"
+                        data-placement="top" aria-expanded="false"><i class="fa fa-th"></i></a>
+
+                    <div [style.display]="(topmenu == true) ? 'block' : 'none'" ngbDropdownMenu
+                        class="dropdown-menu apps-surs1-dropdown dropdown-menu-right fadeIn animated user-menu  ">
+                        <div class="dropdown-grid">
+                            <div *ngFor="let app1 of groupInsightArr">
+                                <h5 class="margin-10 text-left">{{app1.appGroupName}}</h5>
+                                <div class="{{app1.class}}">
+                                    <div class="col-sm-3 app-tile" *ngFor="let app of app1.groupItem"
+                                        (click)="appName(app)">
+                                        <a class="">
+                                            <i class="{{app.IconClass}}"></i>
+                                            <br>
+                                            <span class="app-link">{{app.appName}}</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!-- Configurator -->
+
+                <li class="nav-item dropdown" *ngIf="showModule" ngbDropdown #configHeader>
+                    <a ngbDropdownToggle class="nav-link" data-toggle="dropdown" role="button"
+                        aria-haspopup="true" data-toggle="tooltip" id="coDiv" (click)="configurator()"
+                        data-placement="top" title="Settings" aria-expanded="false"><i class="fa fa-cogs"></i></a>
+
+                    <div [style.display]="(configIcon == true) ? 'block' : 'none'" ngbDropdownMenu
+                        class="dropdown-menu apps-surs1-dropdown dropdown-menu-right fadeIn animated user-menu  ">
+
+                        <div class="dropdown-grid" *ngFor="let app1 of groupConfigArr">
+                            <h5 class="margin-10 text-left">{{app1.appGroupName}}</h5>
+                            <div class="{{app1.class}}">
+                                <div class="col-sm-3 app-tile" *ngFor="let app of app1.groupItem"
+                                    (click)="appName(app)">
+                                    <a class="">
+                                        <i class="{{app.IconClass}}"></i>
+                                        <br>
+                                        <span class="app-link">{{app.appName}}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </li>
+                <!----Alert Ends-->
+                <!-- Notification Icon starts -->
+                <li class="nav-item nav-link">
+                    <a class="notification-menu me-0" title="Notification">
+                      <i class="far fa-bell me-0"></i>
+                      <!-- <span class="badge badge-light menu-badge"><label>10</label></span> -->
+                    </a>
+                  </li>
+                  <!-- Notification Icon ends -->
+                  <!-- Help Icon Starts -->
+                  <li class="nav-item nav-link">
+                    <a title="Help">
+                      <i class="fas fa-question-circle me-0"></i>
+                    </a>
+                  </li>
+                  <!-- Help Icon ends -->
+                  <!-- Settings Icon Starts -->
+                  <li  class="nav-item nav-link">
+                    <a title="Settings">
+                        <i class="fa-solid fa-gear me-0" ></i>
+                    </a>
+                  </li>
+                  <!-- Settings Icon ends -->
+                <li class="hiAdmin">
+                    <a class="nav-link disp-flex">
+                        <span class="hiAdminIcon">
+                          <i class="uit uit-user-circle"></i>
+                        </span>
+                        <span class="text2" [innerHTML]="userName"></span>
+                    </a>
+                </li>
+                <!----Logout-->
+                <li title="Log out" class="nav-item dropdown" ngbDropdown #pageHeader>
+                    <a  class="nav-link" data-toggle="modal" data-target="#logout">
+                        <i class="fa-solid fa-arrow-right-from-bracket logoff mr-0" (click)="logoffEventHandler()"></i>
+                    </a>
+                </li>
+                <!----Logout Ends-->
+
+            </ul>
+        </div>
+    </nav>
+</div>

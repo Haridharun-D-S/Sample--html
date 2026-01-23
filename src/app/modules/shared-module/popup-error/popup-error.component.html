@@ -1,0 +1,31 @@
+<div class="dialog-material success-error">
+    <h2 mat-dialog-title [style.font-size.px]="data.titleFontSize" [ngClass]="getTitleContainerClass()">
+      <i class="fas fa-exclamation-triangle error-icon" *ngIf="data.title != 'Alert'"></i>
+      <i class="fa-regular fa-bell" *ngIf="data.title === 'Alert'"></i> {{ data.title }}
+        <!-- <button mat-icon-button (click)="onClose()" *ngIf="data.showClose" class="close-button">
+          <mat-icon aria-label="Close dialog">close</mat-icon>
+        </button> -->
+        <div class="col p-0 modal-close">
+          <button (click)="onClose()" *ngIf="data.showClose" class="close" type="button">
+          </button>
+        </div>
+      </h2>
+      <mat-dialog-content [style.font-size.px]="data.dialogContentFontSize" [ngClass]="getContentContainerClass()">
+        <div >
+          <p class="text-start message-content mt-2 mb-0">{{ data.dialogContent }}</p>
+        </div>
+      </mat-dialog-content>
+    <mat-dialog-actions [ngClass]="getButtonContainerClass()">
+      <div *ngIf="data.showAdditionalButtons">
+        <button class="btn btn-primary" *ngFor="let button of data.additionalButtons" [style.background-color]="button.color" (click)="onAdditionalButtonClick(button.action)">
+          {{ button.label }}
+        </button>
+      </div>
+      <button *ngIf="data.showAcceptButton" class="btn btn-primary" [style.background-color]="data.acceptButtonColor" (click)="onAcceptClick()">
+        {{ data.acceptButtonTitle }}
+      </button>
+      <button *ngIf="data.showDeclineButton" class="btn btn-primary" [style.background-color]="data.deleteButtonColor" (click)="onDeclineClick()">
+        {{ data.declineButtonTitle }}
+      </button>
+    </mat-dialog-actions>
+</div>

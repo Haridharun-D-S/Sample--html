@@ -1,0 +1,8 @@
+<app-header-apps></app-header-apps>
+
+<div class="col p-0 content-headermenu-top">
+    <div class="col-12">
+        <app-dashboard *ngIf="showDashBoard" [pageType]="pageType" [dashboardItems]="dashboardData">
+        </app-dashboard>
+    </div>
+</div>

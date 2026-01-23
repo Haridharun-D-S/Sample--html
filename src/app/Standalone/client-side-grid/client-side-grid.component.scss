@@ -1,0 +1,37 @@
+.mt-35{
+    margin-top: -35px;
+}
+
+.selectAll-btn{
+    background: transparent;
+    border: none;
+    color: #2873d7;
+    text-decoration: underline;
+  }
+
+  .selectAll-btn:hover{
+    background-color: #0d6dfd0b;
+  }
+
+.checkbox-custom {
+  input[type="checkbox"].partial ~ .checkmark {
+    background-color: #005EA2 !important;
+  }
+
+  input[type="checkbox"].partial:checked ~ .checkmark {
+    background-color: #2196F3;
+    opacity: 0.5;
+  }
+
+  .checkmark.partial:after {
+    content: "";
+    position: absolute;
+    display: block;
+    left: 3px;
+    top: 5px;
+    width: 8px;
+    height: 3px;
+    background: #ffffff;
+    transform: rotate(1deg);
+  }
+}

@@ -1,0 +1,43 @@
+<!--  Split Screen Starts -->
+<div class="row m-0 col-12 p-0 panel-section">
+    <div id="container">
+        <div id="left_panel_record" class="ls{{offsetValues}}">
+            <div class="col-12 ps-0 left-panel">
+                <div class="card-body-panel">
+                    <div class="col-12 card-body-panel-header">
+                        <label class="card-body-panel-header-label">Record Listing</label>
+                    </div>
+                    <div class="row m-0 card-body-panel-content withoutnav">
+                        <div class="row m-0 p-0">
+                            <div class="col-12 record-list-grid">
+                                <app-client-side-grid *ngIf="!loadRecordListingGrid" 
+                                [gridSettings]="gridWidget"
+                                (gridClickEvent)="gridClickEvent($event)"
+                                (gridDataEvent)="gridDataEvent($event)"
+                                (gridRowClickEvent)="gridRowClickEvent($event)"
+                                >
+                                </app-client-side-grid>
+                            </div>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <div class="col-12 mb-3 mt-2 text-end">
+                                <button class="btn btn-primary" [disabled]="PageFieldType === 'readonly'" >Save</button>
+                                <button class="btn btn-secondary" [disabled]="PageFieldType === 'readonly'" (click)="QAVerified()">QA Verified</button>
+                                <button class="btn btn-primary" (click)="close()">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div id="right_panel_record"  class="rs{{offsetValues}}">
+        <div id="drag_record" class="drag-knob"></div>
+        <div class="col-12 p-0 right-panel">
+            <app-file-explorer-view #recordListing *ngIf="!loadPDFViewer" [fileDetails]="fileDetails" [PageType]="PageType"
+                [popoutPath]="popoutPath" [viewPath]="'recordListing'" (pdfLoaded)="afterpdfLoaded($event)" (pageNumberEmitter)="pageNumberEmitter($event)">
+            </app-file-explorer-view>
+        </div>
+    </div>
+    </div>
+</div>
+<!-- Split Screen Ends -->

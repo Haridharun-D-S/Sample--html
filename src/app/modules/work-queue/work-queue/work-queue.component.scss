@@ -1,0 +1,25 @@
+.example-input-label,
+.example-add-tab-button,
+.example-delete-tab-button {
+  margin: 8px;
+}
+:host ::ng-deep .mat-tab-label-active {
+    border-width: 9px;
+    border-style: solid;
+    border-color: orange;
+  }
+
+  .text-offset-1{
+    background-color: transparent !important;
+  }
+
+  .modal.info-alert-modal .modal-dialog .modal-header button.close:before, .modal.info-alert-modal .modal-dialog .modal-header button.close:after {
+    background-color: #919090;
+    top: -4px;
+    height: 21px;
+    width: 1.6px !important;
+    left: 7px;
+}
+
+
+

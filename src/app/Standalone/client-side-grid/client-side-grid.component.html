@@ -1,0 +1,22 @@
+<div *ngIf="gridSettings.gridname == 'Workqueue Grid' && gridSettings.id == 'Workqueue'" class="row rwq m-0">
+  <div class="text-left exportButton p-0" >
+    <label>
+      <button style="visibility: hidden;" disabled (click)="onBtExport()" class="btn btn-primary ms-0 mb-2"><i class="fa-regular fa-file-excel"></i>Export to Excel</button>
+    </label>
+  </div>
+</div>
+<div *ngIf="this.gridSettings.workqueueGridType == 'By Files'" class="mb-2 mt-35">
+  <label class="checkbox-custom">
+    <input type="checkbox" (change)="onSelectAll($event)" [checked]="selectAllEnabled" [class.partial]="partiallySelected"/> 
+    <span class="checkmark" [class.partial]="partiallySelected"></span>
+      <span>
+        <label class="checkbox-label">
+          {{selectAllEnabled ? 'Unselect All' : 'Select All'}}
+        </label>
+      </span>
+  </label>
+</div>
+<ag-grid-angular [style.height]="autoHeight ? '' : customTableHeight" class="ag-theme-quartz" [rowData]="rowData" [gridOptions]="gridOptions"  [loadingOverlayComponent]="loadingOverlayComponent" [loadingOverlayComponentParams]="loadingOverlayComponentParams" [getRowStyle]="getRowStyle"
+  [animateRows]="true" (gridReady)="onGridReady($event)" [pagination]="pagination" [autoSizeStrategy]="autoSizeStrategy" (cellValueChanged)="onCellValueChanged($event)" (toolPanelVisibleChanged)="onToolPanelVisibleChanged($event)" [getContextMenuItems]="getContextMenuItems" [excelStyles]="excelStyles"
+  [paginationPageSize]="paginationPageSize"  [paginationPageSizeSelector]="paginationPageSizeSelector" [overlayNoRowsTemplate]="overlayNoRowsTemplate" (firstDataRendered)="onFirstDataRendered($event)" (keydown)="onKeyDown($event)">
+</ag-grid-angular>

@@ -1,0 +1,3 @@
+<p [ngClass]="columnName == 'Batch Number' ? 'text-wrap-left mb-0' : 'text-wrap-right mb-0'"><span class="hyperlink" (click)="onClick(value)">{{value.value}}</span>
+    <i *ngIf="icon !== null && icon !== undefined && icon.trim() !== ''" class="hyperlink-icon" [ngClass]="icon" (click)="onClick2(value)" title="Document Audit Trail"></i></p>
+

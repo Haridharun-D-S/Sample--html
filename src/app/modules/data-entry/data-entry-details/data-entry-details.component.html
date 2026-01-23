@@ -1,0 +1,31 @@
+
+<div class="row m-0 col-12 p-0" *ngIf="showMRRMedicaldiv">
+    <!--  Split Screen Starts -->
+    <div class="col-12 p-0">
+      <app-dynamic-entry-page
+      [inputJson]="DynamicEntryPageInput"
+      [TorId]="dynamicDataTorId"
+      [FromPage]="FromPage"
+      [inputGroupId]="dynamicDataGroupId"
+      [idValueArray]="idValueArray"
+      [processingCardDetails]="ProcessingCardDetails"
+      [RecordNo]="RecordNo"
+      [PageType]="PageType"
+      [screenType]="screenType"
+      [CustomInput]="DynamicEntryPageCustomInput"
+      [PageFieldType]="PageFieldType"
+      (SelectEventEmitter)="DynamicEntryPageSelectEventEmitter($event)"
+      (SaveEventEmitter)="DynamicEntryPageSaveEventEmitter($event)"
+      (CustomEventEmitter)="DynamicEntryPageCustomEventEmitter($event)"
+      (bulkSaveEventEmitter)="DynamicEntryPageBulkSaveEventEmitter($event)"
+      (CustomGenericEventEmitter)="DynamicEntryPageCustomGenericEventEmitter($event)"
+      (closeCompleteEventEmitter)="DynamicEntryPageCloseCompleteEventEmitter($event)"
+      (saveRecordDetailsEmitter)="saveRecordDetailsEmitter($event)" (RecordNoUpdate)="DynamicEntryPageRecordNoUpdate($event)">
+      </app-dynamic-entry-page>
+    </div>
+  <!--  Split Screen Ends -->
+  </div>
+  
+  
+  <!-- loader -->
+  <div *ngIf="defaultLoader" [ngClass]="defaultLoader ? 'loader-overlay23 text-center' : 'load-loading'"></div>

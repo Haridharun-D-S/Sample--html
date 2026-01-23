@@ -1,0 +1,804 @@
+@import '../scss/Variables.scss';
+
+/*  Toggle Button - starts */
+
+.toggle-button {
+
+    /* The switch - the box around the slider */
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 44px;
+        height: 27px;
+        
+        &.data-toggle{
+            margin-right: 8px;
+        }
+    }
+
+    /* Hide default HTML checkbox */
+    .switch input {
+        display: none;
+    }
+
+    /* The slider */
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: $Slider_Inactive;
+        -webkit-transition: .4s;
+        transition: .4s;
+        cursor: pointer;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        bottom: 4px;
+        height: 20px;
+        width: 20px;
+        left: 4px;
+        background-color: $White;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input.success:checked+.slider {
+        background-color: $Slider_Active;
+    }
+
+    input:checked+.slider:before {
+        -webkit-transform: translateX(17px);
+        -ms-transform: translateX(17px);
+        transform: translateX(17px);
+        background-color: $Light_Gray;
+    }
+
+    input:disabled+.slider{
+        cursor: not-allowed;
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+}
+
+.case-work-filters {
+    .toggle-button {
+        .switch {
+            height: 34px;
+            width: 55px;
+            float: none;
+        }
+
+        .slider::before {
+            height: 27px;
+            width: 27px;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(20px);
+            background-color: $White;
+        }
+
+        .slider{
+            background-color: $Input_Outer_Border;
+        }
+    }
+}
+
+.setting-modal{
+    .toggle-button input:checked + .slider:before{
+        background-color: $White;
+    }
+
+    .mdc-text-field--filled.mdc-text-field--disabled{
+        background-color: $Transparent;
+    }
+}
+/*  Toggle Button - ends */
+
+/*  Material Fields - Starts */
+
+.mat-mdc-form-field,
+.mat-mdc-floating-label {
+    line-height: normal;
+    font-family: $Font_Family;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: $Transparent !important;
+}
+
+.mdc-text-field.mat-mdc-text-field-wrapper {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    padding: 0 0px;
+}
+
+.mat-mdc-option.mdc-list-item {
+    min-height: 20px;
+    font-size: 14px;
+}
+
+.mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+    padding-left: 0px;
+}
+
+.mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 100%;
+    min-height: 31px;
+}
+
+.mat-mdc-form-field-icon-suffix,
+[dir=rtl] .mat-mdc-form-field-icon-prefix {
+    padding: 0px 12px;
+}
+
+.mdc-text-field--filled.mdc-text-field--disabled{
+    background-color: $Transparent;
+    cursor: not-allowed;
+}
+
+.mdc-text-field--filled.mdc-text-field--disabled .mdc-text-field__input{
+    cursor: not-allowed;   
+}
+
+.mdc-line-ripple {
+    display: none;
+}
+
+.mat-mdc-form-field-subscript-wrapper,
+.mat-mdc-form-field-bottom-align {
+    display: none;
+}
+
+.mdc-text-field--filled.mdc-text-field--no-label .mdc-text-field__input {
+    background-color: $White;
+    border: 1px solid $Field_Border;
+    margin-top: 4px;
+    padding: 5px 11px;
+    height: 31px;
+    width: 100%;
+    font-size: 14px;
+    color: $Black;
+    margin-bottom: 5px;
+    padding-right: 32px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.mat-datepicker-input{
+    padding-right: 11px !important;
+}
+
+.mdc-text-field--no-label:not(.mdc-text-field--textarea) .mat-mdc-form-field-input-control.mdc-text-field__input,
+.mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
+    height: 31px !important;
+    color: $Black;
+    font-family: $Font_Family;
+    letter-spacing: 0px;
+    font-weight: 500;
+    padding-top: 3px;
+
+    &:read-only{
+        cursor: default;
+    }
+}
+
+.mat-mdc-icon-button.mat-mdc-button-base {
+    padding: 0px;
+    height: 31px;
+    width: 31px;
+    margin-top: -4px;
+}
+
+.mdc-icon-button svg {
+    height: 40px !important;
+    width: 34px !important;
+}
+
+.mat-mdc-select-arrow::before{
+    content: "\eb30";
+    font-family: 'unicons-line';
+    display: block;
+    font-size: 19px;
+    margin-top: -10px;
+    position: absolute;
+    right: -1px;
+    font-weight: 500;
+    color: $Black;
+    transform: rotate(90deg);
+}
+
+.mat-mdc-autocomplete-trigger.mat-mdc-input-element + .mat-mdc-autocomplete::after{
+    content: "\eb30";
+    font-family: 'unicons-line';
+    display: block;
+    font-size: 19px;
+    margin-top: -32px;
+    position: absolute;
+    right: 10px;
+    font-weight: 500;
+    color: $Black;
+    transform: rotate(90deg);
+    cursor: pointer;
+}
+
+.mat-mdc-autocomplete-trigger.mat-mdc-input-element:read-only + .mat-mdc-autocomplete::after{
+    cursor: default;
+}
+
+mat-autocomplete{
+    display: block !important;
+}
+
+.mat-mdc-optgroup-label{
+    min-height: 17px !important;
+    font-size: 15px;
+}
+
+.mat-mdc-option.mdc-list-item{
+    font-family: $Font_Family;
+}
+
+.mat-mdc-option .mdc-list-item__primary-text{
+    border-bottom: 1px solid #ced4da;
+    width: 100%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-weight: 500 !important;
+    color: $Black !important;
+    letter-spacing: 0px !important;
+}
+
+.mat-mdc-optgroup-label .mdc-list-item__primary-text{
+    width: 100%;
+    padding-top: 5px;
+    font-weight: 500 !important;
+}
+
+
+.mat-mdc-select-arrow{
+    svg{
+        display: none;
+    }
+}
+
+.mat-mdc-select{
+    padding-top: 3px !important;
+}
+
+.mat-mdc-select-value-text{
+    font-size: 14px;
+    font-family: $Font_Family;
+    letter-spacing: 0px;
+    color: $Black;
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-form-field-focus-overlay{
+    display: none;
+}
+
+.mat-mdc-form-field-focus-overlay{
+    background-color: $Transparent !important;
+}
+
+.mat-mdc-select-placeholder{
+    font-family: $Font_Family;
+    letter-spacing: 0px;
+}
+/*  Material Fields - Ends */
+
+/*  Common Input and Dropdown (Both Bootstrap and Material) - Starts */
+
+.data-content-select {
+    background-color: $White;
+    border: 1px solid $Field_Border;
+    margin-top: 4px;
+    padding: 5px 11px;
+    height: 31px;
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: $Black;
+}
+
+.data-content-input {
+    background-color: $White;
+    border: 1px solid $Field_Border;
+    margin-top: 4px;
+    padding: 5px 11px;
+    height: 31px;
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    &:read-only{
+        cursor: default;
+    }
+}
+
+/*  Common Input and Dropdown (Both Bootstrap and Material) - Ends */
+
+/*  Material Radio Button - Starts */
+
+.mat-mdc-radio-touch-target {
+    height: 24px !important;
+}
+
+.mat-mdc-radio-button .mdc-radio .mdc-radio__native-control {
+    height: 24px !important;
+    top: 7px !important;
+}
+
+.mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
+    border-color: $Primary !important;
+}
+
+.mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle {
+    border-color: $Primary !important;
+}
+
+.mat-mdc-radio-button .mdc-radio {
+    padding-top: 2px !important;
+}
+
+.material-radio {
+    height: 24px;
+    display: block;
+
+    .mdc-form-field>label {
+        margin-top: -6px;
+    }
+}
+
+.radio-single {
+    padding: 0px;
+
+    .fieldtype-label-container {
+        display: flex;
+
+        .data-content-label {
+            max-width: 45%;
+            width: 45%;
+        }
+
+        .fieldtype-container {
+            flex: 1 0 0%;
+        }
+    }
+}
+
+/*  Material Radio Button - Ends */
+
+/*  Dynamic Data Entry - Starts */
+
+.input-with-button {
+    padding: 0px;
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    align-items: flex-end;
+    display: flex;
+
+    .input-btn-container {
+        display: flex;
+    }
+}
+
+.button-with-input {
+    padding: 0px;
+    align-items: flex-end;
+    display: flex;
+    width: auto;
+
+    .input-btn-container {
+        display: flex;
+    }
+
+    button.btn{
+        margin-bottom: 4px;
+        margin-left: 0px;
+    }
+}
+
+/*  Dynamic Data Entry - Ends */
+
+/*  Modal Fields - Starts */
+
+.dialog-material {
+
+    .modal-fields {
+
+        .data-content-select,
+        .data-content-input {
+            background-color: $White;
+            border: 1px solid $Input_Outer_Border;
+            font-size: 16px;
+            margin-bottom: 0px;
+            margin-top: 0px;
+            border-radius: 5px;
+            padding: 3px 11px;
+
+            &.date-field{
+                width: calc(100% - 40px);
+            }
+        }
+
+        .mdc-text-field--filled:not(.mdc-text-field--disabled){
+            border-radius: 3px !important;
+        }
+
+        .date-toggle{
+            position: absolute;
+            margin-top: -5px;
+            right: 0px;
+
+            &.disabled{
+                cursor: not-allowed;
+            }
+        }
+    }
+
+    .setting-modal{
+        .data-content-select,
+        .data-content-input {
+            background-color: $White;
+            border: 1px solid $Input_Outer_Border;
+            border-radius: 5px;
+        }
+
+        .data-content-select{
+            padding-top: 2px !important;
+        }
+    }
+}
+
+/*  Modal Fields - Ends */
+
+/*  Detail Section Edit Mode - Starts */
+
+.detail-section {
+    .detail-section-container {
+        .detail-section-fields {
+
+            .data-content-select,
+            .data-content-input {
+                border: 1px solid $Input_Outer_Border;
+                margin-top: 0px;
+                margin-bottom: 0px;
+            }
+        }
+    }
+}
+
+/*  Detail Section Edit Mode - Ends */
+
+/*  Filter Select - Starts */
+
+.filter-select-container{
+    .mdc-text-field--no-label:not(.mdc-text-field--textarea) .mat-mdc-form-field-input-control.mdc-text-field__input, .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
+        height: 34px !important;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        color: $Black;
+        font-weight: 600;
+        border: 1px solid $Dark_Gray;
+        padding-top: 3px;
+        letter-spacing: 0px;
+        cursor: pointer;
+    }
+
+    .mdc-text-field--filled:not(.mdc-text-field--disabled){
+        border-radius: 4px !important;
+    }
+}
+
+.case-filter-select-container{
+    .mdc-text-field--no-label:not(.mdc-text-field--textarea) .mat-mdc-form-field-input-control.mdc-text-field__input, .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
+        height: 32px !important;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        color: $Black;
+        font-family: "Source Sans Pro", Roboto, "Source Sans Pro Web", Public Sans Web, Open Sans, sans-serif;
+        font-weight: 500;
+        padding-top: 0px;
+        letter-spacing: 0px;
+    }
+
+    .mat-mdc-form-field-type-mat-native-select .mat-mdc-form-field-infix::after{
+        color: $Gray !important;
+    }
+
+    .mdc-text-field--filled:not(.mdc-text-field--disabled){
+        border-radius: 4px !important;
+    }
+}
+
+.mat-mdc-form-field-type-mat-native-select .mat-mdc-form-field-infix::after{
+    content: "\eb30" !important;
+    font-family: 'unicons-line';
+    display: block;
+    font-size: 19px;
+    margin-top: -9px !important;
+    right: 5px !important;
+    font-weight: 500;
+    color: $Black !important;
+    transform: rotate(90deg);
+    border-left: 0px !important;
+    border-right: 0px !important;
+    border-top: 0px !important;   
+}
+
+/*  Filter Select - Ends */
+
+.mat-mdc-checkbox{
+    height: 16px;
+    width: 16px;
+    margin-right: 8px;
+}
+
+.mdc-checkbox{
+    padding: 11px 3px 0px 5px !important;
+}
+
+.mdc-checkbox .mdc-checkbox__background{
+    top: 6px !important;
+    left: 2px !important;
+}
+
+.mdc-checkbox .mdc-checkbox__native-control{
+    height: 17px !important;
+    width: 17px !important;
+    padding: 0px;
+    top: 6px !important;
+    left: 2px !important;
+    border-radius: 0px;
+}
+
+.mat-mdc-checkbox-ripple, .mdc-checkbox__ripple{
+    left: -3px !important;
+}
+
+.mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background{
+    border-color: $Tab_Active_Texts !important;
+    background-color: $Tab_Active_Texts !important;
+}
+
+.mdc-checkbox .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.mdc-checkbox__background{
+    border-color: 1px solid $Gray;
+}
+
+.mdc-checkbox .mdc-checkbox__native-control:focus:checked~.mdc-checkbox__ripple,.mdc-checkbox .mdc-checkbox__native-control:focus:checked~.mdc-checkbox__ripple{
+    display: none;
+}
+
+.mdc-checkbox__native-control:disabled{
+    cursor: not-allowed;
+}
+
+.mdc-checkbox--disabled{
+    cursor: not-allowed !important;
+    pointer-events: auto !important;
+    .mdc-checkbox{
+        cursor: not-allowed !important;
+    }
+}
+
+.Summary-output {
+    .mdc-checkbox .mdc-checkbox__background{
+        top: 0px !important;
+    }
+
+    .mat-mdc-checkbox-ripple, .mdc-checkbox__ripple{
+        top: -7px !important;
+        left: -4px !important;
+    }
+
+    .mdc-checkbox {
+        padding: 6px 4px 0px 4px !important;
+    }
+
+    .mdc-checkbox .mdc-checkbox__native-control[disabled]:checked~.mdc-checkbox__background{
+        border-color: $Tab_Active_Texts !important;
+        background-color: $Tab_Active_Texts !important;
+        cursor: not-allowed;
+    }
+}
+
+.mat-mdc-form-field-error {
+    display: block;
+    font-size: 14px;
+    margin-top: -4px;
+}
+
+.textarea-container{
+    margin-top: 4px;
+    .mat-mdc-form-field-icon-suffix{
+        display: none;
+    }
+    .mdc-text-field--no-label:not(.mdc-text-field--textarea) .mat-mdc-form-field-input-control.mdc-text-field__input, .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control{
+        height: 150px !important;
+        overflow-y: auto;
+        padding-right: 4px;
+    }
+}
+
+.data-error-message-mandatory{
+    margin-bottom: 0px;
+    vertical-align: middle;
+    display: inline-block;
+    font-size: 13px;
+    color: $danger;
+    font-weight: 500;
+    cursor: default;
+}
+
+.error-message-container{
+    text-align: left !important;
+}
+
+.error-btn-message-container{
+    display: flex !important;
+}
+
+.assign-modal{
+    .data-content-select{
+        border: 1px solid $Mid_Gray;
+        height: 31px;
+        border-radius: 5px;
+        color: $Black;
+        font-size: 14px;
+        appearance: none;
+        padding-right: 24px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+
+    .fa-select-caret{
+        position: relative;
+        cursor: pointer;
+        pointer-events: none;
+    }
+
+    .fa-select-caret::before{
+        content: "\eb30";
+        font-family: "unicons-line";
+        display: block;
+        font-size: 19px;
+        margin-top: 0px;
+        position: relative;
+        right: 26px;
+        font-weight: 500;
+        color: $Black;
+        transform: rotate(90deg);
+        top: 2px;   
+    }
+}
+
+.date-with-close{
+    position: absolute;
+    right: 4px;
+    top: 8px;
+    background-color: #fff;
+    cursor: pointer;
+
+    .fa-regular, .fa, .fas, .far, .fa-solid{
+        color: $danger;
+    }
+}
+
+.date-with-close-input{
+    padding-right: 20px !important;
+}
+
+/*  Custom Checkbox - starts */
+
+.checkbox-custom {
+    display: inline;
+    position: relative;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 19px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-left: 0px;
+}
+
+.checkbox-custom input {
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 6px;
+    left: 2px;
+    height: 15px;
+    width: 15px;
+    background-color: #fff;
+    border-width: 1px 1px 1px 1px;
+    border: 1px solid #b1b3b5
+}
+
+.checkbox-custom:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+input[type="checkbox"]:focus {
+    outline: 2px solid $Primary;
+    left: 12px;
+    top: 11px;
+}
+
+.checkbox-custom input:checked~.checkmark {
+    background-color: $Primary !important;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+input[type="checkbox"]:focus + .checkmark {
+    outline: 2px solid $Black;
+}
+
+.checkbox-custom input:checked~.checkmark:after {
+    display: block;
+}
+
+.checkbox-custom .checkmark:after {
+    left: 4px;
+    top: 1px;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.checkbox-label{
+    font-size: 15px;
+    margin-left: 27px;
+}
+
+.form-modal{
+
+    .checkmark{
+        top: 6px;
+    }
+
+    .checkbox-label{
+        font-size: 14.5px;
+        margin-left: 25px;
+    }
+}
+
+/*  Custom Checkbox - ends */

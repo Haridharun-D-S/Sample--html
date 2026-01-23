@@ -1,0 +1,509 @@
+<!-- Workqueue Base HTML-->
+<div id="workqueueListContent" class="row m-0 col-12 case-padding">
+  <div class="card-body case-padding">
+    <div class="card-content">
+      <div class="row m-0 col-12 card-header">
+        <div class="col-12 disp-flex">
+          <label *ngIf="WorkQueueType == 'By Batch'" class="card-header-lab" title="Batch Work Queue List"><span><i class="fas fa-list"></i></span> Batch Work Queue
+            List</label>
+            <label *ngIf="WorkQueueType == 'By Files'" class="card-header-lab" title="File Work Queue List"><span><i class="fas fa-list"></i></span>File Work Queue
+              List</label>
+          <span class="text-center refresh-workqueue-icon" (click)="refresh()"> <i class="fa fa-refresh"></i></span>
+          <!-- <span class="col p-0 text-end filter-section-workqueue">
+            <div class="btn-group" role="group">
+              <input type="radio" class="btn-check filter-check" name="btnradio" id="btnradio1" checked>
+              <label class="btn btn-filter" for="btnradio1" title="List View">
+                <span class="filter-btn-container"><i class="fa-solid fa-check filter-active"></i><i
+                    class="fas fa-list"></i></span>
+              </label>
+
+              <input type="radio" class="btn-check filter-check" name="btnradio" id="btnradio2"
+                (click)="$event.preventDefault(); $event.stopPropagation()">
+              <label class="btn btn-filter" for="btnradio2" title="Folder View">
+                <span class="filter-btn-container"><i class="fa-solid fa-check filter-active"></i>
+                  <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_2043_215366)">
+                      <path
+                        d="M18.6669 7.77779V6.22223C18.6669 5.87641 18.1407 5.68899 17.8891 5.44446C17.6375 5.19992 17.4672 4.66668 17.1113 4.66668H8.55577L7.00021 3.11112H2.33354C1.97771 3.11112 1.80738 2.86659 1.55576 3.11112C1.30415 3.35566 0.777987 4.32086 0.777987 4.66668V16.3333C0.779344 16.4973 0.714343 16.9592 0.777987 17.1111M0.777987 17.1111C0.877827 17.3522 1.33424 17.7433 1.55576 17.8889C1.77729 18.0345 2.06611 17.8886 2.33354 17.8889H17.1113C17.4102 17.8877 17.6541 18.0684 17.8891 17.8889C18.1241 17.7094 18.5952 17.3931 18.6669 17.1111"
+                        stroke="#181D1F" stroke-linecap="round" stroke-linejoin="round" />
+                      <path
+                        d="M18.6672 17.1111L21.0005 9.3333C21.0335 9.20647 21.0101 9.46367 21.0005 9.3333C21.0005 8.99759 20.4712 8.01513 20.2228 7.77775C19.9743 7.54036 19.7964 7.77775 19.445 7.77775H4.66721C4.36695 7.77837 4.12374 7.59836 3.88943 7.77775C3.65513 7.95713 3.17771 8.2757 3.11165 8.55552L0.77832 17.1111"
+                        stroke="#181D1F" stroke-linecap="round" stroke-linejoin="round" />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_2043_215366">
+                        <rect width="21" height="21" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </span>
+              </label>
+            </div>
+          </span> -->
+        </div>
+      </div>
+      <!-- Filter section starts -->
+      <div class="row m-0 case-work-filters">
+        <div class="col-12 case-work-filters-cont badge-gap">
+          <span class="filter-section-workqueue">
+            <div><label class="case-work-filters-label">Work Queue Type</label></div>
+            <div class="btn-group" role="group">
+              <input type="radio" *ngIf="(router.url != '/case-list-page' && router.url != '/task-list-page')" (click)="WorkQueueTypeClick('By Batch')" class="btn-check filter-check" name="btnradio1" id="By_Doc_Status" [checked]="WorkQueueType == 'By Batch'">
+              <input type="radio" *ngIf="(router.url === '/case-list-page' || router.url === '/task-list-page')" (click)="WorkQueueTypeClick1('By Batch')" class="btn-check filter-check" name="btnradio1" id="By_Doc_Status" [checked]="WorkQueueType == 'By Batch'">
+              <!-- <input type="radio" (click)="$event.preventDefault(); $event.stopPropagation()" class="btn-check filter-check" name="btnradio1" id="btnradiofilter1" checked> -->
+              <label class="btn btn-filter" for="By_Doc_Status" title="By Batch">
+                <span class="filter-btn-container"><i class="fa-solid fa-check filter-active"></i>
+                  <svg class="filter-active-nottick" width="16" height="16" viewBox="0 0 22 22" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_2043_215556)">
+                      <path
+                        d="M19.9134 2.75H16.4972C16.1177 2.75 15.8097 3.05731 15.8097 3.4375C15.8097 3.81769 16.1177 4.125 16.4972 4.125H19.9134C20.3053 4.125 20.625 4.444 20.625 4.83588V14.4375H1.375V4.83588C1.375 4.444 1.694 4.125 2.08656 4.125H5.50275C5.88225 4.125 6.19025 3.81769 6.19025 3.4375C6.19025 3.05731 5.88225 2.75 5.50275 2.75H2.08656C0.936375 2.75 0 3.68569 0 4.83588V16.4766C0 17.6268 0.935687 18.5625 2.08656 18.5625H6.78012V19.4501L6.16619 20.229C5.90494 20.5611 5.8575 21.0038 6.04175 21.384C6.226 21.7642 6.60344 22 7.02625 22H14.9751C15.3979 22 15.7747 21.7635 15.9596 21.384C16.1446 21.0045 16.0964 20.5618 15.8345 20.2283L15.2212 19.4501V18.5625H19.9148C21.065 18.5625 22.0014 17.6268 22.0014 16.4766V4.83588C22.0014 3.68569 21.0657 2.75 19.9148 2.75H19.9134ZM7.60444 20.625L8.00662 20.1142C8.10219 19.9925 8.15444 19.8426 8.15444 19.6886V19.25H13.8449V19.6886C13.8449 19.8433 13.8971 19.9925 13.9927 20.1142L14.3949 20.625H7.60444ZM19.9134 17.1875H2.08656C1.69469 17.1875 1.375 16.8685 1.375 16.4766V15.8125H20.625V16.4766C20.625 16.8685 20.306 17.1875 19.9134 17.1875Z"
+                        fill="#181D1F" />
+                      <path
+                        d="M11.0004 4.31201C11.5066 4.31201 11.9169 3.90632 11.9169 3.40588C11.9169 2.90544 11.5066 2.49976 11.0004 2.49976C10.4943 2.49976 10.084 2.90544 10.084 3.40588C10.084 3.90632 10.4943 4.31201 11.0004 4.31201Z"
+                        fill="#181D1F" />
+                      <path
+                        d="M9.69759 6.55463L10.5157 7.36381C10.6498 7.49581 10.8244 7.5625 10.999 7.5625C11.1736 7.5625 11.3483 7.49581 11.4823 7.36381L12.3005 6.55463C13.5847 6.0335 14.4358 4.78775 14.4358 3.40587C14.4358 1.52831 12.8938 0 10.9983 0C9.1029 0 7.56084 1.52831 7.56084 3.40587C7.56084 4.78775 8.41265 6.0335 9.69621 6.55463H9.69759ZM10.9997 1.375C12.1368 1.375 13.0622 2.28594 13.0622 3.40587C13.0622 4.25906 12.5122 5.02631 11.6927 5.31506C11.5971 5.34875 11.5098 5.40375 11.4376 5.47456L10.999 5.90769L10.5604 5.47456C10.4882 5.40306 10.4016 5.34806 10.3053 5.31506C9.48652 5.02631 8.93583 4.25906 8.93583 3.40587C8.93583 2.28594 9.86121 1.375 10.9983 1.375H10.9997ZM10.9997 9.625C10.493 9.625 10.0544 9.90344 9.81583 10.3125H5.9954C5.75684 9.90344 5.31821 9.625 4.81152 9.625C4.05321 9.625 3.43652 10.2417 3.43652 11C3.43652 11.7583 4.05321 12.375 4.81152 12.375C5.31821 12.375 5.75684 12.0966 5.9954 11.6875H9.81583C10.0544 12.0966 10.493 12.375 10.9997 12.375C11.5064 12.375 11.945 12.0966 12.1836 11.6875H16.004C16.2426 12.0966 16.6812 12.375 17.1879 12.375C17.9462 12.375 18.5629 11.7583 18.5629 11C18.5629 10.2417 17.9462 9.625 17.1879 9.625C16.6812 9.625 16.2426 9.90344 16.004 10.3125H12.1836C11.945 9.90344 11.5064 9.625 10.9997 9.625Z"
+                        fill="#181D1F" />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_2043_215556">
+                        <rect width="22" height="22" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  By Batch</span>
+              </label>
+
+              <input type="radio" *ngIf="(router.url != '/case-list-page' && router.url != '/task-list-page')" (click)="WorkQueueTypeClick('By Files')" class="btn-check filter-check" name="btnradio1" id="By_Channel" [checked]="WorkQueueType == 'By Files'">
+              <input type="radio" *ngIf="(router.url === '/case-list-page' || router.url === '/task-list-page')" (click)="WorkQueueTypeClick1('By Files')" class="btn-check filter-check" name="btnradio1" id="By_Channel" [checked]="WorkQueueType == 'By Files'">
+              <!-- <input type="radio" (click)="$event.preventDefault(); $event.stopPropagation()" class="btn-check filter-check" name="btnradio1" id="btnradiofilter2"> -->
+              <label class="btn btn-filter" for="By_Channel" title="By File">
+                <span class="filter-btn-container"><i class="fa-solid fa-check filter-active"></i>
+                  <i class="uil uil-channel filter-active-nottick"></i>By File
+                </span>
+              </label>
+            </div>
+          </span>
+           <!------------------------------------ New-batch-added-start --------------------------------------->
+           <span class="col p-0 new-badge ms-2" *ngIf="!isTabDisabled && selectedChartName">
+            <!-- Tags starts -->
+            <div class="col p-0 badges-container justify-center">
+              <div class="header-badge me-0" title="{{selectedChartName}}"><b>Chart Name: </b>{{selectedChartName}}</div>
+              <div class="header-badge" title="{{selectedFilteredData}}"><b>Filtered Value: </b>{{selectedFilteredData}}</div>
+            </div>
+            <!-- Tags ends -->
+          </span>
+          <span class="col p-0 new-badge ms-2" *ngIf="!isTabDisabled && !selectedChartName">
+            <!-- Tags starts -->
+            <div class="col p-0 badges-container justify-center">
+              <div class="header-badge me-0" title="{{selectedBatchNumber}}"><b>Batch Number: </b>{{selectedBatchNumber}}</div>
+              <div class="header-badge" *ngIf="selectedColumnName" title="{{selectedColumnName}}"><b>Status: </b>{{selectedColumnName}}</div>
+            </div>
+            <!-- Tags ends -->
+          </span>
+          <!------------------------------------ New-batch-added-end --------------------------------------->
+          <!-- <span>
+            <div *ngIf="(router.url != '/case-list-page' && router.url != '/task-list-page')">
+              <label *ngIf="!TaskWorkQueue" class="case-work-filters-label" title="Case Work Queue">Case Work
+                Queue</label>
+              <label *ngIf="TaskWorkQueue" class="case-work-filters-label" title="Case Work Queue">Task Work
+                Queue</label>
+            </div>
+            <div *ngIf="(router.url === '/case-list-page' || router.url === '/task-list-page')">
+              <label *ngIf="!toggle" class="case-work-filters-label" title="Case Work Queue">Case Work Queue</label>
+              <label *ngIf="toggle" class="case-work-filters-label" title="Case Work Queue">Task Work Queue</label>
+            </div>
+
+            <span class="filter-select-container"
+              *ngIf="(router.url != '/case-list-page' && router.url != '/task-list-page')">
+              <mat-form-field class="col-12 p-0" appearance="fill" required>
+                <select matNativeControl class="filter-select" [(ngModel)]="CaseWorkQueue"
+                  (ngModelChange)="onCaseWorkQueueChange()" [disabled]="roleName != 'Admin'">
+                  <option value="">All Work Queues</option>
+                  <option *ngIf="roleName == 'Admin'" value="SELF">My Work Queues</option>
+                </select>
+              </mat-form-field>
+            </span>
+            <span class="filter-select-container"
+              *ngIf="(router.url === '/case-list-page' || router.url === '/task-list-page')">
+              <mat-form-field class="col-12 p-0" appearance="fill" required>
+                <select matNativeControl class="filter-select" [(ngModel)]="CaseWorkQueue"
+                  (ngModelChange)="onCaseWorkQueueChange1()" [disabled]="roleName != 'Admin'">
+                  <option value="">All Work Queues</option>
+                  <option *ngIf="roleName == 'Admin'" value="SELF">My Work Queues</option>
+                </select>
+              </mat-form-field>
+            </span>
+          </span>
+          <span class="text-center" style="display: none;">
+            <div><label class=""
+                [ngClass]="(this.TaskWorkQueue || this.toggle === true) ? 'case-work-filters-label' : 'case-work-filters-label-disabled'"
+                title="Task Work Queue">Task Work Queue</label></div>
+            <span class="toggle-button">
+              <label class="switch mb-0">
+                <input type="checkbox" class="success"
+                  *ngIf="(router.url != '/case-list-page' && router.url != '/task-list-page')" [checked]="TaskWorkQueue"
+                  (change)="onChangeTaskWorkQueue($event)">
+                <input type="checkbox" class="success"
+                  *ngIf="(router.url === '/case-list-page' || router.url === '/task-list-page')" [checked]="toggle"
+                  (change)="toggleTaskList($event)">
+                <span class="slider round"></span>
+              </label>
+            </span>
+          </span> -->
+        </div>
+      </div>
+      <!-- Filter section ends -->
+      <!-- Tabs starts -->
+      <div class="row m-0">
+        <div class="col-12 workqueue-tabs">
+          <mat-tab-group [selectedIndex]="selected.value" animationDuration="0ms"
+            (selectedIndexChange)="selected.setValue($event)" (selectedTabChange)="onTabChange($event, selected.value)">
+            <mat-tab label="" *ngFor="let tab of tabs;let index = index"
+              [disabled]="(tab.WorkQueue_Name === 'Filtered Batches' || tab.WorkQueue_Name === 'Filtered Files') && isTabDisabled">
+              <ng-template mat-tab-label [matTooltip]="tab.WorkQueue_Name">
+                <span class="tab-badge">{{tab['Workqueue Data Count']}} </span>{{tab.WorkQueue_Name}}
+              </ng-template>
+              <mat-spinner diameter="20" *ngIf="isLoading"></mat-spinner>
+              <!-- <span class="my-custom-class"> Contents for {{tab.WorkQueue_Name}} tab</span> -->
+              <div class="row m-0 button-set">
+                <div class="col-4 p-0">
+                </div>
+                <div class="col-8 p-0 text-end export-button-list">
+                  <!-- <button class="btn btn-primary"><i class="fa-solid fa-arrow-up-short-wide"></i>{{value}}</button> -->
+                  <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addbatch">Add Batch</button> -->
+                  <span *ngFor="let value of tab['Workqueue Button List']">
+                    <button class="btn btn-primary" title="{{value}}"
+                      [ngClass]="value === 'Update Status' ? 'lineheight-normal': ''" (click)="WorkqueueAction(value)"
+                      [disabled]="!disableBtnStatus.includes(value)">
+                      <i *ngIf="value === 'Update Status'" class="uil uil-sync"></i>
+                      <i *ngIf="value === 'Set Priority'" class="fa-solid fa-arrow-up-short-wide"></i>
+                      <svg class="margin-topminus-2" *ngIf="value === 'Process'" width="18" height="19"
+                        viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M5.11776 12.4117C4.84982 12.4117 4.63252 12.1944 4.63252 11.9263C4.63252 11.6583 4.84982 11.441 5.11776 11.441H12.8825C13.1504 11.441 13.3677 11.6583 13.3677 11.9263C13.3677 12.1943 13.1504 12.4117 12.8825 12.4117H5.11776ZM2.69132 2.22053V17.2647C2.69132 17.5327 2.47402 17.75 2.20595 17.75C1.93801 17.75 1.7207 17.5327 1.7207 17.2647V1.73525C1.7207 1.46731 1.938 1.25 2.20595 1.25H15.7943C16.0623 1.25 16.2796 1.4673 16.2796 1.73525V17.2647C16.2796 17.5327 16.0623 17.75 15.7943 17.75C15.5263 17.75 15.3089 17.5327 15.3089 17.2647V2.22053H2.69132ZM5.11776 15.0808C4.84982 15.0808 4.63252 14.8636 4.63252 14.5956C4.63252 14.3275 4.84982 14.1102 5.11776 14.1102H12.8825C13.1504 14.1102 13.3677 14.3275 13.3677 14.5956C13.3677 14.8636 13.1504 15.0808 12.8825 15.0808H5.11776ZM5.11776 17.75C4.84982 17.75 4.63252 17.5327 4.63252 17.2647C4.63252 16.9967 4.84982 16.7794 5.11776 16.7794H9.00028C9.26834 16.7794 9.48553 16.9967 9.48553 17.2647C9.48553 17.5327 9.26834 17.75 9.00028 17.75H5.11776ZM11.9119 7.60042L12.2967 7.21564C12.4863 7.02608 12.7935 7.02608 12.983 7.21564C13.1726 7.40509 13.1726 7.71238 12.983 7.90196L11.7698 9.11518C11.5802 9.30463 11.273 9.30463 11.0835 9.11518L9.87027 7.90196C9.68071 7.7124 9.68071 7.4051 9.87027 7.21564C10.0597 7.02608 10.367 7.02608 10.5566 7.21564L10.9414 7.60042V6.83078C10.9414 5.75878 10.0723 4.8897 9.00016 4.8897C8.7321 4.8897 8.51491 4.6724 8.51491 4.40433C8.51491 4.13627 8.7321 3.91909 9.00016 3.91909C10.6083 3.91909 11.9119 5.22265 11.9119 6.83075V7.60042ZM6.08832 6.06126L5.70354 6.44604C5.51398 6.6356 5.20681 6.6356 5.01723 6.44604C4.82767 6.25659 4.82767 5.9493 5.01723 5.75972L6.23046 4.5465C6.42002 4.35694 6.72731 4.35694 6.91677 4.5465L8.12999 5.75972C8.31955 5.94929 8.31955 6.25658 8.12999 6.44604C7.94054 6.6356 7.63325 6.6356 7.44368 6.44604L7.0589 6.06126V6.83078C7.0589 7.9029 7.92798 8.77198 9.0001 8.77198C9.26816 8.77198 9.48535 8.98928 9.48535 9.25735C9.48535 9.52529 9.26817 9.74259 9.0001 9.74259C7.392 9.74259 6.08832 8.43903 6.08832 6.83081V6.06126Z"
+                          fill="" />
+                      </svg>
+                      <svg class="margin-topminus-2" *ngIf="value === 'Assign/Reassign'" width="18" height="19"
+                        viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M3.26641 8.37501H9.90391C10.0233 8.37501 10.1377 8.3276 10.2221 8.24321C10.3065 8.15882 10.3539 8.04436 10.3539 7.92501C10.3539 7.80566 10.3065 7.69121 10.2221 7.60681C10.1377 7.52242 10.0233 7.47501 9.90391 7.47501H3.26641C3.14706 7.47501 3.0326 7.52242 2.94821 7.60681C2.86382 7.69121 2.81641 7.80566 2.81641 7.92501C2.81641 8.04436 2.86382 8.15882 2.94821 8.24321C3.0326 8.3276 3.14706 8.37501 3.26641 8.37501ZM3.26641 11.525H8.10391C8.22325 11.525 8.33771 11.4776 8.4221 11.3932C8.50649 11.3088 8.55391 11.1944 8.55391 11.075C8.55391 10.9557 8.50649 10.8412 8.4221 10.7568C8.33771 10.6724 8.22325 10.625 8.10391 10.625H3.26641C3.14706 10.625 3.0326 10.6724 2.94821 10.7568C2.86382 10.8412 2.81641 10.9557 2.81641 11.075C2.81641 11.1944 2.86382 11.3088 2.94821 11.3932C3.0326 11.4776 3.14706 11.525 3.26641 11.525ZM3.26641 5.22501H7.99141C8.11075 5.22501 8.22521 5.1776 8.3096 5.09321C8.39399 5.00882 8.44141 4.89436 8.44141 4.77501C8.44141 4.65566 8.39399 4.54121 8.3096 4.45681C8.22521 4.37242 8.11075 4.32501 7.99141 4.32501H3.26641C3.14706 4.32501 3.0326 4.37242 2.94821 4.45681C2.86382 4.54121 2.81641 4.65566 2.81641 4.77501C2.81641 4.89436 2.86382 5.00882 2.94821 5.09321C3.0326 5.1776 3.14706 5.22501 3.26641 5.22501Z" />
+                        <path
+                          d="M15.0726 4.091C14.9862 4.03122 14.8887 3.98921 14.7859 3.96743C14.683 3.94564 14.5769 3.94451 14.4737 3.9641C14.3703 3.98311 14.2717 4.02243 14.1837 4.07978C14.0956 4.13713 14.0198 4.21138 13.9607 4.29823L13.3822 5.14197L9.99728 1.75707C9.97645 1.73621 9.95362 1.71744 9.92911 1.70105C9.92303 1.697 9.91628 1.69453 9.90998 1.69093C9.89131 1.67968 9.87218 1.66842 9.85171 1.65965C9.84316 1.65605 9.83371 1.65448 9.82516 1.65133C9.80626 1.6448 9.78758 1.63782 9.76778 1.634C9.73853 1.62805 9.70876 1.62504 9.67891 1.625H2.19766C1.60816 1.625 1.12891 2.10425 1.12891 2.69375V16.3062C1.12891 16.8958 1.60816 17.375 2.19766 17.375H12.6602C13.2494 17.375 13.7289 16.8958 13.7289 16.3062V10.5744L16.7304 6.19722C16.8502 6.0222 16.8956 5.80681 16.8567 5.59834C16.8178 5.38987 16.6978 5.20534 16.523 5.08527L15.0726 4.091ZM11.6924 11.9525L10.4075 11.0714L13.4913 6.57387L14.7765 7.45497L11.6924 11.9525ZM10.9893 12.5618L9.83146 13.289L10.0925 11.9469L10.9893 12.5618ZM10.1289 3.1613L12.1924 5.225H10.1291L10.1289 3.1613ZM12.8289 16.3062C12.8289 16.3994 12.7531 16.475 12.6602 16.475H2.19766C2.15292 16.4749 2.11003 16.4571 2.0784 16.4255C2.04676 16.3939 2.02897 16.351 2.02891 16.3062V2.69375C2.02891 2.6006 2.10451 2.525 2.19766 2.525H9.22891V5.675C9.22891 5.79435 9.27632 5.90881 9.36071 5.9932C9.4451 6.07759 9.55956 6.125 9.67891 6.125H12.7081L9.41071 10.9337C9.40171 10.9472 9.39541 10.9616 9.38776 10.9758C9.38258 10.985 9.37696 10.9938 9.37246 11.0037C9.35807 11.035 9.34735 11.0678 9.34051 11.1016L9.34028 11.1022L8.82008 13.775H3.26663C3.14728 13.775 3.03282 13.8224 2.94843 13.9068C2.86404 13.9912 2.81663 14.1057 2.81663 14.225C2.81663 14.3443 2.86404 14.4588 2.94843 14.5432C3.03282 14.6276 3.14728 14.675 3.26663 14.675H9.19178C9.29056 14.675 9.38123 14.6421 9.45548 14.5881L12.0486 12.9594L12.0511 12.9571C12.0797 12.9391 12.1058 12.9173 12.1296 12.8932C12.1364 12.8862 12.142 12.8781 12.1483 12.8707C12.1591 12.8583 12.1708 12.8467 12.1805 12.8327L12.8291 11.8868L12.8289 16.3062ZM15.2855 6.71292L14.0003 5.8316L14.646 4.88975L15.9314 5.77085L15.2855 6.71292Z" />
+                      </svg>
+                      <svg class="margin-topminus-2" *ngIf="value === 'Delete Doc'" width="16" height="17"
+                        viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M12.0993 6.59652L11.8993 12.65C11.8822 13.1685 11.6638 13.6599 11.2904 14.0199C10.917 14.38 10.418 14.5804 9.89928 14.5785H6.09928C5.58089 14.5804 5.08216 14.3803 4.7088 14.0206C4.33545 13.661 4.11683 13.1701 4.09928 12.652L3.89928 6.59652C3.89491 6.46391 3.94339 6.33499 4.03406 6.23813C4.12473 6.14127 4.25017 6.08439 4.38278 6.08002C4.51539 6.07564 4.6443 6.12412 4.74117 6.21479C4.83803 6.30547 4.89491 6.43091 4.89928 6.56352L5.09928 12.6185C5.10924 12.877 5.21898 13.1216 5.40545 13.3009C5.59191 13.4802 5.8406 13.5802 6.09928 13.58H9.89928C10.1583 13.5802 10.4073 13.4799 10.5938 13.3001C10.7803 13.1204 10.8898 12.8754 10.8993 12.6165L11.0993 6.56352C11.1037 6.43091 11.1605 6.30547 11.2574 6.21479C11.3543 6.12412 11.4832 6.07564 11.6158 6.08002C11.7484 6.08439 11.8738 6.14127 11.9645 6.23813C12.0552 6.33499 12.1037 6.46391 12.0993 6.59652ZM12.7608 4.58202C12.7608 4.71462 12.7081 4.8418 12.6143 4.93557C12.5206 5.02934 12.3934 5.08202 12.2608 5.08202H3.73828C3.60567 5.08202 3.4785 5.02934 3.38473 4.93557C3.29096 4.8418 3.23828 4.71462 3.23828 4.58202C3.23828 4.44941 3.29096 4.32223 3.38473 4.22846C3.4785 4.13469 3.60567 4.08202 3.73828 4.08202H5.28828C5.44671 4.08244 5.59962 4.02391 5.71727 3.91781C5.83492 3.81172 5.90889 3.66564 5.92478 3.50802C5.96168 3.13826 6.13491 2.79548 6.41073 2.54647C6.68655 2.29746 7.04519 2.16005 7.41678 2.16102H8.58178C8.95337 2.16005 9.31202 2.29746 9.58783 2.54647C9.86365 2.79548 10.0369 3.13826 10.0738 3.50802C10.0897 3.66564 10.1636 3.81172 10.2813 3.91781C10.3989 4.02391 10.5519 4.08244 10.7103 4.08202H12.2603C12.3929 4.08202 12.5201 4.13469 12.6138 4.22846C12.7076 4.32223 12.7603 4.44941 12.7603 4.58202H12.7608ZM6.79278 4.08202H9.20678C9.14108 3.93189 9.09811 3.77281 9.07928 3.61002C9.0669 3.48677 9.0092 3.37251 8.91738 3.28937C8.82556 3.20623 8.70615 3.16014 8.58228 3.16002H7.41728C7.29342 3.16014 7.174 3.20623 7.08218 3.28937C6.99036 3.37251 6.93267 3.48677 6.92028 3.61002C6.9013 3.77283 6.85866 3.93191 6.79278 4.08202ZM7.29628 11.6575V7.40002C7.29628 7.26741 7.2436 7.14023 7.14983 7.04646C7.05607 6.95269 6.92889 6.90002 6.79628 6.90002C6.66367 6.90002 6.5365 6.95269 6.44273 7.04646C6.34896 7.14023 6.29628 7.26741 6.29628 7.40002V11.6595C6.29628 11.7921 6.34896 11.9193 6.44273 12.0131C6.5365 12.1068 6.66367 12.1595 6.79628 12.1595C6.92889 12.1595 7.05607 12.1068 7.14983 12.0131C7.2436 11.9193 7.29628 11.7921 7.29628 11.6595V11.6575ZM9.70328 11.6575V7.40002C9.70328 7.26741 9.6506 7.14023 9.55684 7.04646C9.46307 6.95269 9.33589 6.90002 9.20328 6.90002C9.07067 6.90002 8.9435 6.95269 8.84973 7.04646C8.75596 7.14023 8.70328 7.26741 8.70328 7.40002V11.6595C8.70328 11.7921 8.75596 11.9193 8.84973 12.0131C8.9435 12.1068 9.07067 12.1595 9.20328 12.1595C9.33589 12.1595 9.46307 12.1068 9.55684 12.0131C9.6506 11.9193 9.70328 11.7921 9.70328 11.6595V11.6575Z" />
+                      </svg>
+                      {{value}}</button>
+                  </span>
+                </div>
+              </div>
+              <div class="row m-0 export-button-grid">
+                <div class="col-12 p-0 workqueue-grid" *ngIf="index == selected.value">
+                  <app-client-side-grid *ngIf="!isLoading" [gridSettings]="gridWidget"
+                    (columnDataFilter)="FilterData($event)"  (filterModelData)="filterModelData($event)" (gridCheckBoxEvent)="handleCheckBoxEvent($event)"
+                    (gridClickEvent)="gridClickEvent($event)" (selectAllEvent)="selectAllEvent($event)">
+                  </app-client-side-grid>
+                </div>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+      <!-- Tabs ends -->
+    </div>
+  </div>
+</div>
+
+<!-- Add-Batch-Modal-start -->
+<div class="modal fade info-alert-modal" id="reprocessFile" data-bs-backdrop="static">
+  <div class="modal-dialog" style="max-width: 650px; width: 650px;">
+    <div class="modal-content">
+      <!--? Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title"><i class="fa fa-upload"></i> Reprocess File
+        </h4>
+        <div class="col cls2">
+          <button class="close" data-bs-dismiss="modal" type="button">
+          </button>
+        </div>
+      </div>
+      <!--? Modal body -->
+      <p class="text-offset-1 pt-2 pb-2 ps-4 pe-4 m-0">Select File to Reprocess</p>
+      <hr class="hr-nova-d">
+      <div class="modal-body short-simple-content pt-2" style="height: 330px;">
+        <form style="width:100%">
+          <div class="row m-0" style="justify-content: center;">
+            <div class="col-9 ps-0 pe-0 pb-3">
+              <div class="form-group">
+                <article
+                  class="text-start padding-10 border-dotted-1 info-message border-radius-7 bgc-yellow-100 margin-b-10"
+                  style="width:100%;height:100%">
+                  <!-- <p class="mb-0">Max. Page Count : 10</p>
+                    <p class="mb-0">Max. File Size  : 20 MB</p> -->
+                  <p class="mb-0">Accepted Format: Tiff</p>
+                </article>
+              </div>
+            </div>
+          </div>
+          <div class="modal-input-btn hd-div col-lg-12 p-0 m-0">
+            <div class="col wid-sel p-0">
+              <label class="data-content-label">Select File
+                <span><sup class="text-danger font-size-lg top-minus-2px">*</sup></span>
+              </label>
+              <input type="text" [(ngModel)]="uploadedFileName" [ngModelOptions]="{standalone: true}" class="data-content-input">
+            </div>
+            <span class=" text-left upload-btn-wrapper" style="padding-left: 8px; padding-top:3px">
+              <input type="file" (click)="eventClear($event)" (change)="handleTestFormFileInput($event)"accept="image/tif, image/tiff, .tif" required />
+              <button class="btn btn-secondary browse-btn mb-0" type="file"><i
+                  class="fa fa-folder-open-o"></i>Browse</button>
+            </span>
+
+          </div>
+        </form>
+      </div>
+      <!--? Modal footer -->
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary">Submit</button>
+        <button type="button" class="btn btn-primary modal-cancel me-0" data-bs-dismiss="modal">Cancel</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+<!-- Add-Batch-Modal-end -->
+
+<!-- Add-Batch-Modal-start -->
+<div class="modal fade info-alert-modal" id="auditComplete" data-bs-backdrop="static">
+  <div class="modal-dialog" style="max-width: 570px; width: 570px;">
+    <div class="modal-content">
+      <!--? Modal Header -->
+      <div class="modal-header mt-2" style="background-color: #ffffff;">
+        <span class="text-offset-1 m-0 py-2" style="font-size: 21px; font-weight: 600;"><i class="fa fa-upload"></i> Audit Complete
+        </span>
+        <div class="col cls2">
+          <button class="close" data-bs-dismiss="modal" type="button">
+          </button>
+        </div>
+      </div>
+      <!--? Modal body -->
+      <div style="height: 230px; display: flex; align-items: center;">
+        <hr class="hr-nova-d">
+        <p class="text-offset-1 pt-2 pb-2 ps-4 pe-4 m-0" style="font-size: 17px;">Do you want to proceed with completing the selected Audit(s) ?</p>
+      </div>
+      <!--? Modal footer -->
+      <div class="modal-footer" style="background-color: #ffffff;">
+        <button type="button" [disabled]="auditStarted" class="btn btn-secondary" (click)="completeAudit()">Yes</button>
+        <button type="button" class="btn btn-primary modal-cancel me-0" data-bs-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add-Batch-Modal-end -->
+
+<div class="modal fade info-alert-modal" id="auditCompleteSuccess" data-bs-backdrop="static">
+  <div class="modal-dialog" style="max-width: 570px; width: 570px;">
+    <div class="modal-content">
+      <!--? Modal Header -->
+      <div class="modal-header mt-2" style="background-color: #ffffff;">
+        <h4 class="text-offset-1 m-0 py-2" style="font-size: 21px; font-weight: 600;"><i class="fa fa-upload"></i> Success Alert
+        </h4>
+        <div class="col cls2">
+          <button class="close" data-bs-dismiss="modal" type="button">
+          </button>
+        </div>
+      </div>
+      <!--? Modal body -->
+      <div style="height: 230px; display: flex; align-items: center;">
+      <hr class="hr-nova-d">
+      <p class="text-offset-1 pt-2 pb-2 ps-4 pe-4 m-0" style="font-size: 17px;">Audit completed successfully for the selected file(s)</p>
+    </div>
+      <!--? Modal footer -->
+      <div class="modal-footer" style="background-color: #ffffff;">
+        <button type="button" class="btn btn-secondary me-0"(click)="closeAuditSuccessPop()">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add-Batch-Modal-start -->
+<div class="modal fade info-alert-modal" id="reprocessBatch" data-bs-backdrop="static">
+  <div class="modal-dialog" style="max-width: 500px; width: 500px;">
+    <div class="modal-content">
+      <!--? Modal Header -->
+      <div class="modal-header" style="padding: 5px 24px 5px 24px !important;  font-weight: 700 !important;">
+        <span class="modal-title" style="font-weight: 600; font-size: 17px !important;"><i class="fa fa-upload"></i> Batch Reprocessing Confirmation
+        </span>
+        <div class="col cls2">
+          <button class="close" data-bs-dismiss="modal" type="button">
+          </button>
+        </div>
+      </div>
+      <!--? Modal body -->
+      <!-- <p class="text-offset-1 pt-2 pb-2 ps-4 pe-4 m-0">Select File to Reprocess</p> -->
+      <hr class="hr-nova-d">
+      <div class="modal-body short-simple-content pt-2" style="height: 240px; padding-top: 40px !important;">
+        <form style="width:100%">
+          <div class="row m-0" style="justify-content: center;">
+            <div class="col-9 ps-0 pe-0 pb-3">
+              <div class="form-group">
+                <p>Are you sure you want to reprocess all files in this batch? This will overwrite the existing output folder, and the selected batch will be archived.</p>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!--? Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" [disabled]="disableOkBtn" (click)="reprocessBatchTrigger()">Ok</button>
+        <button type="button" class="btn btn-primary modal-cancel me-0" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add-Batch-Modal-end -->
+
+<!-- Add-Batch-Modal-start -->
+<div class="modal fade info-alert-modal" id="reprocessBatchFailure" data-bs-backdrop="static">
+  <div class="modal-dialog" style="max-width: 500px; width: 500px;">
+    <div class="modal-content">
+      <!--? Modal Header -->
+      <div class="modal-header" style="padding: 5px 24px 5px 24px !important;  font-weight: 700 !important;">
+        <span class="modal-title" style="font-weight: 600; font-size: 17px !important;"><i class="fa fa-upload"></i> Batch Reprocessing Confirmation
+        </span>
+        <div class="col cls2">
+          <button class="close" data-bs-dismiss="modal" type="button">
+          </button>
+        </div>
+      </div>
+      <!--? Modal body -->
+      <!-- <p class="text-offset-1 pt-2 pb-2 ps-4 pe-4 m-0">Select File to Reprocess</p> -->
+      <hr class="hr-nova-d">
+      <div class="modal-body short-simple-content pt-2" style="height: 240px; padding-top: 40px !important;">
+        <form style="width:100%">
+          <div class="row m-0" style="justify-content: center;">
+            <div class="col-9 ps-0 pe-0 pb-3">
+              <div class="form-group">
+                <p>{{reprocessFailure}}</p>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!--? Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeBatchErrorPop()">Ok</button>
+        <!-- <button type="button" class="btn btn-primary modal-cancel me-0" data-bs-dismiss="modal">Cancel</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add-Batch-Modal-end -->
+
+<div id="reprocessSuccess" class="modal fade form-modal custom-modal flipIn info-alert-modal" role="dialog" data-bs-backdrop="static">
+  <div class="modal-dialog simple-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><i class="fa-regular fa-bell"></i>Alert</h4>
+        <div class="col cls2">
+          <button  class="close" data-bs-dismiss="modal" type="button"></button>
+        </div>
+      </div>
+      <!-- <hr class="hr-nova-d"> -->
+      <p class="text-offset-1 pt-2 pb-2 ps-4 pe-4 m-0">Reprocess Success</p>
+      <div class="modal-body short-simple-content">
+        <!-- <p class="message-content"> {{errorMsgFailedCase}}</p> -->
+        <span>
+          <p class="text-offset-2"><span class="icon-text">File reprocessed successfully</span></p>
+        </span>
+      </div>
+      <div class="modal-footer">
+        <button id=bckToTaskList type="button" class="btn btn-primary me-0" (click)="reprocessSuccess()">OK</button>
+          <!-- <button  type="button" class="btn btn-primary modal-cancel me-0"
+          data-bs-dismiss="modal">Cancel</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="abortBatch" class="modal fade form-modal custom-modal flipIn info-alert-modal" role="dialog" data-bs-backdrop="static">
+  <div class="modal-dialog simple-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><i class="fa-regular fa-bell"></i>Alert</h4>
+        <div class="col cls2">
+          <button  class="close" data-bs-dismiss="modal" type="button"></button>
+        </div>
+      </div>
+      <!-- <hr class="hr-nova-d"> -->
+      <p class="text-offset-1 pt-2 pb-2 ps-4 pe-4 m-0">Abort Batch</p>
+      <div class="modal-body short-simple-content">
+        <!-- <p class="message-content"> {{errorMsgFailedCase}}</p> -->
+        <span>
+          <p class="text-offset-2"><i class="fas fa-exclamation-triangle warning"></i><span class="icon-text">Are you sure you want to abort the batch</span></p>
+        </span>
+      </div>
+      <div class="modal-footer">
+        <button id=bckToTaskList [disabled]="abortBatchStared" type="button" class="btn btn-primary me-0"
+          (click)="abortBatchConfirm()">OK</button>
+          <button  type="button" class="btn btn-primary modal-cancel me-0"
+          data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="archiveBatch" class="modal fade form-modal custom-modal flipIn info-alert-modal" role="dialog" data-bs-backdrop="static">
+  <div class="modal-dialog simple-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><i class="fa-regular fa-bell"></i>Alert</h4>
+        <div class="col cls2">
+          <button  class="close" data-bs-dismiss="modal" type="button"></button>
+        </div>
+      </div>
+      <!-- <hr class="hr-nova-d"> -->
+      <p class="text-offset-1 pt-2 pb-2 ps-4 pe-4 m-0">Archive Batch</p>
+      <div class="modal-body short-simple-content">
+        <!-- <p class="message-content"> {{errorMsgFailedCase}}</p> -->
+        <span>
+          <p class="text-offset-2"><i class="fas fa-exclamation-triangle warning"></i><span class="icon-text">Are you sure you want to archive the batch</span></p>
+        </span>
+      </div>
+      <div class="modal-footer">
+        <button id=bckToTaskList  [disabled]="archiveBatchStared" type="button" class="btn btn-primary me-0"
+          (click)="archiveBatchConfirm()">OK</button>
+          <button  type="button" class="btn btn-primary modal-cancel me-0"
+          data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade info-alert-modal" id="alert-error" data-bs-backdrop="false">
+  <div class="modal-dialog simple-modal-500" style="max-width: 650px; width: 650px;">
+    <div class="modal-content">
+      <!--? Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title"><i class="fas fa-exclamation-triangle error-icon"></i>Error
+        </h4>
+        <div class="col cls2">
+          <button  class="close" data-bs-dismiss="modal" type="button"></button>
+        </div>
+      </div>
+      <p class="text-offset-1 pt-2 pb-2 ps-4 pe-4 m-0">Upload Failed</p>
+      <!--? Modal body -->
+      <div class="modal-body hr-nova-d pb-0 short-simple-content" style="min-height: 320px;">
+         <span>
+        <p class="text-offset-2"><i class="fas fa-exclamation-circle error"></i><span class="icon-text">{{errorMessage}}</span></p>
+      </span>
+      </div>
+      <!--? Modal footer -->
+      <div class="modal-footer">
+        <button  #alertErrorBtn  class="btn btn-primary me-0" data-bs-dismiss="modal" >Okay</button>
+      </div>
+    </div>
+  </div>
+</div>

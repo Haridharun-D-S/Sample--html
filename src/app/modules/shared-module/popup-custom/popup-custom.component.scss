@@ -1,0 +1,33 @@
+.custom-dialog-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333; /* Example color */
+  }
+  
+  .custom-dialog-content {
+    font-size: 16px;
+    color: #666; /* Example color */
+  }
+  
+  .custom-dialog-button {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .title-container-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; /* Optional: Align items vertically */
+  }
+  
+  .title-container-left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; /* Optional: Align items vertically */
+  }
+  
+  .title-container-center {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Optional: Align items vertically */
+  }

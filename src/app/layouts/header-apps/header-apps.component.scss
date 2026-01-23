@@ -1,0 +1,344 @@
+/*  Importing Variable Styles */
+@import '../../../scss/Variables.scss';
+
+/*  Page Header - starts */
+a.logo:hover {
+    color: $Tertiary !important;
+}
+
+.navbar .navbar-brand {
+    padding: 5px 10px;
+}
+
+.navbar-brand,
+.navbar-brand a {
+    text-decoration: none;
+    margin-bottom: 0 !important;
+    outline: none;
+}
+
+/* For header nav */
+.navbar {
+    padding: 0.25rem 1rem;
+}
+
+.fixed-top {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    box-shadow: 0 4px 4px rgb(0 0 0 / 21%);
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+/*Menu Icons */
+.navbar li .fa,
+.navbar li .fas,
+.navbar li .far,
+.navbar li .fa-solid {
+    color: $Tertiary;
+    margin-right: 6px;
+    font-size: 20px;
+}
+
+.navbar li .logoff {
+    color: $Gray;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.header-icon {
+    height: 20px;
+    width: 20px;
+    fill: $Tertiary;
+    margin-right: 6px;
+}
+
+/*Menu Icons */
+/*Header Border-bottom*/
+.bg-light {
+    background-color: $White !important;
+    border-bottom: 1px solid $Tertiary !important;
+}
+
+.text2 {
+    font-size: 16px;
+    color: $Secondary;
+    letter-spacing: 0px;
+    line-height: normal;
+}
+
+.navbar-light {
+    .navbar-nav {
+        .nav-link {
+            margin-bottom: 0px;
+            padding-top: 15px;
+            padding-bottom: 13px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .nav-link.active {
+            background: $Menu_Active;
+            margin-bottom: 0px;
+            padding-top: 15px;
+            padding-bottom: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .hiAdmin {
+            a.nav-link {
+                cursor: default;
+            }
+        }
+    }
+}
+
+.hiAdmin {
+    .text2 {
+        font-size: 16px;
+        color: $Gray_Label;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    .hiAdminIcon {
+        i {
+            color: $Gray_Label !important;
+        }
+
+        [class^="uit-"]:before,
+        [class*=" uit-"]:before {
+            font-size: 22px;
+            line-height: 20px;
+            margin-right: 6px;
+            vertical-align: top;
+            margin-top: 1px;
+        }
+    }
+}
+
+.navbar li {
+    .notification-menu {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: $Tertiary;
+        display: block;
+        text-align: center;
+        padding-bottom: 8px;
+        margin-right: 8px;
+
+        .fa,
+        .far,
+        .fas {
+            font-size: 13px;
+            color: $White;
+            vertical-align: text-top;
+            margin-top: 2px;
+        }
+
+        .badge-light {
+            background-color: $Notification_Background;
+            color: $White;
+            position: relative;
+            top: -33px;
+            right: -11px;
+            height: 16px;
+            width: 16px;
+            font-size: 9px;
+            padding: 0px;
+            padding-top: 3px;
+            border-radius: 49px;
+            display: block;
+        }
+    }
+}
+
+.dropdown-menu.apps-surs1-dropdown {
+    background-color: #fafafa;
+    border: 1px solid $Transparent;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    max-height: 89vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    left: auto;
+    right: 0;
+}
+
+.navbar>div>.navbar-collapse>.navbar-nav>li>.dropdown-menu {
+    padding: 10px;
+    min-width: 200px;
+}
+
+.dropdown .dropdown-grid {
+    width: 460px !important;
+
+    h5,
+    .style-template-1 .h5 {
+        color: #0c0c0c;
+        font-size: 1rem;
+        margin: 2px;
+        padding-top: 5px;
+    }
+}
+
+.dropdown-grid .row .app-tile {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.dropdown-grid {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    .row {
+        margin-left: -5px;
+        margin-right: -5px;
+    }
+}
+
+.dropdown-grid .row .app-tile a {
+    margin: 10px 0px 10px 0px;
+    border-radius: 5px;
+    display: block;
+    position: relative;
+    float: left;
+    width: 100%;
+    text-decoration: none;
+    outline: none;
+    background-color: #EEE !important;
+    border: 1px solid #dedada !important;
+    box-shadow: 10px 10px 15px #e0e0e0;
+    padding: 5px 2px;
+
+    i {
+        font-size: 23px;
+        line-height: 32px;
+    }
+
+    .app-link {
+        font-size: 12px !important;
+        line-height: 14px;
+        color: #656565;
+    }
+}
+
+.menu-one {
+
+    a .fa,
+    a .fas,
+    a .far,
+    a .fab {
+        color: $Primary !important;
+
+    }
+}
+
+.menu-two {
+
+    a .fa,
+    a .fas,
+    a .far,
+    a .fab {
+        color: $Secondary !important;
+
+    }
+}
+
+.menu-three {
+
+    a .fa,
+    a .fas,
+    a .far,
+    a .fab {
+        color: #E9B000 !important;
+
+    }
+}
+
+.menu-four {
+
+    a .fa,
+    a .fas,
+    a .far,
+    a .fab {
+        color: #996633 !important;
+
+    }
+}
+
+
+.dropdown-grid .row .app-tile a i,
+.dropdown-grid .row .app-tile a img,
+.dropdown-grid .row .app-tile a .app-link {
+    display: block;
+    position: relative;
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+
+
+.navbar-nav>li>.dropdown-menu {
+    margin-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.dropdown-menu.apps-surs1-dropdown {
+    min-width: 300px !important;
+}
+
+.style-template-1 .dropdown-grid .row .app-tile a {
+    color: $White !important;
+}
+
+.style-template-1 .dropdown-grid .row .app-tile a:hover,
+.style-template-1 .dropdown-grid .row .app-tile a:focus {
+    background-color: #7b9196;
+}
+
+.dropdown-grid .row .app-tile a .fa {
+    opacity: unset;
+    transition: all 0.3s ease-in-out;
+}
+
+.fa-reports{
+    fill: $Tertiary;
+    margin-right: 5px !important;
+    content: url('../../../assets/Images/Files.svg');
+    position: relative;
+    height: 21px;
+    width: 21px;
+    display: block;
+    margin-left: -2px;
+}
+
+.fa-Insights{
+    fill: $Tertiary;
+    margin-right: 4px !important;
+    content: url('../../../assets/Images/insights.svg');
+    position: relative;
+    height: 25px;
+    width: 26px;
+    display: block;
+    margin-top: -3px;
+    margin-left: -3px;
+}
+
+.fa-cases{
+    fill: $Tertiary;
+    margin-right: 0px;
+    content: url('../../../assets/Images/Transaction_Data.svg');
+    position: relative;
+    height: 20px;
+    width: 20px;
+    display: block;
+    margin-left: -2px;
+}
+/*  Page Header - ends */

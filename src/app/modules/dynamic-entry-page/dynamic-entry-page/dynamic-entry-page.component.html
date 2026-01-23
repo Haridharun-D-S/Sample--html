@@ -1,0 +1,516 @@
+<!-- Dynamic entry page starts -->
+<!-- Main Json Loop Starts -->
+<div>
+    <div class="row m-0 col-12 p-0" *ngFor="let node of inputJson">
+        <ng-container *ngTemplateOutlet="tmplNode,context:{node:node}"></ng-container>
+    </div>
+</div>
+<!-- Main Json Loop Ends -->
+
+<!-- content starts -->
+<ng-template #tmplNode let-node="node">
+    <div [ngClass]="(node.Type === 'Heading') ? 'row m-0 col-12 data-content-container': 'row m-0 col-12 p-0'">
+        <!-- Type Page Title & Heading Starts -->
+        <div *ngIf="(node.Type === 'Title' || node.Type === 'Heading') && node.Hide === 'N'" [ngClass]="(node.Label === 'Page Bunching') ? 'col-6 p-0': 'col-12 p-0'">
+            <div class="col data-container-padding">
+                <mat-label class="data-content-header" *ngIf="node.Editable === 'readable' || node.Editable === 'disable' || node.Editable === 'N'" #tooltip="matTooltip" matTooltip="{{node.Tooltip}}">{{node.Label}}</mat-label>
+            </div>
+            <!-- Editable Heading -->
+            <div class="p-0" *ngIf="node.Editable === 'editable'">
+                <!-- Input Type -->
+                <span class="p-0" *ngIf="node.FieldType === 'Input'">
+                    <mat-form-field appearance="fill">
+                        <input matInput class="data-content-input"
+                            [readonly]="PageFieldType === 'readonly' || node.Editable === 'readable'"
+                            [disabled]="node.Editable === 'disable'"
+                            [id]="node.id"
+                            #Field
+                            [(ngModel)]="node.Value"
+                            (focus)="node.originalValue = node.Value; ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                            (ngModelChange)="SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                            (keyup.enter)="SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                            (click)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                            (keyup.Tab)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                            [placeholder]="getPlaceholderText(node.PlaceHolder, PageFieldType, node.Editable)"
+                            
+                            [matAutocomplete]="level1InputAutoGroup">
+                            <!-- IntelliSearch -->
+                            <mat-autocomplete #level1InputAutoGroup="matAutocomplete">
+                                <ng-container *ngFor="let IntelliSearchData of node.IntelliSearchData" >
+                                    <span  *ngIf="IntelliSearchData.searchGroup === 'Y'">
+                                        <mat-optgroup 
+                                            [label]="IntelliSearchData.Label">
+                                            <mat-option *ngFor="let Data of IntelliSearchData.Data" [value]="Data">
+                                                {{Data}}
+                                            </mat-option>
+                                        </mat-optgroup>
+                                    </span>
+                                    <span *ngIf="IntelliSearchData.searchGroup !== 'Y'">
+                                        <mat-option *ngFor="let Data of IntelliSearchData.Data" [value]="Data">
+                                            {{Data}}
+                                        </mat-option>
+                                    </span>
+                                </ng-container>
+                            </mat-autocomplete>
+                        <mat-icon matSuffix>{{node.icon}}</mat-icon>
+                        <div *ngFor="let Hint of node.Hint">
+                            <mat-hint>{{Hint}}</mat-hint>
+                        </div>
+                    </mat-form-field>
+                    <!-- Error List -->
+                    <mat-error *ngIf="getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).id === node.id">
+                        <ng-container *ngFor="let error of getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).errorMessage">
+                            {{error}}<br>
+                        </ng-container>
+                    </mat-error>
+                </span>
+            </div>
+        </div>
+        <!-- Type Page Title & Heading Ends -->
+        <!-- Type Field Starts -->
+        <div class="data-container-padding" *ngIf="node.Type === 'Field' && node.Hide === 'N'">
+            <div class="fieldtype-label-container p-0">
+                <mat-label class="data-content-label" *ngIf="node.FieldType != 'Button' && node.FieldId != '35'"  #tooltip="matTooltip" matTooltip="{{node.Tooltip}}">{{node.Label}}
+                    <sup class="text-danger font-size-lg top-minus-2px" *ngIf="node.FieldId === '26' || node.FieldId === '28'">*</sup>
+                </mat-label>
+                <!-- Editable Heading -->
+                <div class="fieldtype-container p-0">
+                    <!-- Label Type -->
+                    <span *ngIf="node.FieldType === 'Label'">
+                        <mat-label class="col-12 p-0 data-content-label">{{node.Value}}</mat-label>
+                    </span>
+                    <!-- Input Type -->
+                    <span class="input-btn-container p-0" *ngIf="node.FieldType === 'Input' && node.IntelliSearchData.length === 0">
+                        <input class="data-content-input" 
+                        [readonly]="PageFieldType === 'readonly' || node.Editable === 'readable'"
+                        [disabled]="node.Editable === 'disable'"
+                        [id]="node.id"
+                        #Field
+                        [ngModel]="node.Value"
+                        (ngModelChange)="node.TempValue = node.Value; node.Value = $event;"
+                        (focus)="node.originalValue = node.Value; ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                        (blur)=" SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                        (keyup.enter)="SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                        (click)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                        (keyup.Tab)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                        (keypress)="restrictKey($event, node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue)"
+                        (paste)="onPaste($event, node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue)"
+                        [placeholder]="getPlaceholderText(node.PlaceHolder, PageFieldType, node.Editable)" title="{{node.Value}}"
+                        autocomplete="off">
+                        <!-- Error List -->
+                        <mat-error *ngIf="getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).id === node.id && getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).errorMessage.length > 0 && PageFieldType === 'editable'">
+                            <ng-container *ngFor="let error of getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).errorMessage">
+                                {{error}}<br>
+                            </ng-container>
+                        </mat-error>
+                    </span>
+                    <!-- With IntelliSearch Input Type -->
+                    <span class="p-0" *ngIf="node.FieldType === 'Input' && node.IntelliSearchData.length > 0">
+                        <mat-form-field class="col-12 p-0" appearance="fill">
+                            <input matInput
+                                [readonly]="PageFieldType === 'readonly' || node.Editable === 'readable'"
+                                [disabled]="node.Editable === 'disable'"
+                                [id]="node.id"
+                                #Field
+                                [ngModel]="node.Value"
+                                (ngModelChange)="node.TempValue = node.Value; node.Value = $event;"
+                                (focus)="node.originalValue = node.Value; ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                                (blur)=" SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                                (keyup.enter)="SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                                (click)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                                (keyup.Tab)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                                (keypress)="restrictKey($event, node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue)"
+                                (paste)="onPaste($event, node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue)"
+                                [placeholder]="getPlaceholderText(node.PlaceHolder, PageFieldType, node.Editable)"
+                                
+                                [matAutocomplete]="level1InputAutoGroup"  [matAutocompleteDisabled]="panelOpen">
+                                <!-- IntelliSearch -->
+                                <mat-autocomplete #level1InputAutoGroup="matAutocomplete"
+                                (optionSelected)="onOptionSelected($event, node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                                >
+                                    <ng-container *ngFor="let IntelliSearchData of node.IntelliSearchData" >
+                                        <span  *ngIf="IntelliSearchData.searchGroup === 'Y' && IntelliSearchData.Data && IntelliSearchData.Data.length > 0">
+                                            <mat-optgroup 
+                                                [label]="IntelliSearchData.Label">
+                                                <mat-option *ngFor="let Data of IntelliSearchData.Data | Filter : node.Value" [value]="Data">
+                                                    {{Data}}
+                                                </mat-option>
+                                            </mat-optgroup>
+                                        </span>
+                                        <span *ngIf="IntelliSearchData.searchGroup !== 'Y' && IntelliSearchData.Data && IntelliSearchData.Data.length > 0">
+                                            <mat-option *ngFor="let Data of IntelliSearchData.Data | Filter : node.Value" [value]="Data">
+                                                {{Data}}
+                                            </mat-option>
+                                        </span>
+                                    </ng-container>
+                                </mat-autocomplete>
+                            <!-- <mat-icon matSuffix>{{node.icon}}</mat-icon> -->
+                            <div *ngFor="let Hint of node.Hint">
+                                <mat-hint>{{Hint}}</mat-hint>
+                            </div>
+                        </mat-form-field>
+                        <!-- Error List -->
+                        <mat-error class="error-none" *ngIf="getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).id === node.id && getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).errorMessage.length > 0 && PageFieldType == 'editable'">
+                            <ng-container *ngFor="let error of getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).errorMessage">
+                                {{error}}<br>
+                            </ng-container>
+                        </mat-error>
+                    </span>
+                      <!-- Input Type -->
+                      <span class="input-btn-container p-0" *ngIf="node.FieldType === 'FileUpload'">
+                        <input class="data-content-input" 
+                        type="file"
+                        [disabled]="node.Editable === 'disable'"
+                        [id]="node.id"
+                        #Field
+                        [ngModel]="node.Value"
+                        (ngModelChange)="node.TempValue = node.Value; node.Value = $event;"
+                        (focus)="node.originalValue = node.Value; ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                        (blur)=" SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                        (keyup.enter)="SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                        (click)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                        (keyup.Tab)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                        (keypress)="restrictKey($event, node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue)"
+                        [placeholder]="getPlaceholderText(node.PlaceHolder, PageFieldType, node.Editable)" title="{{node.Value}}">
+                        <!-- Error List -->
+                        <mat-error *ngIf="getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).id === node.id && getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).errorMessage.length > 0 && PageFieldType === 'editable'">
+                            <ng-container *ngFor="let error of getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).errorMessage">
+                                {{error}}<br>
+                            </ng-container>
+                        </mat-error>
+                    </span>
+                    <!-- Textarea Type -->
+                    <span *ngIf="node.FieldType === 'Textarea'">
+                        <mat-form-field class="col-12 p-0 textarea-container" appearance="fill">
+                            <textarea class="data-textarea" matInput  style="white-space: pre-line"
+                                [readonly]="PageFieldType === 'readonly' || node.Editable === 'readable'"
+                                [disabled]="node.Editable === 'disable'"
+                                [id]="node.id"
+                                #Field
+                                [(ngModel)]="node.Value"
+                                (ngModelChange)="node.TempValue = node.Value; node.Value = $event;"
+                                (focus)="node.originalValue = node.Value; ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                                (blur)=" SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                                (keyup.enter)="SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                                (click)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                                (keyup.Tab)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                                (keypress)="restrictKey($event, node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue)"
+                                (paste)="onPaste($event, node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue)"
+                                [placeholder]="getPlaceholderText(node.PlaceHolder, PageFieldType, node.Editable)"
+                                >
+                            </textarea>
+                            <mat-icon matSuffix>{{node.icon}}</mat-icon>
+                            <div *ngFor="let Hint of node.Hint">
+                                <mat-hint>{{Hint}}</mat-hint>
+                            </div>
+                        </mat-form-field>
+                        <!-- Error List -->
+                        <mat-error *ngIf="getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).id === node.id && getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).errorMessage.length > 0 && PageFieldType === 'editable'">
+                            <ng-container *ngFor="let error of getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).errorMessage">
+                                {{error}}<br>
+                            </ng-container>
+                        </mat-error>
+                    </span>
+                    <!-- Checkbox Type -->
+                    <span *ngIf="node.FieldType === 'Checkbox'">
+                        <section class="example-section">
+                            <ul>
+                                <li *ngFor="let attributes of node.Attributes">
+                                    <mat-checkbox 
+                                    [disabled]="PageFieldType === 'readonly' || node.Editable === 'readable' || node.Editable === 'disable'"
+                                    [id]="attributes.id"
+                                    #Field
+                                    [(ngModel)]="attributes.Value"
+                                    (focus)="node.originalValue = node.Value; ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                                    (ngModelChange)="SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                                    (keyup.enter)="SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                                    (click)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                                    (keyup.Tab)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                                    >
+                                    {{attributes.Label}}
+                                    </mat-checkbox>
+                                </li>
+                            </ul>
+                        </section>
+                        <!-- Error List -->
+                        <mat-error *ngIf="getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).id === node.id && PageFieldType === 'editable'">
+                            <ng-container *ngFor="let error of getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).errorMessage">
+                                {{error}}<br>
+                            </ng-container>
+                        </mat-error>
+                    </span>
+                    <!-- Radio Type -->
+                    <span class="material-radio" *ngIf="node.FieldType === 'Radio'">
+                        <mat-radio-group
+                            [(ngModel)]="node.Value"
+                            (focus)="node.originalValue = node.Value; ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                            (ngModelChange)="SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                            (keyup.enter)="SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                            (click)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                            (keyup.Tab)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                            >
+                            <mat-radio-button 
+                                class="example-radio-button" *ngFor="let attributes of node.Attributes" 
+                                [disabled]="PageFieldType === 'readonly' || node.Editable === 'readable' || node.Editable === 'disable'"
+                                [id]="attributes.id"
+                                #Field
+                                [value]="attributes.Value">
+                                {{attributes.Label}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                        <!-- Error List -->
+                        <mat-error *ngIf="getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).id === node.id && PageFieldType === 'editable'">
+                            <ng-container *ngFor="let error of getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).errorMessage">
+                                {{error}}<br>
+                            </ng-container>
+                        </mat-error>
+                    </span>
+                    <!-- Datepicker Type -->
+                    <span *ngIf="node.FieldType === 'Datepicker'">
+                        <!-- <mat-label class="data-content-label">{{node.Label}}</mat-label> -->
+                        <mat-form-field class="col-12 p-0" appearance="fill">
+                            <!-- When close button is displayed use this class="data-content-input date-with-close-input" -->
+                            <input matInput class="data-content-input"
+                                [id]="node.id"
+                                #Field
+                                [readonly]="PageFieldType === 'readonly' || node.Editable === 'readable'"
+                                [disabled]="node.Editable === 'disable'"
+                                [matDatepicker]="picker"
+                                [max]="getMaxDate(node.ValidationData, node.FieldId)" [min]="getMinDate(node.ValidationData)"
+                                [ngModel]="node.Value | DateConvertPipe:'MM/dd/yyyy'"
+                                (focus)="node.originalValue = node.Value; ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                                (dateChange)="node.Value = onChangeDate($event.value, node.Value);node.TempValue =  node.Value;SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                                (change)="node.TempValue = onChangeDateInput($any($event.target).value, node.Value); node.Value = onChangeDate($any($event.target).value, node.Value); SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                                (keyup)="node.TempValue = onChangeDateInput($any($event.target).value, node.Value); node.Value = onChangeDate($any($event.target).value, node.Value)"
+                                (keyup.enter)="SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                                (click)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                                [placeholder]="getPlaceholderText(node.PlaceHolder, PageFieldType, node.Editable)"
+                                (keyup.Tab)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)">
+                                <div *ngFor="let Hint of node.Hint">
+                                    <mat-hint>{{Hint}}</mat-hint>
+                                </div>
+                            <mat-datepicker-toggle matIconSuffix 
+                            [disabled]="PageFieldType === 'readonly' || node.Editable === 'readable' || node.Editable === 'disable'"
+                            [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <!-- Error List -->
+                        <mat-error *ngIf="getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).id === node.id && getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).errorMessage.length > 0 && PageFieldType === 'editable'">
+                            <ng-container *ngFor="let error of getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).errorMessage">
+                                {{error}}<br>
+                            </ng-container>
+                        </mat-error>
+                    </span>
+                    <!--InvertedDatepicker Datepicker Type -->
+                    <span *ngIf="node.FieldType === 'InvertedDatepicker'">
+                        <!-- <mat-label class="data-content-label">{{node.Label}}</mat-label> -->
+                        <mat-form-field class="col-12 p-0" appearance="fill">
+                            <input matInput [ngClass]="(node.FieldId == '20' && node.Value != '') ? 'data-content-input date-with-close-input' : 'data-content-input'"
+                                [id]="node.id"
+                                #Field
+                                [readonly]="PageFieldType === 'readonly' || node.Editable === 'readable' || node.FieldId == '20'"
+                                [disabled]="node.Editable === 'disable'"
+                                [matDatepicker]="picker"
+                                [max]="getMaxDate(node.ValidationData, node.FieldId)" [min]="getMinDate(node.ValidationData)"
+                                [ngModel]="node.Value | DateConvertPipe:'MM/dd/yyyy'"
+                                (focus)="node.originalValue = node.Value; ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                                (dateChange)="node.Value = onChangeDate($event.value, node.Value);node.TempValue =  node.Value;SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                                (change)="node.TempValue = onChangeDateInput($any($event.target).value, node.Value); node.Value = onChangeDate($any($event.target).value, node.Value); SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                                (keyup)="node.TempValue = onChangeDateInput($any($event.target).value, node.Value); node.Value = onChangeDate($any($event.target).value, node.Value)"
+                                (keyup.enter)="SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                                (click)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                                [placeholder]="getPlaceholderText(node.PlaceHolder, PageFieldType, node.Editable)"
+                                (keyup.Tab)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)">
+                                <div *ngFor="let Hint of node.Hint">
+                                    <mat-hint>{{Hint}}</mat-hint>
+                                </div>
+                                <span *ngIf="node.FieldId == '20' && node.Value != ''" class="date-with-close">
+                                    <i class="fa-regular fa-circle-xmark" (click)="InvertedDatepickerClearEvent(node.FieldId)"></i>
+                                </span>
+                            <mat-datepicker-toggle matIconSuffix 
+                            [disabled]="PageFieldType === 'readonly' || node.Editable === 'readable' || node.Editable === 'disable'"
+                            [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker [startView]= "startDOBDateView" [startAt]="startDate"></mat-datepicker>
+                        </mat-form-field>
+                        <!-- Error List -->
+                        <mat-error *ngIf="getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).id === node.id && getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).errorMessage.length > 0 && PageFieldType === 'editable'">
+                            <ng-container *ngFor="let error of getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).errorMessage">
+                                {{error}}<br>
+                            </ng-container>
+                        </mat-error>
+                    </span>
+                    <!-- Select Type -->
+                    <span *ngIf="node.FieldType === 'Select'">
+                        <!-- <mat-label class="data-content-label">{{node.Label}}</mat-label> -->
+                        <mat-form-field class="col-12 p-0" appearance="fill">
+                            <mat-select class="data-content-select"
+                            [(ngModel)]="node.Value"
+                            (focus)="node.originalValue = node.Value; ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                            (ngModelChange)="SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                            (keyup.enter)="SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                            (click)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                            (keyup.Tab)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                            >
+                                <mat-option *ngFor="let attributes of node.Attributes" 
+                                    [id]="attributes.id"
+                                    #Field
+                                    [disabled]="PageFieldType === 'readonly' || node.Editable === 'readable' || node.Editable === 'disable'"
+                                    [value]="attributes.Value">
+                                    {{attributes.Value}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <!-- Error List -->
+                        <mat-error *ngIf="getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).id === node.id && getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).errorMessage.length > 0 && PageFieldType === 'editable'">
+                            <ng-container *ngFor="let error of getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).errorMessage">
+                                {{error}}<br>
+                            </ng-container>
+                        </mat-error>
+                    </span>
+                     <!-- Multi Select Type -->
+                     <span *ngIf="node.FieldType === 'MultiSelect'">
+                        <mat-form-field class="col-12 p-0" appearance="fill">
+                            <mat-select class="data-content-select"
+                            [(ngModel)]="node.Value"
+                            (focus)="node.originalValue = node.Value; ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                            (ngModelChange)="SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                            (keyup.enter)="SaveValue(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions, node.originalValue, node.FieldId)"
+                            (click)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                            (keyup.Tab)="ValueSelected(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData, node.TempValue, node.ConfidenceType, node.Dimensions)"
+                             multiple>
+                                <mat-option *ngFor="let attributes of node.Attributes" 
+                                    [id]="attributes.id"
+                                    #Field
+                                    [disabled]="node.Editable === 'readable' || node.Editable === 'disable'"
+                                    [value]="attributes.Value">
+                                    {{attributes.Value}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <!-- Error List -->
+                        <mat-error *ngIf="getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).id === node.id && getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).errorMessage.length > 0 && PageFieldType === 'editable'">
+                            <ng-container *ngFor="let error of getErrorMessage(node.Type, node.FieldType, node.Value, node.Label, node.id, node.Level, node.index, node.IntelliSearchData, node.ValidationData, node.Attributes, node.AdditionalData , node.TempValue).errorMessage">
+                                {{error}}<br>
+                            </ng-container>
+                        </mat-error>
+                    </span>
+                    <!-- Button Type -->
+                    <span class="dynamic-btn-set" [ngClass]="node.FieldId === '23' ? 'error-btn-message-container': ''" *ngIf="node.FieldType === 'Button'">
+                        <span class="col p-0 error-message-container" *ngIf="node.FieldId === '23'">
+                            <!-- Put ngIf condition in <p> tag -->
+                            <p *ngIf="getFieldId23ErrorStatus()" class="data-error-message-mandatory">Please enter atleast one of the fields above</p>
+                        </span>
+                        <button class="btn btn-primary" (click)="buttonTrigger(node)" title="{{node.Tooltip}}" [disabled]="PageFieldType === 'readonly'">{{node.Label}}</button>
+                    </span>
+
+                    <!-- Grid Type -->
+                    <span class="dynamic-grid" *ngIf="node.FieldType === 'Grid'">
+                        <div class="col-12 p-0 mt-2">
+                        <app-client-side-grid *ngIf="refreshGrid" [gridSettings]="gridApiData(node.GridAPIInput, node.Value, node.id)" (gridCheckBoxEvent)="handleCheckBoxEvent($event)">
+                        </app-client-side-grid>
+                        </div>
+                   </span>
+                </div>
+            </div>
+        </div>
+        <!-- Type Field Ends -->
+
+        <!-- Custom Action Starts -->
+        <div class="col-6 p-0 text-end" *ngIf="node.AdditionalData && node.AdditionalData.length">
+            <!-- <div *ngFor="let AdditionalData of node.AdditionalData"> -->
+            <ng-container *ngTemplateOutlet="customNode,context:{node:node}"></ng-container>  
+            <!-- </div> -->
+        </div>
+        <!-- Custom Action Ends -->
+  
+        <!-- Child Starts -->
+        <div class="row m-0 p-0" *ngIf="node.Child && node.Child.length">
+            <div class="data-base-content-container" [ngClass]="child.Class ? child.Class: 'p-0'" *ngFor="let child of node.Child">
+            <ng-container *ngTemplateOutlet="tmplNode,context:{node:child}"></ng-container>  
+            </div>
+        </div>
+        <!-- Child Ends -->
+  
+    </div>
+</ng-template>
+<!-- content ends -->
+<!-- Dynamic entry page ends -->
+
+<!-- Dynamic Custom Action items Starts -->
+<ng-template #customNode let-node="node">
+    <div *ngFor="let AdditionalData of node.AdditionalData">
+        <div class="p-0" *ngIf="AdditionalData.Type === 'Action' && AdditionalData.Hide === 'N'">
+            <!-- View History Starts -->
+            <span *ngIf="AdditionalData.FieldType === 'ViewHistory'">
+                <button mat-button [matMenuTriggerFor]="menu"  #tooltip="matTooltip" matTooltip="View History">View History</button>
+                <mat-menu #menu="matMenu">
+                    <mat-radio-group
+                        [(ngModel)]="AdditionalData.Value"
+                        (ngModelChange)="node.Value = AdditionalData.Value"
+                        #tooltip="matTooltip" matTooltip="{{AdditionalData.Value}}">
+                        <mat-radio-button 
+                            class="example-radio-button" *ngFor="let attributes of AdditionalData.Attributes"
+                            [disabled]="AdditionalData.Editable === 'readable' || AdditionalData.Editable === 'disable'"
+                            [value]="attributes.Value">
+                            <mat-label #tooltip="matTooltip" matTooltip="{{AdditionalData.Tooltip}}">{{attributes.time}}</mat-label>
+                            <mat-label #tooltip="matTooltip" matTooltip="{{AdditionalData.Tooltip}}">{{attributes.user}}
+                                <b *ngIf="attributes.Version != 'V0'">updated to</b>
+                                <b>{{attributes.Value}}</b>
+                            </mat-label>
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </mat-menu>
+            </span>
+            <!-- View History Ends -->
+            <!-- slide-toggle Starts -->
+            <span *ngIf="AdditionalData.FieldType === 'SlideToggle'">
+                <!-- <section>
+                    <mat-slide-toggle
+                        [(ngModel)]="SlideToggle"
+                        (ngModelChange)="SlideToggleEventEmitter(SlideToggle, node.Child)"
+                        [disabled]="AdditionalData.Editable === 'Y' ? false : true">
+                    </mat-slide-toggle>
+                </section> -->
+                <span class="toggle-button">
+                    <label class="switch mb-0 data-toggle float-end">
+                        <input type="checkbox" class="success" [(ngModel)]="SlideToggle"
+                        (ngModelChange)="SlideToggleEventEmitter(SlideToggle, node.Child)"
+                        [disabled]="PageFieldType === 'readonly' || AdditionalData.Editable === 'disable'">
+                        <span class="slider round"></span>
+                    </label>
+                </span>
+            </span>
+            <!-- slide-toggle Ends -->
+        </div>
+    </div>
+</ng-template>
+<!-- Dynamic Custom Action items ends -->
+
+<!-- New HTML Record Split Design Starts -->
+<div class="row m-0" *ngIf="PageType === 'Record Split'">
+    <div class="col-12 mb-3 mt-2 text-end">
+        <button class="btn btn-primary" [disabled]="PageFieldType === 'readonly' || overallFieldError || btnDisableBasedOnBunging" (click)="savePageJson('Save')" title="Save">Save</button>
+        <button *ngIf="FromPage != 'popup'" class="btn btn-secondary" [disabled]="(PageFieldType === 'readonly' || btnDisableBasedOnBunging)" (click)="CompletePage()" title="Complete">Complete</button>
+        <!-- <button class="btn btn-secondary" (click)="completeManageList()">Complete</button> -->
+        <button class="btn btn-primary" (click)="ClosePage()" title="Close">Close</button>
+    </div>
+</div>
+<div class="row m-0" *ngIf="PageType === 'Lookup'">
+    <div class="col-12 mb-3 mt-2 text-end">
+        <button class="btn btn-secondary" [disabled]="PageFieldType === 'readonly' || !caseSelected" (click)="ConfirmVAERSID()" title="Confirm VAERS ID">Confirm VAERS ID</button>
+        <button class="btn btn-primary" [disabled]="PageFieldType === 'readonly'" (click)="CancelLookUp()" title="Close">Cancel</button>
+    </div>
+</div>
+<div class="row m-0" *ngIf="PageType === 'Establish Case' && screenType === 'edit'">
+    <div class="col-12 mb-3 mt-2 text-end">
+        <button class="btn btn-secondary" [disabled]="PageFieldType === 'readonly' || !caseSelected" (click)="ConfirmVAERSID()" title="Confirm VAERS ID">Confirm VAERS ID</button>
+        <button class="btn btn-primary" (click)="ClosePage()" title="Close">Close</button>
+    </div>
+</div>
+<div class="row m-0" *ngIf="PageType === 'Establish Case' && screenType === 'view'">
+    <div class="col-12 mb-3 mt-2 text-end">
+        <button class="btn btn-secondary" [disabled]="PageFieldType === 'readonly'" (click)="CompletePage()" title="Confirm Case">Confirm Case</button>
+        <button class="btn btn-primary" (click)="ClosePage()" title="Close">Close</button>
+    </div>
+</div>
+<!-- New HTML Record Split Design  Ends -->

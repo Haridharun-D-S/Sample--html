@@ -1,0 +1,306 @@
+@import '../scss/Variables.scss';
+
+.workqueue-tabs {
+    .mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab {
+        flex-grow: 0;
+    }
+
+    .mat-mdc-tab-labels {
+        border-bottom: 2px solid $TabHr;
+    }
+
+    .mat-mdc-tab.mdc-tab {
+        height: 51px;
+        border: 1px solid $Partition_Line;
+        border-bottom: none;
+        font-size: 17px;
+        font-weight: 400;
+        background-color: $Tab-Inactive-Background;
+        border-radius: 8px 8px 0px 0px;
+
+        .mdc-tab__text-label {
+            color: $Tab_Inactive_Texts;
+            letter-spacing: 0px;
+        }
+
+        .tab-badge {
+            background-color: $Transparent;
+            border: 1px solid $Tab_Inactive_Texts;
+            color: $Tab_Inactive_Texts;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 0px 8px 0px 8px;
+            border-radius: 14px;
+            margin-right: 8px;
+            height: 22px;
+            align-items: center;
+            display: flex;
+            line-height: normal;
+        }
+    }
+
+    .mat-mdc-tab:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline,
+    .mat-mdc-tab-link:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline {
+        display: none;
+    }
+
+    .mdc-tab--active.mdc-tab-indicator--active {
+        height: 51px;
+        border: 1px solid $Filter_Active;
+        border-bottom: none;
+        font-weight: 700;
+        background-color: $Tab-Active-Background;
+
+        .mdc-tab__text-label {
+            color: $Tab_Active_Texts !important;
+        }
+
+        .tab-badge {
+            background-color: $Tab_Active_Texts;
+            border: none;
+            color: $White;
+            font-weight: 600;
+        }
+    }
+}
+
+.task-tabs {
+    .mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab {
+        flex-grow: 0;
+    }
+
+    .mat-mdc-tab-labels {
+        border-bottom: 2px solid $TabHr;
+    }
+
+    .mat-mdc-tab:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline,
+    .mat-mdc-tab-link:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline {
+        display: none;
+    }
+
+    .task-tab-height{
+        height: 91vh;
+    }
+
+    .mat-mdc-tab-label-container{
+        overflow: visible !important;
+        z-index: 2;
+    }
+
+    .mat-mdc-tab-header{
+        overflow: visible !important;
+    }
+
+    .mat-mdc-tab.mdc-tab {
+        height: 48px;
+        border: 1px solid $Partition_Line;
+        border-bottom: none;
+        font-size: 17px;
+        font-weight: 400;
+        background-color: $Tab-Inactive-Background;
+        border-radius: 8px 8px 0px 0px;
+        padding: 0 18px;
+
+        .tab-container {
+            display: flex;
+            gap: 35px;
+            color: $Tab_Inactive_Texts;
+            justify-content: space-between;
+            align-items: center;
+
+            .tab-header {
+                display: flex;
+                flex-direction: column;
+                padding-top: 0px;
+
+                .tab-title {
+                    display: flex;
+                    gap: 11px;
+
+                    label {
+                        flex-grow: 1;
+                        margin: 0px;
+                        font-size: 16px;
+                        font-weight: 400;
+                        letter-spacing: 0px;
+                    }
+
+                    .tab-badge-info {
+                        border: 1px solid $Tab_Inactive_Texts;
+                        background-color: $Transparent;
+                        height: 18px;
+                        width: 18px;
+                        border-radius: 50%;
+                        text-align: center;
+                        margin-top: 0px;
+
+                        .tab-badge-info-icon {
+                            fill: $Tab_Inactive_Texts;
+                            height: 11px;
+                            width: 11px;
+                            vertical-align: top;
+                            margin-top: 2px;
+                        }
+                    }
+
+                    &.tab-title-case{
+                        label{
+                            padding: 0px 33px;
+                        }
+                    }
+                }
+
+                .tab-keyvalue {
+                    display: flex;
+                    margin-top: 8px;
+                    gap: 7px;
+                    font-size: 12px;
+                    white-space: nowrap;
+                    letter-spacing: 0px;
+                    b{
+                        font-weight: 600;
+                    }
+                }
+            }
+
+            .tab-user-info {
+                border: 1px solid $Tab_Inactive_Texts;
+                background-color: $Transparent;
+                height: 29px;
+                width: 29px;
+                color: $Tab_Inactive_Texts;
+                font-size: 15px;
+                font-weight: 600;
+                border-radius: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                letter-spacing: 0px;
+
+                .tab-user-info-tick {
+                    position: absolute;
+                    margin-top: 23px;
+                    margin-left: 24px;
+
+                    .notstarted.fas,
+                    .notstarted.fa {
+                        color: $Tab_Inactive_Texts;
+                        font-size: 14px;
+                    }
+
+                    .inprogress.fa,
+                    .inprogress.fas {
+                        font-size: 14px;
+                        color: $Dashboard_Info_Icon;
+                    }
+
+                    .completed.fa,
+                    .completed.fas {
+                        font-size: 14px;
+                        color: $Tab_Completed_Icon;
+                    }
+                }
+            }
+        }
+    }
+
+    .mdc-tab--active.mdc-tab-indicator--active {
+        height: 48px;
+        border: 1px solid $Filter_Active;
+        border-bottom: none;
+        background-color: $Tab_Task-Active-Background;
+        color: $TabHr;
+
+        .tab-container {
+            color: $Tab_Active_Texts;
+
+            .tab-header {
+                .tab-title {
+                    label {
+                        font-weight: 700;
+                    }
+
+                    .tab-badge-info {
+                        border: 1px solid $Primary;
+                        background-color: $Primary;
+                        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+
+                        .tab-badge-info-icon {
+                            fill: $White;
+                        }
+                    }
+
+                    &.tab-title-case{
+                        label{
+                            padding: 0px 33px;
+                        }
+                    }
+                }
+            }
+
+            .tab-user-info {
+                border: 1px solid $Tab_Active_Texts;
+                background-color: $Tab_Task_User_Info_Background;
+                color: $Tab_Active_Texts;
+
+                .tab-user-info-tick {
+
+                    .notstarted.fas,
+                    .notstarted.fa {
+                        color: $Tab_Inactive_Texts;
+                    }
+
+                    .inprogress.fa,
+                    .inprogress.fas {
+                        color: $Dashboard_Info_Icon;
+                    }
+
+                    .completed.fa,
+                    .completed.fas {
+                        color: $Tab_Completed_Icon;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.mat-mdc-tab-header{
+    --mat-tab-header-label-text-font: $Font_Family;
+}
+
+.mat-mdc-tab.mat-mdc-tab-disabled {
+    pointer-events: auto !important;
+    cursor: not-allowed;
+}
+
+.mat-mdc-tab-header-pagination-controls-enabled .mat-mdc-tab-header-pagination {
+    border-bottom: 2px solid $TabHr;
+}
+
+.mdc-tab__text-label{
+    max-width: 162px !important;
+    white-space: normal !important;
+}
+
+.workqueue-tabs .mat-mdc-tab-labels{
+        width: max-content !important;
+}
+
+
+.mat-mdc-tab-header-rtl .mat-mdc-tab-header-pagination-before, .mat-mdc-tab-header-pagination-after {
+    padding-right: 0 !important;
+}
+
+.mdc-tab{
+    padding-right: 23px !important;
+    padding-left: 23px !important;
+}
+
+.mat-mdc-tab{
+    padding: 0px 10px !important;
+}
+
+// .mat-mdc-tab-list{
+//     left: -11px !important;
+// }

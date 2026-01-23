@@ -1,0 +1,50 @@
+
+export class GeneralGridSettings {
+    // sortingOption?: any;
+    // filteringOption?: any;
+    // floatingOption?: boolean;
+    // rowSelectionOption?: any;
+    // exportOption?: any;
+    // searchOption?: any;
+    // columnOrderingOption?: any;
+    // columnSelectionOption?: any;
+    // ---------------
+    class?: string = 'ecare-data-grid';
+    id: string;
+    enableSorting?: boolean = false;
+    enableFilter?: boolean = false;
+    enableRowSelection?: boolean = false;
+    apiUrl?: string;
+    apiRequest?;
+    apiMethod?: string;
+    gridFeatures?;
+    columns?;
+    staticColumns?: boolean;
+    actionColumns?: Array<object>;
+    linkableField?: string;
+    checklocaljson?: boolean;
+    localjson?;
+    gridname?;
+    sidebar?;
+    exceloption?;
+    pagination?: boolean = false;
+    floatingFilter: boolean;
+    colWidth?;
+    rowSelection?;
+    rowModelType?: string;
+    floatingOption?: boolean;
+    viewFloatingOption?: boolean = false;
+    deleteFloatingOption?: boolean = false;
+    updateFloatingOption?: boolean = false;
+    initiateFloatingOption?: boolean = false;
+    infoFloatingOption?: boolean = false;
+    saveFloatingOption?: boolean = false;
+    exportToExcel?: boolean;
+    iconColumn?;
+    checkboxSelectionField?;
+    checkboxSelectionData?;
+    enablecustomTooltip?: boolean;
+    rowHeight?;
+    floatingIconArray?;
+    gridAddData?;
+  }

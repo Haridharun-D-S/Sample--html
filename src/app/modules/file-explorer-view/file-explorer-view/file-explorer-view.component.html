@@ -1,0 +1,107 @@
+
+<div class="row m-0 pdf-thumb">
+    <div class="col p-0 pdf-normal-project-view">
+        <div class="card-body-panel pdf-viewer">
+            <!-- <div class="drag-knob"></div> -->
+            <div class="row m-0">
+                <div *ngIf="!showWordViewer" class="col-12 p-0 pdf-viewer-toolbar-container">
+                    <div class="col-12 pdf-viewer-toolbar">
+                        <label class="pdf-name ps-0">{{fileName}}</label>
+                        <!-- Pdf icon starts -->
+                        <span class="col p-0 pdf-icon-container">
+                            <span class="pdf-icon-space">
+                            <span class="pdf-icon" title="Page up" (click)="previous('FileExplorerIconClick')">
+                                <i class="uil uil-arrow-circle-up"></i>
+                            </span>
+                            <span class="pdf-icon" title="Page down" (click)="Next('FileExplorerIconClick')">
+                                <i class="uil uil-arrow-circle-down"></i>
+                            </span>
+                            </span>
+                            <span class="pdf-pages">
+                                <!-- <label class="page-input">{{ pagevariableView }}</label> -->
+                                <span class="inputBox">
+                                    <input type="text" class="input-enter" [value]="pagevariableView"
+                                    (change)="changePageinput($any($event.target).value)">
+                                  </span>
+                                <label class="total-pages">/ {{totalPages}}</label>
+                            </span>
+                            <span class="pdf-icon-space">
+                            <span class="pdf-icon" title="Zoom Out" (click)="zoomout()">
+                                <i class="uil uil-minus-circle"></i>
+                            </span>
+                            <span class="pdf-icon" title="Zoom in" (click)="zoomin()">
+                                <i class="uil uil-plus-circle"></i>
+                            </span>
+                            </span>
+                            <span class="pdf-icon" title="Rotate Clockwise" (click)="clockwiseRotation()">
+                                <svg width="26" height="26" viewBox="0 0 26 26" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M14.8086 3.58875C14.183 3.58875 13.5558 3.82519 13.0837 4.29807L4.29814 13.0844C3.84414 13.5431 3.58948 14.1624 3.58948 14.8078C3.58948 15.4531 3.84414 16.0724 4.29814 16.5311L9.46889 21.7018C9.92756 22.1558 10.5468 22.4105 11.1922 22.4105C11.8376 22.4105 12.4569 22.1558 12.9155 21.7018L21.7019 12.9163C22.156 12.4573 22.4107 11.8378 22.4107 11.1921C22.4107 10.5465 22.156 9.92694 21.7019 9.468L16.532 4.29807C16.3056 4.07236 16.0369 3.89353 15.7414 3.77181C15.4458 3.6501 15.1283 3.58789 14.8086 3.58875ZM14.8086 5.20075C15.0142 5.20075 15.219 5.282 15.3831 5.44694L20.553 10.6169C20.6308 10.6909 20.6928 10.7801 20.7352 10.8788C20.7775 10.9776 20.7993 11.0839 20.7993 11.1913C20.7993 11.2988 20.7775 11.4051 20.7352 11.5038C20.6928 11.6026 20.6308 11.6917 20.553 11.7658L19.9786 12.3402L13.6598 6.02138L14.2342 5.44694C14.3089 5.36991 14.3981 5.30848 14.4967 5.26622C14.5953 5.22396 14.7014 5.20171 14.8086 5.20075ZM12.5109 7.17025L18.8297 13.4891L13.49 18.8296L7.17114 12.51L12.5109 7.17025ZM6.02227 13.6581L12.3411 19.9777L11.7666 20.5521C11.6926 20.63 11.6035 20.6919 11.5047 20.7343C11.406 20.7766 11.2996 20.7984 11.1922 20.7984C11.0848 20.7984 10.9784 20.7766 10.8797 20.7343C10.7809 20.6919 10.6918 20.63 10.6178 20.5521L5.44783 15.3814C5.37 15.3073 5.30803 15.2182 5.26569 15.1194C5.22335 15.0207 5.20152 14.9144 5.20152 14.8069C5.20152 14.6995 5.22335 14.5932 5.26569 14.4944C5.30803 14.3957 5.37 14.3066 5.44783 14.2325L6.02227 13.6581Z"
+                                        fill="#7D7D7D" />
+                                    <path
+                                        d="M23.3862 13.8255C23.1993 13.8365 23.0219 13.9118 22.8841 14.0385C22.7463 14.1652 22.6564 14.3357 22.6298 14.521C22.3089 16.5583 21.3499 18.4413 19.8909 19.899C18.4319 21.3566 16.5481 22.3139 14.5105 22.633C14.4051 22.6495 14.3039 22.6867 14.2129 22.7423C14.1218 22.7979 14.0426 22.8709 13.9797 22.9572C13.9169 23.0434 13.8717 23.1412 13.8466 23.2449C13.8215 23.3486 13.8171 23.4563 13.8337 23.5617C13.8502 23.6671 13.8874 23.7682 13.943 23.8593C13.9986 23.9504 14.0716 24.0296 14.1578 24.0924C14.2441 24.1553 14.3419 24.2005 14.4456 24.2256C14.5493 24.2507 14.6569 24.255 14.7624 24.2385C17.1389 23.8645 19.3359 22.7471 21.038 21.0468C22.74 19.3465 23.8596 17.1507 24.2361 14.7745C24.2569 14.6538 24.2502 14.5299 24.2163 14.4121C24.1825 14.2943 24.1224 14.1858 24.0407 14.0945C23.9589 14.0032 23.8576 13.9316 23.7443 13.885C23.6309 13.8384 23.5085 13.8181 23.3862 13.8255ZM11.241 1.75988C8.86501 2.13436 6.66876 3.25195 4.96744 4.95225C3.26612 6.65255 2.14721 8.84813 1.7713 11.2239C1.56168 12.3232 3.23624 12.5881 3.37599 11.4782C3.6966 9.44082 4.65534 7.5577 6.11422 6.09984C7.5731 4.64198 9.45689 3.68457 11.4945 3.36538C12.5889 3.13707 12.2745 1.62257 11.2426 1.75988H11.241Z"
+                                        fill="#7D7D7D" />
+                                </svg>
+                            </span>
+                            <span class="pdf-search pdf-icon-space" *ngIf="viewPath == 'recordListing'">
+                                <input class="pdf-search-inp" [(ngModel)]="selectedRecordDetails.tor" readonly>
+                                <span class="pdf-icon" title="" (click)="previousTor()">
+                                    <i class="uil uil-arrow-circle-left"></i>
+                                </span>
+                                <span class="pdf-icon" title="" (click)="nextTor()">
+                                    <i class="uil uil-arrow-circle-right"></i>
+                                </span>
+                                <span class="pdf-nav-pages">
+                                    <label class="pdf-nav-pages-values">{{torArrayIndex+1}}/{{torPageDetails.length}}</label>
+                                </span>
+                            </span>
+                        </span>
+                        <!-- Pdf icon ends -->
+                    </div>
+                </div>
+
+                <!-- PDF Viewer Starts -->
+                <div
+                    [ngClass]="(showthumbnail && showcontrols)? 'center-content-both': (showthumbnail)?'center-content-left':(showcontrols)? 'center-content-right' : 'center-content-non'">
+                    <div [ngClass]="(!showWordViewer && !showJsonViewer)? 'col textLayer grey-bg' : 'grey-non'"  attr.id="{{idPath}}">
+                        <div class="pdfContainer container" *ngIf="!showWordViewer && !showJsonViewer">
+                            <div class="height-fullview" *ngIf="showPDFViewer">
+                                <pinch-zoom class="height-fullview" [id]="namepinch" [wheel]="false" backgroundColor="light grey">
+                                    <pdf-viewer [id]="idPath" [src]="pdfSrcView" [(page)]="pagevariable" [original-size]="false"
+                                        style="width: 100%; height: 100vh;" [stick-to-page]="enablSticktopage"
+                                        [show-all]="enableScroll" [rotation]="rotationval" [zoom]="zoomval"
+                                        class="img-responsive pdf-viewer-cont" (after-load-complete)="afterLoadComplete($event)" (error)="onError($event)" (page-rendered)="pageRendered($event)">
+                                    </pdf-viewer>
+                                </pinch-zoom>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- PDF Viewer Ends -->
+
+
+                <!-- Word Viewer Starts -->
+                <div *ngIf="showWordViewer">
+                    <div [ngClass]="(showWordViewer)? 'grey-non' : 'grey-bg'">
+                        <ngx-doc-viewer style="height: 80vh ;width: 48vw" class="worddoc" [url]="wordDoc"
+                            viewer="office">
+                        </ngx-doc-viewer>
+                    </div>
+                </div>
+                <!-- Word Viewer Ends -->
+
+                <!-- JSON Viewer Starts -->
+                <div *ngIf="showJsonViewer" class="json-brd1">
+                    <div [ngClass]="(showJsonViewer)? '' : 'grey-bg'">
+                        <ngx-json-viewer [json]="JsonValue"></ngx-json-viewer>
+                    </div>
+                </div>
+                <!-- JSON Viewer Ends -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showFileExplorerloader" [ngClass]="showFileExplorerloader ? 'loader-overlay1 text-center' : 'load-loading'">
+</div>

@@ -1,0 +1,1785 @@
+
+<app-header-apps></app-header-apps>
+<div (mouseenter)="toggleSideMenu($event);">
+  <div class="col p-0">
+    <div class="row m-0" *ngIf="!hideBreadcrum">
+      <ol class="breadcrumb mb-0 disp-flex">
+        <li *ngIf="pageType != 'insights'" class="breadcrumb-parent-label">File List</li>
+        <li *ngIf="pageType == 'insights'" class="breadcrumb-parent-label ps-2">Insights</li>
+        <li class="breadcrumb-separator"><i class="fas fa-angle-right"></i></li>
+        <li *ngIf="pageType != 'insights'" class="breadcrumb-child-label">File List</li>
+        <li *ngIf="pageType == 'insights'" class="breadcrumb-child-label">Insights</li>
+      </ol>
+    </div>
+    <!-- Breadcrumb ends -->
+    <div class="row m-0 col-12">
+    <!-- Dashboard accordion starts -->
+    <div class="col-12 p-0 accordion-dashboard" *ngIf="pageType != 'insights'">
+      <!-- Accordion Navigation Starts -->
+      <div [ngClass]="toggleAccord1 === true ? 'dashboard-nav-btn-left' : 'dashborad-nav-btn-none'">
+        <button *ngIf="indexStart > 0" (click)="previousChart()"><i class="fas fa-angle-left"></i></button>
+      </div>
+      <div [ngClass]="toggleAccord1 === true ? 'dashboard-nav-btn-right' : 'dashborad-nav-btn-none'">
+        <button *ngIf="indexStart + 2 < dashboardItems.length" (click)="nextChart()"><i class="fas fa-angle-right"></i></button>
+      </div>
+      <!-- Accordion Navigation Ends -->
+      <!-- Accordion Header Starts -->
+      <button *ngIf="!displayAnalyzer && !isShowbase && !displayProfiler && !showSecondAccordionProfiler"
+        class="row m-0 accordion-header" (click)="this.toggleAccord1 = !this.toggleAccord1">
+        <h6 class="col-11 p-0" *ngIf="!hideIcons">
+          <svg class="dashboard-icon" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M31.2633 20.8421V25.5789C31.2633 25.7216 31.3661 26.4254 31.2633 26.5263C31.1605 26.6272 30.4613 26.5263 30.3159 26.5263H23.6844C22.9601 26.5102 22.9663 25.5922 23.6844 25.5789H30.3159V21.7895H28.4212C27.6951 21.7748 27.705 20.8539 28.4212 20.8421H30.3159C30.1995 18.1303 29.3163 15.2871 27.4738 13.2631L25.5791 14.2105C25.0602 14.7076 25.0851 14.7205 25.5791 14.2105L26.5265 12.3158C24.5723 10.5321 21.7659 9.60423 18.9475 9.47367V11.3684C18.9475 11.5111 19.0503 11.2675 18.9475 11.3684C18.8447 11.4693 19.0929 11.3684 18.9475 11.3684C18.8021 11.3684 18.1029 11.4693 18.0001 11.3684C17.8974 11.2675 18.0001 11.5111 18.0001 11.3684V9.47367C15.1818 9.60423 12.3754 10.5321 10.4212 12.3158L11.3686 14.2105C11.8673 14.7256 11.8798 14.7051 11.3686 14.2105L9.47383 13.2631C7.63116 15.287 6.74794 18.1302 6.63172 20.8421H8.52646C9.25142 20.8546 9.24265 21.7787 8.52646 21.7895H6.63172V25.5789H14.2107C14.932 25.5886 14.9294 26.5166 14.2107 26.5263H6.63172C6.48636 26.5263 5.78715 26.6272 5.68436 26.5263C5.58157 26.4254 5.68436 25.7216 5.68436 25.5789V20.8421C5.67961 13.8713 10.8887 8.53312 18.0001 8.52631C25.1124 8.53312 31.2681 13.8713 31.2633 20.8421ZM19.8949 21.7895C21.3623 23.1962 21.0124 26.565 18.9475 26.5263C16.1778 26.4922 15.3258 22.4548 18.0001 21.7895V17.0526C17.8974 17.1535 18.0001 16.9099 18.0001 17.0526C18.1029 16.9517 18.8021 17.0526 18.9475 17.0526C18.8447 16.9517 19.0929 17.0526 18.9475 17.0526C18.9475 16.9099 19.0503 17.1535 18.9475 17.0526V21.7895C19.3726 21.8895 19.5889 21.4831 19.8949 21.7895ZM18.9475 22.7368C17.7176 21.6031 16.8605 23.4451 18.0001 24.6316C19.2268 25.7822 20.0857 23.9169 18.9475 22.7368Z" fill="#005EA2"/>
+          </svg> 
+          {{workQueueType == 'By Batch' ? 'Batch Dashboard' : 'File Dashboard' }}
+        </h6>
+        <span class="col-1 text-end"><i
+            [ngClass]="toggleAccord1 === true ? 'fas fa-minus collapse-icon' : 'fas fa-plus collapse-icon'"></i></span>
+      </button>
+      <!-- Accordion Header Ends -->
+      <!-- Accordion content starts -->
+      <div [ngClass]="toggleAccord1 === true ? 'col-12 accordion-content' : 'col-12 accordion-content-none'"
+        class="row m-0" style="flex-wrap: nowrap;" *ngIf="!displayAnalyzer && !isShowbase && !displayProfiler && !showSecondAccordionProfiler"
+        cdkDropList (cdkDropListDropped)="drop($event)">
+        <ng-template ngFor let-i="index" let-dashboardItem [ngForOf]="dashboardItems" >
+          <div class="p-0 mb-2" *ngIf="i >= indexStart && i < indexStart + 2" cdkDrag init-widget [ngClass]="{
+              'col-lg-12 col-md-12 col-sm-12 dl-12': dashboardItem.size === '12',
+              'col-lg-11 col-md-11 col-sm-11': dashboardItem.size === '11',
+              'col-lg-10 col-md-10 col-sm-10': dashboardItem.size === '10',
+              'col-lg-9 col-md-9 col-sm-9': dashboardItem.size === '9',
+              'col-lg-8 col-md-8 col-sm-8 dl-8': dashboardItem.size === '8',
+              'col-lg-7 col-md-7 col-sm-7': dashboardItem.size === '7',
+              'col-lg-6 col-md-6 col-sm-6 dl-6': dashboardItem.size === '6',
+              'col-lg-5 col-md-5 col-sm-5': dashboardItem.size === '5',
+              'col-lg-4 col-md-4 col-sm-4 dl-4': dashboardItem.size === '4',
+              'col-lg-3 col-md-3 col-sm-3': dashboardItem.size === '3'
+            }" [widget]="dashboardItem" [refreshData]="dashboardItem.refresh"
+            (loadWidget)="setWidgetData($event, dashboardItem, 'dashboard')">
+            <!-- New Dashboard HTML Starts -->
+            <app-widget *ngIf="!dashboardItem.refresh"
+            [ChartDetails] = "dashboardItem"
+            [widgetConfiguration]="dashboardItem?.data?.widgetInfo"
+            [events]="widgetEvent.asObservable()" (getbaseWidget)="baseWidget($event)"
+            (refreshBaseWidget)="OnDemandRefreshFromWidget($event)"
+            (widgetEvent)="handleWidgetEvent($event,'dashboard',dashboardItem.data.chartDetail.Information,dashboardItem)"></app-widget>
+            <!-- New Dashboard HTML Ends -->
+            <div class="template1 dashboard" (mouseenter)='hoverIn(i)' (mouseleave)="hoverOut(i)" style="display: none;">
+              <div class="chart-holder">
+                <div class="card-body cb">
+                  <div class="card-content">
+                    <div class="col pad-rgt cb1">
+                      <div class="col lab-text-nova lt text-left page-header page-header-1 pad-rgt pb-1 dis-fl">
+                        <label class="control-label dash-lab-sm-wid" title="{{dashboardItem.widgetTitle}}">
+                          <span><i class="fa fa-dashboard"></i></span>&nbsp; {{dashboardItem.widgetTitle}}
+                          &nbsp;
+                        </label>
+                        <span class="icon-rep" title="For Me" *ngIf="dashboardItem?.SelfAccessFlag === 'Y'">
+                          <i class="fa fa-user"></i>
+                        </span>
+                        <span class="icon-rep everyone" title="For Everyone"
+                          *ngIf="dashboardItem?.SelfAccessFlag === 'N'">
+                          <i class="fa fa-users"></i>
+                        </span>
+                        <!---DASHBOARD CONTROLLS STARTS-->
+                        <div style="display: none;" *ngIf="hoverIconControls === i"
+                          class="hover-controls-bar hover-controls-bar-2 place-tr filters">
+                          <ul class="controls-list controls-list-1 place-r">
+                            <li class="example-handle" title="Drag & Drop" cdkDragHandle>
+                              <span><i class="fa fa-arrows"></i></span>
+                            </li>
+                            <li (click)="onWidgetControlClicked(dashboardItem, 'maximize',dashboardItems)"
+                              title="Resize Increase" class="card-resize-inc visible-lg-inline-block">
+                              <span><i class="fa fa-expand"></i></span>
+                            </li>
+                            <li (click)="onWidgetControlClicked(dashboardItem, 'minimize',dashboardItems)"
+                              title="Resize Decrease" class="card-resize-dec visible-lg-inline-block">
+                              <span><i class="fa fa-compress"></i></span>
+                            </li>
+                            <li (click)="onWidgetControlClicked(dashboardItem, 'collapse',dashboardItems)"
+                              title="Collapse" class="card-minimize">
+                              <span><i class="fa fa-minus"></i></span>
+                            </li>
+                            <li data-toggle="modal" (click)="onWidgetControlClicked1(dashboardItem)"
+                              data-target="#close" title="Close" class="card-close" >
+                              <span><i class="fa fa-close"></i></span>
+                            </li>
+                            <li class="card-fullview-overlay" title="Full view Overlay">
+                              <span><i class="fa fa-external-link" ></i></span>
+                            </li>
+                          </ul>
+                        </div>
+                        <!---DASHBOARD CONTROLLS ENDS-->
+                        <!---NEW DASHBOARD CONTROLLS STARTS-->
+                        <div class="col pl-0 dash-controls dis-fl">
+                          <a class="dash-controls-icons dis-fl">
+                            <span class="show-controls" title="More"><i class="fa fa-angle-left fn-bld"></i></span>
+                            <span class="hide-controls" title="Less"><i class="fa fa-angle-right fn-bld"></i></span>
+                            <span class="dash-controls-icons-hover">
+                              <ul>
+                                <li (click)="onWidgetControlClicked(dashboardItem, 'maximize',dashboardItems)"
+                                  title="Increase Width">
+                                  <span><i class="fa fa-expand"></i></span>
+                                </li>
+                                <li (click)="onWidgetControlClicked(dashboardItem, 'minimize',dashboardItems)"
+                                  title="Decrease Width">
+                                  <span><i class="fa fa-compress"></i></span>
+                                </li>
+                                <li (click)="onWidgetControlClicked(dashboardItem, 'collapse',dashboardItems)"
+                                  title="Collapse">
+                                  <span><i class="fa fa-minus"></i></span>
+                                </li>
+                                <li data-toggle="modal" (click)="onWidgetControlClicked1(dashboardItem)"
+                                  data-target="#close" title="Close" >
+                                  <span><i class="fa fa-close"></i></span>
+                                </li>
+                              </ul>
+                            </span>
+                          </a>
+                          <a class="dash-controls-icons-nt">
+                            <span class="example-handle" title="Drag & Drop" cdkDragHandle>
+                              <i class="fa fa-arrows"></i>
+                            </span>
+                          </a>
+                          <a class="dash-controls-icons-nt">
+                            <span title="Full View Widget"><i class="fa fa-external-link fn-bld"
+                                (click)="showPoputWidget(dashboardItem)"></i></span>
+                          </a>
+                        </div>
+                        <!---NEW DASHBOARD CONTROLLS ENDS-->
+                      </div>
+                    </div>
+                    <hr class="hr-nova">
+                    <div
+                      [ngClass]="hideDashboardWidget === true ? 'col row card-detail hgt-auto pad-rgt-rmv' : 'col row card-detail pad-rgt-rmv'"
+                      *ngIf="dashboardItem['data'] && dashboardItem.data.isCompleted;else loadingTemplate">
+                      <div class="col-12 pad-rgt-rmv" *ngIf="dashboardItem.data.isSuccess && dashboardItem.isVisible">
+                        <!----CHART SWAPING & DATE DROPDOWN BUTTON HOLDER STARTS-->
+                        <article class="margin-b-0 ">
+                          <div style="display: inline-flex;"
+                            [style.display]="dashboardItem.disableToolBar ? 'none' : 'inline-flex'"
+                            class="col btn-toolbar toolbar-h text-left edge pad-lft pad-rgt-rmv" role="toolbar">
+                            <div class="col"
+                              *ngFor="let entryInput of dashboardItem.data.chartDetail?.container?.inputs"
+                              class="col default res-padding-0-lg dat-drp filter-align pad-rgt-rmv pad-col-4"
+                              [ngClass]="(dashboardItem.ChartTemplateId === 37 || dashboardItem.ChartTemplateId === 45) ? 'network-col-8' : ''">
+
+                              <span
+                                *ngIf="dashboardItem.data.chartDetail?.container?.inputs[0].values.length > 0&&!hideIcons && dashboardItem.Load_Data_Flag === 'Y'">
+                                <i *ngIf="entryInput.label ==='Date Range'" class="fa fa-calendar-check-o"></i>
+                                <i *ngIf="entryInput.label ==='Org Id'" class="fa fa-sitemap"></i>
+                                <span class="org-col-4 mr-0 ng-binding" *ngIf="!hideIcons">
+                                  <span class="dis">&nbsp;Time:</span>
+                                  &nbsp; <select class="ng-pristine ng-untouched ng-valid ng-not-empty"
+                                    (change)="refreshChartData(dashboardItem,entryInput.label,entryInput.values,$event.target)">
+                                    <option *ngFor="let value of entryInput?.values;let i=index"
+                                      [value]="value?.timeLimit"
+                                      [selected]="dashboardItem.selected ? value.id == dashboardItem.selected : i==0">
+                                      {{value.timeLimit}}
+                                    </option>
+                                  </select>
+                                </span>
+                                <span class="org-col-4 ng-binding" style="padding-left: 5px;">
+                                  <span class="dis la-4"><i class="fa fa-sitemap"></i>&nbsp; Org:</span>
+                                  <span class="dis la-res"><i class="fa fa-sitemap"></i>&nbsp; Organization:</span>
+                                  &nbsp; <select class="ng-pristine ng-untouched ng-valid ng-not-empty"
+                                    (change)="refreshChartData(dashboardItem,'org',entryInput.orgs,$event.target)">
+                                    <option *ngFor="let value of entryInput?.orgs;let i=index" [value]="value?.orgid"
+                                      [selected]="dashboardItem.selectedOrg ? value.orgid == dashboardItem.selectedOrg : i==0">
+                                      {{value.orgname}}
+                                    </option>
+                                  </select>
+                                </span>
+                              </span>
+                            </div>
+                            <!-- Range Slider starts -->
+                            <div class="col-5 pl-0 rn-sl net-slider-8"
+                              *ngIf="(dashboardItem.ChartTemplateId === 37 || dashboardItem.ChartTemplateId === 45) && dashboardItem.Load_Data_Flag === 'Y'">
+                            </div>
+                            <!-- Range Slider ends -->
+                            <!-- Change Toggle For Measure Chart Starts -->
+                            <div class="col-1 text-right p-0"
+                              *ngIf="(dashboardItem.ChartTemplateId === 7 || dashboardItem.ChartTemplateId === 6)  && dashboardItem.Load_Data_Flag === 'Y'"
+                              style="padding-top: 2px !important;">
+                              <button class="btn btn-chart-more">
+                                <i class="far fa-clone" #changeChartType
+                                  (click)="showChangeToggle(dashboardItem);changeChartTypeTouch(dashboardItem)"></i>
+                              </button>
+                            </div>
+                            <div
+                              *ngIf="(dashboardItem.ChartTemplateId === 7 || dashboardItem.ChartTemplateId === 6) && dashboardItem.showToggle"
+                              [ngClass]="dashboardItem.showToggle === 'true' ? 'charticon-none' : 'charticon-show'">
+                              <div class="chart-dropdown">
+                                <div class="row m-0 col-12 p-0 text-left">
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possiblepiechartactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Pie Chart" (click)="changeChart(dashboardItem, 'pie')"><i
+                                        class="fa fa-pie-chart"></i></button>
+                                  </span>
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possiblebar1chartactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Bar Chart" (click)="changeChart(dashboardItem, 'bar')"><i
+                                        class="fa fa-bar-chart"></i></button>
+                                  </span>
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possiblescatterchartactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Scatter Chart" (click)="changeChart(dashboardItem, 'scatter')"><i
+                                        class="fa fa-try"></i></button>
+                                  </span>
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possiblemeasurebandchartactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Measure Band Chart" (click)="changeChart(dashboardItem, 'MeasureBand')"><i
+                                        class="fa fa-tasks"></i></button>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Change Toggle For Measure Chart Ends -->
+
+                            <!-- Change Toggle For GeoMap Measure Chart Starts -->
+
+                            <div class="col-1 text-right p-0"
+                              *ngIf="(dashboardItem.ChartTemplateId === 40 || dashboardItem.ChartTemplateId === 41)  && dashboardItem.Load_Data_Flag === 'Y'"
+                              style="padding-top: 2px !important;">
+                              <button class="btn btn-chart-more">
+                                <i class="far fa-clone" #changeChartType
+                                  (click)="showChangeToggleGeoMap(dashboardItem);changeChartTypeTouch(dashboardItem)"></i>
+                              </button>
+                            </div>
+
+                            <!-- change Toggle for network chart -->
+                            <div class="col-1 text-right p-0"
+                            *ngIf="dashboardItem.ChartTemplateId === 37 || dashboardItem.ChartTemplateId === 45"
+                            style="padding-top: 2px !important;">
+                            <button class="btn btn-chart-more">
+                              <i class="far fa-clone" #changeChartType
+                                (click)="showChangeToggleNetworkMap(dashboardItem);changeChartTypeTouch(dashboardItem)"></i>
+                            </button>
+                          </div>
+
+                            <div
+                              *ngIf="(dashboardItem.ChartTemplateId === 40 || dashboardItem.ChartTemplateId === 41) && dashboardItem.showToggle"
+                              [ngClass]="dashboardItem.showToggle === 'true' ? 'charticon-none' : 'charticon-show'">
+                              <div class="chart-dropdown">
+                                <div class="row m-0 col-12 p-0 text-left">
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possibledetailedgeomapactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Detailed Geo Map"
+                                      (click)="changeChartGeoMap(dashboardItem, 'High Level Geo Map Chart')"><i
+                                        class="fas fa-map-marked-alt"></i></button>
+                                  </span>
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possiblehighlevelgeomapactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="High Level Geo Map"
+                                      (click)="changeChartGeoMap(dashboardItem, 'Granular Level Geo Map Chart')"><i
+                                        class="fas fa-map"></i></button>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Change Toggle For GeoMap Measure Chart Ends -->
+                            <!-- change Toggle For Network chart -->
+                            <div
+                              *ngIf="(dashboardItem.ChartTemplateId === 37 || dashboardItem.ChartTemplateId === 45)  && dashboardItem.showToggle == true" 
+                              [ngClass]="dashboardItem.showToggle === 'true' ? 'charticon-none' : 'charticon-show'">
+                              <div class="chart-dropdown">
+                                <div class="row m-0 col-12 p-0 text-left">
+                               
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="isHighChartNetwork ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Network"
+                                      (click)="changeChartNetworkMap(dashboardItem, 'network')"><i
+                                      class="fa fa-code-fork"></i></button>
+                                  </span>
+                                  <span class="chart-drop-icon">
+                                    <button
+                                    [ngClass]="!isHighChartNetwork ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                    title="D3 Network"
+                                    (click)="changeChartNetworkMap(dashboardItem, 'd3network')"><i
+                                    class="fa-brands fa-hubspot"></i></button>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Change Toggle For TreeMap Measure Chart Starts -->
+
+                            <div class="col-1 text-right p-0"
+                              *ngIf="(dashboardItem.ChartTemplateId === 42 || dashboardItem.ChartTemplateId === 43)  && dashboardItem.Load_Data_Flag === 'Y'"
+                              style="padding-top: 2px !important;">
+                              <button class="btn btn-chart-more">
+                                <i class="far fa-clone" #changeChartType
+                                  (click)="showChangeToggleTreeMap(dashboardItem);changeChartTypeTouch(dashboardItem)"></i>
+                              </button>
+                            </div>
+
+                            <div
+                              *ngIf="(dashboardItem.ChartTemplateId === 42 || dashboardItem.ChartTemplateId === 43) && dashboardItem.showToggle"
+                              [ngClass]="dashboardItem.showToggle === 'true' ? 'charticon-none' : 'charticon-show'">
+                              <div class="chart-dropdown">
+                                <div class="row m-0 col-12 p-0 text-left">
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possibledetailedtreemapactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Granular Level Tree Map"
+                                      (click)="changeChartTreeMap(dashboardItem, 'Granular Level Tree Map Chart')"><i
+                                        class="fas fa-project-diagram"></i></button>
+                                  </span>
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possiblehighleveltreemapactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="High Level Tree Map"
+                                      (click)="changeChartTreeMap(dashboardItem, 'High Level Tree Map Chart')"><i
+                                        class="fas fa-bezier-curve"></i></button>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Change Toggle For TreeMap Measure Chart Ends -->
+
+                            <!-- Change Toggle For Stacked column Measure Chart Starts -->
+
+                            <div class="col-1 text-right p-0"
+                              *ngIf="(dashboardItem.ChartTemplateId === 31 || dashboardItem.ChartTemplateId === 44)  && dashboardItem.Load_Data_Flag === 'Y'"
+                              style="padding-top: 2px !important;">
+                              <button class="btn btn-chart-more">
+                                <i class="far fa-clone" #changeChartType
+                                  (click)="showChangeToggleStackedChart(dashboardItem);changeChartTypeTouch(dashboardItem)"></i>
+                              </button>
+                            </div>
+
+                            <div
+                              *ngIf="(dashboardItem.ChartTemplateId === 31 || dashboardItem.ChartTemplateId === 44) && dashboardItem.showToggle"
+                              [ngClass]="dashboardItem.showToggle === 'true' ? 'charticon-none' : 'charticon-show'">
+                              <div class="chart-dropdown">
+                                <div class="row m-0 col-12 p-0 text-left">
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possiblestackedcolumnactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Stacked Column"
+                                      (click)="changeStackedChart(dashboardItem, 'Stacked Column')"><i
+                                        class="fa fa-server"></i></button>
+                                  </span>
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possiblegroupedbaractive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Grouped Bar"
+                                      (click)="changeStackedChart(dashboardItem, 'Grouped Bar')"><i
+                                        class="far fa-chart-bar"></i></button>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Change Toggle For Stacked column Measure Chart Ends -->
+
+                            <!-- Change Toggle For Pattern Chart Starts -->
+                            <div class="col-1 text-right p-0"
+                              *ngIf="(dashboardItem.ChartTemplateId === 14 || dashboardItem.ChartTemplateId === 15 || dashboardItem.ChartTemplateId === 16)  && dashboardItem.Load_Data_Flag === 'Y'"
+                              style="padding-top: 2px !important;">
+                              <button class="btn btn-chart-more">
+                                <i class="far fa-clone" #changeChartType
+                                  (click)="showChangeTogglePattern(dashboardItem);changeChartTypeTouch(dashboardItem)"></i>
+                              </button>
+                            </div>
+                            <div
+                              *ngIf="(dashboardItem.ChartTemplateId === 14 || dashboardItem.ChartTemplateId === 15 || dashboardItem.ChartTemplateId === 16)  && dashboardItem.showToggle"
+                              [ngClass]="dashboardItem.showToggle === 'true' ? 'charticon-none' : 'charticon-show'">
+                              <div class="chart-dropdown">
+                                <div class="row m-0 col-12 p-0 text-left">
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possiblebarchartactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Pattern Band Chart" (click)="changeChartViewType(dashboardItem, 'bar')"><i
+                                        class="fa fa-tasks"></i></button>
+                                  </span>
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possibleareachartactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Area Chart" (click)="changeChartViewType(dashboardItem, 'areaspline')"><i
+                                        class="fa fa-area-chart"></i></button>
+                                  </span>
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possiblescatterbandchartactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Scatter Chart" (click)="changeChartViewType(dashboardItem, 'scatter')"><i
+                                        class="fa fa-try"></i></button>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Change Toggle For Pattern Chart Ends -->
+                            <div class="col-lg-12 col-md-12 col-sm-12 info-nova bord-info"
+                              *ngIf="!dashboardItem.plFrmWidgetSave && !dashboardItem.hideInfo&&!hideIcons && dashboardItem.Load_Data_Flag === 'Y'">
+                              <button class="btn btn-sapphire pull-right btn-round info-btn btn-chrt-save"
+                                *ngIf="dashboardItem.ChartTemplateId === 7 || dashboardItem.ChartTemplateId === 6 || dashboardItem.ChartTemplateId === 14 || dashboardItem.ChartTemplateId === 15 || dashboardItem.ChartTemplateId === 16 || 
+                                dashboardItem.ChartTemplateId === 37 || dashboardItem.ChartTemplateId === 45 || dashboardItem.ChartTemplateId === 40 || dashboardItem.ChartTemplateId === 41 || dashboardItem.ChartTemplateId === 42 || dashboardItem.ChartTemplateId === 43 || dashboardItem.ChartTemplateId === 31 || dashboardItem.ChartTemplateId === 44"
+                                [disabled]="!dashboardItem.showSelectedChart" (click)="saveChangeChart(dashboardItem)"
+                                style="right: 30px;">
+                                <i class="fa fa-floppy-o" aria-hidden="true"> </i>
+                              </button>
+                              <button class="btn btn-info-reset mb-0"
+                                *ngIf="(dashboardItem.ChartTemplateId === 37 || dashboardItem.ChartTemplateId === 45) && dashboardItem.showReset === true "
+                                (click)="clearNodeFilter(dashboardItem)" title="Back to Base Chart"
+                                style="right: 30px;">
+                                <i class="fa fa-undo"></i>
+                              </button>
+                              <button
+                                (click)="setDynamicInforContent(dashboardItem.data.chartDetail.Information,'dashboardInfo',dashboardItem.data)"
+                                class="btn btn-info pull-right btn-round info-btn" data-toggle="modal"
+                                data-target="#infoModal" data-backdrop="true">
+                                <i class="fa fa-info" aria-hidden="true"> </i>
+                              </button>
+                            </div>
+                            <!-- </span> -->
+                          </div>
+                          <div class="clearfix"></div>
+
+                          <ng-template [ngIf]="dashboardItem.displayWidget && dashboardItem.Has_Access_Flag === 'N'">
+                            <div class="col con">
+                              <img class="pull-center error-img normal-img"
+                                src="../../../../assets/img/access_denied.png" />
+                              <img class="pull-center error-img collapse4-img"
+                                src="../../../../assets/img/access_denied_4.png" />
+                              <p class="access-den-msg">
+                                <b> We are Sorry… </b>
+                                <br>
+                                The chart you are trying to view has restricted access. Please contact your system
+                                administrator to unlock this chart.
+                              </p>
+                            </div>
+                          </ng-template>
+
+                            <app-widget class="widget-element"
+                              [widgetConfiguration]="dashboardItem.data.widgetInfo"
+                              [events]="widgetEvent.asObservable()" (getbaseWidget)="baseWidget($event)" (sendWidgetChanges) ="chartCompwidgetchanges($event,dashboardItem)"
+                              (widgetEvent)="handleWidgetEvent($event,'dashboard',dashboardItem.data.chartDetail.Information,dashboardItem)">
+                            </app-widget>
+                          
+                          <ng-template
+                            [ngIf]="dashboardItem.displayWidget && dashboardItem.Has_Access_Flag === 'Y' && dashboardItem.Load_Data_Flag === 'N' && !dashboardItem.plFrmWidgetSave ">
+                            <div class="col con">
+                              <p class="text-center centered">Please click to load chart <br>
+                                <button class="btn btn-sapphire"
+                                  (click)="onDemandLoadWidget(dashboardItem, '', '', $event.target)">Load
+                                  Chart</button>
+                              </p>
+                              <img class="pull-center error-img normal-img" src="../../../../assets/img/on_load.png" />
+                              <img class="pull-center error-img collapse4-img"
+                                src="../../../../assets/img/on-load-col4.png" />
+                            </div>
+                          </ng-template>
+
+                          <!-- Sparkline Widget Starts -->
+                          <ng-template
+                            [ngIf]="dashboardItem.showSparkline&& dashboardItem.Has_Access_Flag === 'Y' && dashboardItem.Load_Data_Flag === 'Y'">
+                            <div class="sparklineWrapper">
+                              <div class="row m-0 sparkline-class1" *ngIf="!enableSparklineWidgetLoader">
+                                <div class="col-12 p-0">
+                                  <table id="table-sparkline">
+                                    <thead>
+                                      <tr>
+                                        <ng-container *ngFor="let column of dashboardItem.data.columnProperties">
+                                          <th class="stickyColumnHeader" *ngIf="column['Visibility Flag'] == 'Y'">{{
+                                            column.Label }}</th>
+                                        </ng-container>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="tbody-sparkline">
+                                      <tr *ngFor="let rowItem of dashboardItem.data.GridData">
+                                        <td *ngFor="let key of rowItem.Dimension">{{ key.dimensionalityValue }}
+                                        </td>
+                                        <td style="text-align: right;">{{ rowItem.Current }}</td>
+                                        <td style="text-align: right;">{{ rowItem.Previous }}</td>
+                                        <td style="text-align: right;">{{ rowItem.Spike }}
+                                        </td>
+                                        <td>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                              <!-- Element loader -->
+                              <div class="col-lg-12 col-md-12 col-sm-12" style="height: 100px !important;"
+                                *ngIf="enableSparklineWidgetLoader">
+                                <!-- <app-element-loader></app-element-loader> -->
+                              </div>
+                            </div>
+                          </ng-template>
+                        </article>
+                      </div>
+                      <!----CHART SWAPING & DATE DROPDOWN BUTTON HOLDER ENDS-->
+                      <!-- <hr> -->
+                      <!---CHART CONTENT STARTS-->
+                      <div class="col-12 p-0" *ngIf="!dashboardItem.data.isSuccess">
+                        <article class="margin-b-0 res-padding-2 padding-b-0 ng-scope info-nova">
+
+                          <article class="chat-content context-menu-area margin-b-0">
+                            <!---Context Menu Starts-->
+                            <!----DIV CONTENT-->
+                            <div class="chart-area-nova">
+                              <!-------Blank Content starts ----------->
+                              <div class="col con">
+                                <p class="text-center centered">Unable to load data content in widget contact system
+                                  administrator</p>
+                                <img class="pull-center error-img" src="../../../../assets/img/Error3.png"
+                                  style="height: 308px;max-width: 100%;" />
+                              </div>
+                              <!-------Blank Content ends--------->
+                            </div>
+                            <!----DIV CONTENT-->
+                          </article>
+                        </article>
+                      </div>
+                    </div>
+                    <ng-template #loadingTemplate>
+                      <div [ngClass]="false ? 'loader-overlay text-center' : 'load-loading'"></div>
+                      <div class="col-lg-12 col-md-12 col-sm-12" style="height: 100px !important;">
+                      </div>
+                    </ng-template>
+                    <!----CHART CONTENT ENDS--->
+                    <!---FOOTER DETAILS FOR MEASURES STARTS-->
+                    <article *ngIf="dashboardItem.isVisible&&!hideIcons" class="margin-b-0 foot-art">
+                      <!-- <article [style.visibility]="dashboardItem?.data?.widgetInfo?.data.type === 'pie' && dashboardItem.isVisible ? '' : 'hidden'" class="margin-b-0 foot-art" >                       -->
+                      <!-- <hr> -->
+                      <dl class="dl-3x7 margin-b-0 foot-detail">
+                        <span class="swap padding-tb-0 bgc-grey-100">
+                          <dt class="padding-tb-5 padding-lr-10 fgc-for-light bg-bgc-none overflow-hidden">
+                            <p class="margin-b-0 ng-binding">
+                              <!-- {{dashboardItem.widgetDescription}} -->
+                            </p>
+                          </dt>
+                          <dd class="fgc-for-dark bgc-light-blue-900 bgc-blue-600 border-b-2">
+                            <h5 class="place-cc talign-c-c-c-c pull-justify">
+                            </h5>
+                          </dd>
+                        </span>
+                      </dl>
+
+                    </article>
+                    <!----FOOTER DETAILS FOR MEASURE ENDS-->
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <!-- Accordion ends -->
+
+    <!-- Insights Page Starts -->
+    <div class="p-0" *ngIf="pageType == 'insights'">
+      <div class="col-12 p-0">
+      <label class="col-12 card-without-label">
+        <svg class="margin-top-minus-5" width="25" height="25" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24.3872 22.3622H3.74494C3.62369 22.3622 3.52539 22.4602 3.52539 22.581V23.8613C3.52539 23.9821 3.62369 24.0801 3.74494 24.0801H24.3872C24.5085 24.0801 24.6068 23.9821 24.6068 23.8613V22.581C24.6068 22.4602 24.5085 22.3622 24.3872 22.3622Z" fill="#005EA2"/>
+          <path d="M7.34791 14.8678H4.5135C4.39224 14.8678 4.29395 14.9657 4.29395 15.0865V21.4872C4.29395 21.608 4.39224 21.7059 4.5135 21.7059H7.34791C7.46917 21.7059 7.56747 21.608 7.56747 21.4872V15.0865C7.56747 14.9657 7.46917 14.8678 7.34791 14.8678Z" fill="#005EA2"/>
+          <path d="M12.773 10.7882H9.93635C9.81509 10.7882 9.7168 10.8861 9.7168 11.007V21.4873C9.7168 21.6081 9.81509 21.706 9.93635 21.706H12.773C12.8942 21.706 12.9925 21.6081 12.9925 21.4873V11.007C12.9925 10.8861 12.8942 10.7882 12.773 10.7882Z" fill="#005EA2"/>
+          <path d="M18.1958 12.8291H15.3592C15.2379 12.8291 15.1396 12.927 15.1396 13.0479V21.4872C15.1396 21.608 15.2379 21.706 15.3592 21.706H18.1958C18.3171 21.706 18.4154 21.608 18.4154 21.4872V13.0479C18.4154 12.927 18.3171 12.8291 18.1958 12.8291Z" fill="#005EA2"/>
+          <path d="M23.6189 8.74939H20.7845C20.6632 8.74939 20.5649 8.84733 20.5649 8.96814V21.4872C20.5649 21.608 20.6632 21.706 20.7845 21.706H23.6189C23.7402 21.706 23.8385 21.608 23.8385 21.4872V8.96814C23.8385 8.84733 23.7402 8.74939 23.6189 8.74939Z" fill="#005EA2"/>
+          <path d="M5.79331 13.6079C6.57419 13.6079 7.20722 12.9772 7.20722 12.1992C7.20722 11.4211 6.57419 10.7904 5.79331 10.7904C5.01243 10.7904 4.37939 11.4211 4.37939 12.1992C4.37939 12.9772 5.01243 13.6079 5.79331 13.6079Z" fill="#005EA2"/>
+          <path d="M11.3548 9.37939C12.1357 9.37939 12.7687 8.74867 12.7687 7.97064C12.7687 7.19261 12.1357 6.56189 11.3548 6.56189C10.5739 6.56189 9.94092 7.19261 9.94092 7.97064C9.94092 8.74867 10.5739 9.37939 11.3548 9.37939Z" fill="#005EA2"/>
+          <path d="M16.7777 11.2541C17.5586 11.2541 18.1916 10.6234 18.1916 9.84539C18.1916 9.06736 17.5586 8.43665 16.7777 8.43665C15.9968 8.43665 15.3638 9.06736 15.3638 9.84539C15.3638 10.6234 15.9968 11.2541 16.7777 11.2541Z" fill="#005EA2"/>
+          <path d="M22.2025 7.50036C22.9834 7.50036 23.6164 6.86964 23.6164 6.09161C23.6164 5.31358 22.9834 4.68286 22.2025 4.68286C21.4216 4.68286 20.7886 5.31358 20.7886 6.09161C20.7886 6.86964 21.4216 7.50036 22.2025 7.50036Z" fill="#005EA2"/>
+          <path d="M9.86159 9.39907L7.56508 11.1228C7.44643 10.9342 7.29818 10.7658 7.12598 10.6241L9.47518 8.86095C9.57395 9.05995 9.70445 9.24168 9.86159 9.39907ZM14.9442 8.89376C14.8361 9.09311 14.7619 9.30896 14.7247 9.53251L13.2998 8.67501C13.3789 8.45297 13.4205 8.21937 13.4227 7.98376L14.9442 8.89376ZM20.747 7.55939L18.7095 9.09064C18.629 8.8838 18.5148 8.69163 18.3714 8.52189L20.3474 7.02563C20.4492 7.22487 20.5843 7.40536 20.747 7.55939Z" fill="#005EA2"/>
+          </svg>           
+        Insights
+      </label>
+      </div>
+      <div
+        class="row m-0 insights-charts" *ngIf="!displayAnalyzer && !isShowbase && !displayProfiler && !showSecondAccordionProfiler"
+        cdkDropList (cdkDropListDropped)="drop($event)">
+        <ng-template ngFor let-i="index" let-c="count" let-dashboardItem [ngForOf]="dashboardItems" >
+          <div class="p-0" cdkDrag init-widget [ngClass]="{
+              'col-lg-12 col-md-12 col-sm-12 dl-12': dashboardItem.size === '12',
+              'col-lg-11 col-md-11 col-sm-11': dashboardItem.size === '11',
+              'col-lg-10 col-md-10 col-sm-10': dashboardItem.size === '10',
+              'col-lg-9 col-md-9 col-sm-9': dashboardItem.size === '9',
+              'col-lg-8 col-md-8 col-sm-8 dl-8': dashboardItem.size === '8',
+              'col-lg-7 col-md-7 col-sm-7': dashboardItem.size === '7',
+              'col-lg-6 col-md-6 col-sm-6 dl-6': dashboardItem.size === '6',
+              'col-lg-5 col-md-5 col-sm-5': dashboardItem.size === '5',
+              'col-lg-4 col-md-4 col-sm-4 dl-4': dashboardItem.size === '4',
+              'col-lg-3 col-md-3 col-sm-3': dashboardItem.size === '3'
+            }" [widget]="dashboardItem" [refreshData]="dashboardItem.refresh"
+            (loadWidget)="setWidgetData($event, dashboardItem, 'dashboard')">
+            <!-- New Dashboard HTML Starts -->
+            <app-widget *ngIf="!dashboardItem.refresh"
+            [ChartDetails] = "dashboardItem"
+            [widgetConfiguration]="dashboardItem.data.widgetInfo"
+            [events]="widgetEvent.asObservable()" (getbaseWidget)="baseWidget($event)"
+            (refreshBaseWidget)="OnDemandRefreshFromWidget($event)"
+            (widgetEvent)="handleWidgetEvent($event,'dashboard',dashboardItem.data.chartDetail.Information,dashboardItem)"></app-widget>
+            <!-- New Dashboard HTML Ends -->
+            <div class="template1 dashboard" (mouseenter)='hoverIn(i)' (mouseleave)="hoverOut(i)" style="display: none;">
+              <div class="chart-holder">
+                <div class="card-body cb">
+                  <div class="card-content">
+                    <div class="col pad-rgt cb1">
+                      <div class="col lab-text-nova lt text-left page-header page-header-1 pad-rgt pb-1 dis-fl">
+                        <label class="control-label dash-lab-sm-wid" title="{{dashboardItem.widgetTitle}}">
+                          <span><i class="fa fa-dashboard"></i></span>&nbsp; {{dashboardItem.widgetTitle}}
+                          &nbsp;
+                        </label>
+                        <span class="icon-rep" title="For Me" *ngIf="dashboardItem?.SelfAccessFlag === 'Y'">
+                          <i class="fa fa-user"></i>
+                        </span>
+                        <span class="icon-rep everyone" title="For Everyone"
+                          *ngIf="dashboardItem?.SelfAccessFlag === 'N'">
+                          <i class="fa fa-users"></i>
+                        </span>
+                        <!---DASHBOARD CONTROLLS STARTS-->
+                        <div style="display: none;" *ngIf="hoverIconControls === i"
+                          class="hover-controls-bar hover-controls-bar-2 place-tr filters">
+                          <ul class="controls-list controls-list-1 place-r">
+                            <li class="example-handle" title="Drag & Drop" cdkDragHandle>
+                              <span><i class="fa fa-arrows"></i></span>
+                            </li>
+                            <li (click)="onWidgetControlClicked(dashboardItem, 'maximize',dashboardItems)"
+                              title="Resize Increase" class="card-resize-inc visible-lg-inline-block">
+                              <span><i class="fa fa-expand"></i></span>
+                            </li>
+                            <li (click)="onWidgetControlClicked(dashboardItem, 'minimize',dashboardItems)"
+                              title="Resize Decrease" class="card-resize-dec visible-lg-inline-block">
+                              <span><i class="fa fa-compress"></i></span>
+                            </li>
+                            <li (click)="onWidgetControlClicked(dashboardItem, 'collapse',dashboardItems)"
+                              title="Collapse" class="card-minimize">
+                              <span><i class="fa fa-minus"></i></span>
+                            </li>
+                            <li data-toggle="modal" (click)="onWidgetControlClicked1(dashboardItem)"
+                              data-target="#close" title="Close" class="card-close" >
+                              <span><i class="fa fa-close"></i></span>
+                            </li>
+                            <li class="card-fullview-overlay" title="Full view Overlay">
+                              <span><i class="fa fa-external-link" ></i></span>
+                            </li>
+                          </ul>
+                        </div>
+                        <!---DASHBOARD CONTROLLS ENDS-->
+                        <!---NEW DASHBOARD CONTROLLS STARTS-->
+                        <div class="col pl-0 dash-controls dis-fl">
+                          <a class="dash-controls-icons dis-fl">
+                            <span class="show-controls" title="More"><i class="fa fa-angle-left fn-bld"></i></span>
+                            <span class="hide-controls" title="Less"><i class="fa fa-angle-right fn-bld"></i></span>
+                            <span class="dash-controls-icons-hover">
+                              <ul>
+                                <li (click)="onWidgetControlClicked(dashboardItem, 'maximize',dashboardItems)"
+                                  title="Increase Width">
+                                  <span><i class="fa fa-expand"></i></span>
+                                </li>
+                                <li (click)="onWidgetControlClicked(dashboardItem, 'minimize',dashboardItems)"
+                                  title="Decrease Width">
+                                  <span><i class="fa fa-compress"></i></span>
+                                </li>
+                                <li (click)="onWidgetControlClicked(dashboardItem, 'collapse',dashboardItems)"
+                                  title="Collapse">
+                                  <span><i class="fa fa-minus"></i></span>
+                                </li>
+                                <li data-toggle="modal" (click)="onWidgetControlClicked1(dashboardItem)"
+                                  data-target="#close" title="Close" >
+                                  <span><i class="fa fa-close"></i></span>
+                                </li>
+                              </ul>
+                            </span>
+                          </a>
+                          <a class="dash-controls-icons-nt">
+                            <span class="example-handle" title="Drag & Drop" cdkDragHandle>
+                              <i class="fa fa-arrows"></i>
+                            </span>
+                          </a>
+                          <a class="dash-controls-icons-nt">
+                            <span title="Full View Widget"><i class="fa fa-external-link fn-bld"
+                                (click)="showPoputWidget(dashboardItem)"></i></span>
+                          </a>
+                        </div>
+                        <!---NEW DASHBOARD CONTROLLS ENDS-->
+                      </div>
+                    </div>
+                    <hr class="hr-nova">
+                    <div
+                      [ngClass]="hideDashboardWidget === true ? 'col row card-detail hgt-auto pad-rgt-rmv' : 'col row card-detail pad-rgt-rmv'"
+                      *ngIf="dashboardItem['data'] && dashboardItem.data.isCompleted;else loadingTemplate">
+                      <div class="col-12 pad-rgt-rmv" *ngIf="dashboardItem.data.isSuccess && dashboardItem.isVisible">
+                        <!----CHART SWAPING & DATE DROPDOWN BUTTON HOLDER STARTS-->
+                        <article class="margin-b-0 ">
+                          <div style="display: inline-flex;"
+                            [style.display]="dashboardItem.disableToolBar ? 'none' : 'inline-flex'"
+                            class="col btn-toolbar toolbar-h text-left edge pad-lft pad-rgt-rmv" role="toolbar">
+                            <div class="col"
+                              *ngFor="let entryInput of dashboardItem.data.chartDetail?.container?.inputs"
+                              class="col default res-padding-0-lg dat-drp filter-align pad-rgt-rmv pad-col-4"
+                              [ngClass]="(dashboardItem.ChartTemplateId === 37 || dashboardItem.ChartTemplateId === 45) ? 'network-col-8' : ''">
+
+                              <span
+                                *ngIf="dashboardItem.data.chartDetail?.container?.inputs[0].values.length > 0&&!hideIcons && dashboardItem.Load_Data_Flag === 'Y'">
+                                <i *ngIf="entryInput.label ==='Date Range'" class="fa fa-calendar-check-o"></i>
+                                <i *ngIf="entryInput.label ==='Org Id'" class="fa fa-sitemap"></i>
+                                <span class="org-col-4 mr-0 ng-binding" *ngIf="!hideIcons">
+                                  <span class="dis">&nbsp;Time:</span>
+                                  &nbsp; <select class="ng-pristine ng-untouched ng-valid ng-not-empty"
+                                    (change)="refreshChartData(dashboardItem,entryInput.label,entryInput.values,$event.target)">
+                                    <option *ngFor="let value of entryInput?.values;let i=index"
+                                      [value]="value?.timeLimit"
+                                      [selected]="dashboardItem.selected ? value.id == dashboardItem.selected : i==0">
+                                      {{value.timeLimit}}
+                                    </option>
+                                  </select>
+                                </span>
+                                <span class="org-col-4 ng-binding" style="padding-left: 5px;">
+                                  <span class="dis la-4"><i class="fa fa-sitemap"></i>&nbsp; Org:</span>
+                                  <span class="dis la-res"><i class="fa fa-sitemap"></i>&nbsp; Organization:</span>
+                                  &nbsp; <select class="ng-pristine ng-untouched ng-valid ng-not-empty"
+                                    (change)="refreshChartData(dashboardItem,'org',entryInput.orgs,$event.target)">
+                                    <option *ngFor="let value of entryInput?.orgs;let i=index" [value]="value?.orgid"
+                                      [selected]="dashboardItem.selectedOrg ? value.orgid == dashboardItem.selectedOrg : i==0">
+                                      {{value.orgname}}
+                                    </option>
+                                  </select>
+                                </span>
+                              </span>
+                            </div>
+                            <!-- Range Slider starts -->
+                            <!-- {{dashboardItem | json}} -->
+                            <div class="col-5 pl-0 rn-sl net-slider-8"
+                              *ngIf="(dashboardItem.ChartTemplateId === 37 || dashboardItem.ChartTemplateId === 45) && dashboardItem.Load_Data_Flag === 'Y'">
+                              <!-- <ngx-slider [(value)]="dashboardItem.sliderValue" [options]="options"
+                                (click)="sliderEvent('dashboard',dashboardItem)"></ngx-slider> -->
+                            </div>
+                            <!-- Range Slider ends -->
+                            <!-- Change Toggle For Measure Chart Starts -->
+                            <div class="col-1 text-right p-0"
+                              *ngIf="(dashboardItem.ChartTemplateId === 7 || dashboardItem.ChartTemplateId === 6)  && dashboardItem.Load_Data_Flag === 'Y'"
+                              style="padding-top: 2px !important;">
+                              <button class="btn btn-chart-more">
+                                <i class="far fa-clone" #changeChartType
+                                  (click)="showChangeToggle(dashboardItem);changeChartTypeTouch(dashboardItem)"></i>
+                              </button>
+                            </div>
+                            <div
+                              *ngIf="(dashboardItem.ChartTemplateId === 7 || dashboardItem.ChartTemplateId === 6) && dashboardItem.showToggle"
+                              [ngClass]="dashboardItem.showToggle === 'true' ? 'charticon-none' : 'charticon-show'">
+                              <div class="chart-dropdown">
+                                <div class="row m-0 col-12 p-0 text-left">
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possiblepiechartactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Pie Chart" (click)="changeChart(dashboardItem, 'pie')"><i
+                                        class="fa fa-pie-chart"></i></button>
+                                  </span>
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possiblebar1chartactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Bar Chart" (click)="changeChart(dashboardItem, 'bar')"><i
+                                        class="fa fa-bar-chart"></i></button>
+                                  </span>
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possiblescatterchartactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Scatter Chart" (click)="changeChart(dashboardItem, 'scatter')"><i
+                                        class="fa fa-try"></i></button>
+                                  </span>
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possiblemeasurebandchartactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Measure Band Chart" (click)="changeChart(dashboardItem, 'MeasureBand')"><i
+                                        class="fa fa-tasks"></i></button>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Change Toggle For Measure Chart Ends -->
+
+                            <!-- Change Toggle For GeoMap Measure Chart Starts -->
+
+                            <div class="col-1 text-right p-0"
+                              *ngIf="(dashboardItem.ChartTemplateId === 40 || dashboardItem.ChartTemplateId === 41)  && dashboardItem.Load_Data_Flag === 'Y'"
+                              style="padding-top: 2px !important;">
+                              <button class="btn btn-chart-more">
+                                <i class="far fa-clone" #changeChartType
+                                  (click)="showChangeToggleGeoMap(dashboardItem);changeChartTypeTouch(dashboardItem)"></i>
+                              </button>
+                            </div>
+
+                            <!-- change Toggle for network chart -->
+                            <div class="col-1 text-right p-0"
+                            *ngIf="dashboardItem.ChartTemplateId === 37 || dashboardItem.ChartTemplateId === 45"
+                            style="padding-top: 2px !important;">
+                            <button class="btn btn-chart-more">
+                              <i class="far fa-clone" #changeChartType
+                                (click)="showChangeToggleNetworkMap(dashboardItem);changeChartTypeTouch(dashboardItem)"></i>
+                            </button>
+                          </div>
+
+                            <div
+                              *ngIf="(dashboardItem.ChartTemplateId === 40 || dashboardItem.ChartTemplateId === 41) && dashboardItem.showToggle"
+                              [ngClass]="dashboardItem.showToggle === 'true' ? 'charticon-none' : 'charticon-show'">
+                              <div class="chart-dropdown">
+                                <div class="row m-0 col-12 p-0 text-left">
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possibledetailedgeomapactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Detailed Geo Map"
+                                      (click)="changeChartGeoMap(dashboardItem, 'High Level Geo Map Chart')"><i
+                                        class="fas fa-map-marked-alt"></i></button>
+                                  </span>
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possiblehighlevelgeomapactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="High Level Geo Map"
+                                      (click)="changeChartGeoMap(dashboardItem, 'Granular Level Geo Map Chart')"><i
+                                        class="fas fa-map"></i></button>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Change Toggle For GeoMap Measure Chart Ends -->
+                            <!-- change Toggle For Network chart -->
+                            <div
+                              *ngIf="(dashboardItem.ChartTemplateId === 37 || dashboardItem.ChartTemplateId === 45)  && dashboardItem.showToggle == true" 
+                              [ngClass]="dashboardItem.showToggle === 'true' ? 'charticon-none' : 'charticon-show'">
+                              <div class="chart-dropdown">
+                                <div class="row m-0 col-12 p-0 text-left">
+                               
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="isHighChartNetwork ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Network"
+                                      (click)="changeChartNetworkMap(dashboardItem, 'network')"><i
+                                      class="fa fa-code-fork"></i></button>
+                                  </span>
+                                  <span class="chart-drop-icon">
+                                    <button
+                                    [ngClass]="!isHighChartNetwork ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                    title="D3 Network"
+                                    (click)="changeChartNetworkMap(dashboardItem, 'd3network')"><i
+                                    class="fa-brands fa-hubspot"></i></button>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Change Toggle For TreeMap Measure Chart Starts -->
+
+                            <div class="col-1 text-right p-0"
+                              *ngIf="(dashboardItem.ChartTemplateId === 42 || dashboardItem.ChartTemplateId === 43)  && dashboardItem.Load_Data_Flag === 'Y'"
+                              style="padding-top: 2px !important;">
+                              <button class="btn btn-chart-more">
+                                <i class="far fa-clone" #changeChartType
+                                  (click)="showChangeToggleTreeMap(dashboardItem);changeChartTypeTouch(dashboardItem)"></i>
+                              </button>
+                            </div>
+
+                            <div
+                              *ngIf="(dashboardItem.ChartTemplateId === 42 || dashboardItem.ChartTemplateId === 43) && dashboardItem.showToggle"
+                              [ngClass]="dashboardItem.showToggle === 'true' ? 'charticon-none' : 'charticon-show'">
+                              <div class="chart-dropdown">
+                                <div class="row m-0 col-12 p-0 text-left">
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possibledetailedtreemapactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Granular Level Tree Map"
+                                      (click)="changeChartTreeMap(dashboardItem, 'Granular Level Tree Map Chart')"><i
+                                        class="fas fa-project-diagram"></i></button>
+                                  </span>
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possiblehighleveltreemapactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="High Level Tree Map"
+                                      (click)="changeChartTreeMap(dashboardItem, 'High Level Tree Map Chart')"><i
+                                        class="fas fa-bezier-curve"></i></button>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Change Toggle For TreeMap Measure Chart Ends -->
+
+                            <!-- Change Toggle For Stacked column Measure Chart Starts -->
+
+                            <div class="col-1 text-right p-0"
+                              *ngIf="(dashboardItem.ChartTemplateId === 31 || dashboardItem.ChartTemplateId === 44)  && dashboardItem.Load_Data_Flag === 'Y'"
+                              style="padding-top: 2px !important;">
+                              <button class="btn btn-chart-more">
+                                <i class="far fa-clone" #changeChartType
+                                  (click)="showChangeToggleStackedChart(dashboardItem);changeChartTypeTouch(dashboardItem)"></i>
+                              </button>
+                            </div>
+
+                            <div
+                              *ngIf="(dashboardItem.ChartTemplateId === 31 || dashboardItem.ChartTemplateId === 44) && dashboardItem.showToggle"
+                              [ngClass]="dashboardItem.showToggle === 'true' ? 'charticon-none' : 'charticon-show'">
+                              <div class="chart-dropdown">
+                                <div class="row m-0 col-12 p-0 text-left">
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possiblestackedcolumnactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Stacked Column"
+                                      (click)="changeStackedChart(dashboardItem, 'Stacked Column')"><i
+                                        class="fa fa-server"></i></button>
+                                  </span>
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possiblegroupedbaractive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Grouped Bar"
+                                      (click)="changeStackedChart(dashboardItem, 'Grouped Bar')"><i
+                                        class="far fa-chart-bar"></i></button>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Change Toggle For Stacked column Measure Chart Ends -->
+
+                            <!-- Change Toggle For Pattern Chart Starts -->
+                            <div class="col-1 text-right p-0"
+                              *ngIf="(dashboardItem.ChartTemplateId === 14 || dashboardItem.ChartTemplateId === 15 || dashboardItem.ChartTemplateId === 16)  && dashboardItem.Load_Data_Flag === 'Y'"
+                              style="padding-top: 2px !important;">
+                              <button class="btn btn-chart-more">
+                                <i class="far fa-clone" #changeChartType
+                                  (click)="showChangeTogglePattern(dashboardItem);changeChartTypeTouch(dashboardItem)"></i>
+                              </button>
+                            </div>
+                            <div
+                              *ngIf="(dashboardItem.ChartTemplateId === 14 || dashboardItem.ChartTemplateId === 15 || dashboardItem.ChartTemplateId === 16)  && dashboardItem.showToggle"
+                              [ngClass]="dashboardItem.showToggle === 'true' ? 'charticon-none' : 'charticon-show'">
+                              <div class="chart-dropdown">
+                                <div class="row m-0 col-12 p-0 text-left">
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possiblebarchartactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Pattern Band Chart" (click)="changeChartViewType(dashboardItem, 'bar')"><i
+                                        class="fa fa-tasks"></i></button>
+                                  </span>
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possibleareachartactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Area Chart" (click)="changeChartViewType(dashboardItem, 'areaspline')"><i
+                                        class="fa fa-area-chart"></i></button>
+                                  </span>
+                                  <span class="chart-drop-icon">
+                                    <button
+                                      [ngClass]="possiblescatterbandchartactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                      title="Scatter Chart" (click)="changeChartViewType(dashboardItem, 'scatter')"><i
+                                        class="fa fa-try"></i></button>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Change Toggle For Pattern Chart Ends -->
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 info-nova bord-info"
+                              *ngIf="!dashboardItem.plFrmWidgetSave && !dashboardItem.hideInfo&&!hideIcons && dashboardItem.Load_Data_Flag === 'Y'">
+                              <button class="btn btn-sapphire pull-right btn-round info-btn btn-chrt-save"
+                                *ngIf="dashboardItem.ChartTemplateId === 7 || dashboardItem.ChartTemplateId === 6 || dashboardItem.ChartTemplateId === 14 || dashboardItem.ChartTemplateId === 15 || dashboardItem.ChartTemplateId === 16 || 
+                                dashboardItem.ChartTemplateId === 37 || dashboardItem.ChartTemplateId === 45 || dashboardItem.ChartTemplateId === 40 || dashboardItem.ChartTemplateId === 41 || dashboardItem.ChartTemplateId === 42 || dashboardItem.ChartTemplateId === 43 || dashboardItem.ChartTemplateId === 31 || dashboardItem.ChartTemplateId === 44"
+                                [disabled]="!dashboardItem.showSelectedChart" (click)="saveChangeChart(dashboardItem)"
+                                style="right: 30px;">
+                                <i class="fa fa-floppy-o" aria-hidden="true"> </i>
+                              </button>
+                              <button class="btn btn-info-reset mb-0"
+                                *ngIf="(dashboardItem.ChartTemplateId === 37 || dashboardItem.ChartTemplateId === 45) && dashboardItem.showReset === true "
+                                (click)="clearNodeFilter(dashboardItem)" title="Back to Base Chart"
+                                style="right: 30px;">
+                                <i class="fa fa-undo"></i>
+                              </button>
+                              <button
+                                (click)="setDynamicInforContent(dashboardItem.data.chartDetail.Information,'dashboardInfo',dashboardItem.data)"
+                                class="btn btn-info pull-right btn-round info-btn" data-toggle="modal"
+                                data-target="#infoModal" data-backdrop="true">
+                                <i class="fa fa-info" aria-hidden="true"> </i>
+                              </button>
+                            </div>
+                            <!-- </span> -->
+                          </div>
+                          <div class="clearfix"></div>
+                          <!-- <button (click)="openModal('custom-modal-1')">Open Modal</button> -->
+
+                          <ng-template [ngIf]="dashboardItem.displayWidget && dashboardItem.Has_Access_Flag === 'N'">
+                            <div class="col con">
+                              <img class="pull-center error-img normal-img"
+                                src="../../../../assets/img/access_denied.png" />
+                              <img class="pull-center error-img collapse4-img"
+                                src="../../../../assets/img/access_denied_4.png" />
+                              <p class="access-den-msg">
+                                <b> We are Sorry… </b>
+                                <br>
+                                The chart you are trying to view has restricted access. Please contact your system
+                                administrator to unlock this chart.
+                              </p>
+                            </div>
+                          </ng-template>
+
+                            <app-widget class="widget-element"
+                              [widgetConfiguration]="dashboardItem.data.widgetInfo"
+                              [events]="widgetEvent.asObservable()" (getbaseWidget)="baseWidget($event)" (sendWidgetChanges) ="chartCompwidgetchanges($event,dashboardItem)"
+                              (widgetEvent)="handleWidgetEvent($event,'dashboard',dashboardItem.data.chartDetail.Information,dashboardItem)">
+                            </app-widget>
+                          
+                          <ng-template
+                            [ngIf]="dashboardItem.displayWidget && dashboardItem.Has_Access_Flag === 'Y' && dashboardItem.Load_Data_Flag === 'N' && !dashboardItem.plFrmWidgetSave ">
+                            <div class="col con">
+                              <p class="text-center centered">Please click to load chart <br>
+                                <button class="btn btn-sapphire"
+                                  (click)="onDemandLoadWidget(dashboardItem, '', '', $event.target)">Load
+                                  Chart</button>
+                              </p>
+                              <img class="pull-center error-img normal-img" src="../../../../assets/img/on_load.png" />
+                              <img class="pull-center error-img collapse4-img"
+                                src="../../../../assets/img/on-load-col4.png" />
+                            </div>
+                          </ng-template>
+
+                          <!-- Sparkline Widget Starts -->
+                          <ng-template
+                            [ngIf]="dashboardItem.showSparkline&& dashboardItem.Has_Access_Flag === 'Y' && dashboardItem.Load_Data_Flag === 'Y'">
+                            <div class="sparklineWrapper">
+                              <div class="row m-0 sparkline-class1" *ngIf="!enableSparklineWidgetLoader">
+                                <div class="col-12 p-0">
+                                  <table id="table-sparkline">
+                                    <thead>
+                                      <tr>
+                                        <ng-container *ngFor="let column of dashboardItem.data.columnProperties">
+                                          <th class="stickyColumnHeader" *ngIf="column['Visibility Flag'] == 'Y'">{{
+                                            column.Label }}</th>
+                                        </ng-container>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="tbody-sparkline">
+                                      <tr *ngFor="let rowItem of dashboardItem.data.GridData">
+                                        <td *ngFor="let key of rowItem.Dimension">{{ key.dimensionalityValue }}
+                                        </td>
+                                        <td style="text-align: right;">{{ rowItem.Current }}</td>
+                                        <td style="text-align: right;">{{ rowItem.Previous }}</td>
+                                        <td style="text-align: right;">{{ rowItem.Spike }}
+                                        </td>
+                                        <td>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                              <!-- Element loader -->
+                              <div class="col-lg-12 col-md-12 col-sm-12" style="height: 100px !important;"
+                                *ngIf="enableSparklineWidgetLoader">
+                                <!-- <app-element-loader></app-element-loader> -->
+                              </div>
+                            </div>
+                          </ng-template>
+                          <!-- Sparkline Widget Ends -->
+                          <!-- Particpant end from add dashboard widget-->
+                        </article>
+                      </div>
+                      <!----CHART SWAPING & DATE DROPDOWN BUTTON HOLDER ENDS-->
+                      <!-- <hr> -->
+                      <!---CHART CONTENT STARTS-->
+                      <div class="col-12 p-0" *ngIf="!dashboardItem.data.isSuccess">
+                        <article class="margin-b-0 res-padding-2 padding-b-0 ng-scope info-nova">
+
+                          <article class="chat-content context-menu-area margin-b-0">
+                            <!---Context Menu Starts-->
+                            <!----DIV CONTENT-->
+                            <div class="chart-area-nova">
+                              <!-------Blank Content starts ----------->
+                              <div class="col con">
+                                <p class="text-center centered">Unable to load data content in widget contact system
+                                  administrator</p>
+                                <img class="pull-center error-img" src="../../../../assets/img/Error3.png"
+                                  style="height: 308px;max-width: 100%;" />
+                              </div>
+                              <!-------Blank Content ends--------->
+                            </div>
+                            <!----DIV CONTENT-->
+                          </article>
+                        </article>
+                      </div>
+                    </div>
+                    <ng-template #loadingTemplate>
+                      <div [ngClass]="false ? 'loader-overlay text-center' : 'load-loading'"></div>
+                      <div class="col-lg-12 col-md-12 col-sm-12" style="height: 100px !important;">
+                        <!-- <app-element-loader></app-element-loader> -->
+                      </div>
+                      <!-- <p>Loading..</p> -->
+                      <!-- Case/Task WorkQueue Details -->
+                      <!-- <div *ngIf="showWorkQueue" id="menuToggle"> -->
+                      <!-- <app-work-queue></app-work-queue> -->
+                      <!-- </div> -->
+                    </ng-template>
+                    <!----CHART CONTENT ENDS--->
+                    <!---FOOTER DETAILS FOR MEASURES STARTS-->
+                    <!-- <pre>{{dashboardItem.widgetDescription}}</pre> -->
+                    <article *ngIf="dashboardItem.isVisible&&!hideIcons" class="margin-b-0 foot-art">
+                      <!-- <article [style.visibility]="dashboardItem?.data?.widgetInfo?.data.type === 'pie' && dashboardItem.isVisible ? '' : 'hidden'" class="margin-b-0 foot-art" >                       -->
+                      <!-- <hr> -->
+                      <dl class="dl-3x7 margin-b-0 foot-detail">
+                        <span class="swap padding-tb-0 bgc-grey-100">
+                          <dt class="padding-tb-5 padding-lr-10 fgc-for-light bg-bgc-none overflow-hidden">
+                            <p class="margin-b-0 ng-binding">
+                              <!-- {{dashboardItem.widgetDescription}} -->
+                            </p>
+                          </dt>
+                          <dd class="fgc-for-dark bgc-light-blue-900 bgc-blue-600 border-b-2">
+                            <h5 class="place-cc talign-c-c-c-c pull-justify">
+                            </h5>
+                          </dd>
+                        </span>
+                      </dl>
+
+                    </article>
+                    <!----FOOTER DETAILS FOR MEASURE ENDS-->
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <!-- Insights Page Ends -->
+
+
+
+    <!-- Drilldown Widget Starts -->
+
+   
+
+    <!-- new base chart implementation -->
+    <ng-template [ngIf]="isShowbase">
+      <!-- full widget design -->
+      <div class="template1 pl-2 pr-2 mb-0">
+        <div class="col p-0">
+          <div class="card-body cb mb-0 mt-0">
+            <div class="card-content">
+              <div class="col cb1">
+                <div class="col-lg-12 lab-text-nova text-left page-header page-header-1" style="display: inline-flex;">
+                  <label class="col p-0 full-lab-sm control-label">
+                    <span><i class="fa fa-sliders"></i></span>&nbsp;
+                    {{baseWidgetDetails.type}}
+                    <span class="fn-th"
+                      title="{{baseWidgetDetails.widgetDescription}}">{{baseWidgetDetails.widgetDescription}}</span>&nbsp;
+                  </label>
+                  <span *ngIf="baseWidgetDetails.Load_Data_Flag === 'Y'&&!hideIcons&&orgDropdown.values.length>0"
+                    class="pl-2 pr-2">
+                    <span class="widget-select mr-0 ng-binding">
+                      <span class="dis">
+                        <i class="fa fa-calendar-check-o"></i></span>
+                      <select class="ng-pristine ng-untouched ng-valid ng-not-empty" title="{{selectedTimePeriod}}"
+                        (change)="refreshChartData(baseWidgetDetails,orgDropdown.label,orgDropdown.values,$event.target)">
+                        <i class="fa fa-calendar-check-o"></i>&nbsp;
+                        <option title="{{value.timeLimit}}" *ngFor="let value of orgDropdown.values;let i=index"
+                          [value]="value?.timeLimit"
+                          [selected]="baseWidgetDetails.selected ? value.id == baseWidgetDetails.selected : i==0">
+                          {{value.timeLimit}}
+                        </option>
+                      </select>
+                    </span>
+                    <span class="widget-select" style="padding-left: 5px;">
+                      <span class="dis la-res"><i class="fa fa-sitemap"></i></span>
+                      <select class="ng-pristine ng-untouched ng-valid ng-not-empty" title="{{selectedOrganization}}"
+                        (change)="refreshChartData(baseWidgetDetails,'org',orgDropdown.orgs,$event.target)">
+                        <option title="{{value.orgname}}" *ngFor="let value of orgDropdown.orgs;let i=index"
+                          [value]="value?.orgid"
+                          [selected]="baseWidgetDetails.selectedOrg ? value.orgid == baseWidgetDetails.selectedOrg : i==0">
+                          {{value.orgname}}
+                        </option>
+                      </select>
+                    </span>
+                  </span>
+                  <span class="text-right pull-right">
+                    <button
+                      (click)="setDynamicInforContent(baseWidgetDetails.data.chartDetail.Information, 'dashboardInfo',baseWidgetDetails)"
+                      *ngIf="!hideIcons&&baseWidgetDetails.Load_Data_Flag === 'Y'"
+                      class="btn btn-info full ml-0 pull-right btn-round mb-0" data-toggle="modal"
+                      data-target="#infoModal" data-backdrop="true" title="Info">
+                      <i class="fa fa-info" aria-hidden="true"></i>
+                    </button>
+                  </span>
+                  <span *ngIf="bscollapse" class="text-right pull-right">
+                    <button class="btn btn-widget back-btn1 mb-0" [disabled]="defaultUpDisabled"
+                      title="Decrease Height" (click)="changePageUPHeight(baseWidgetDetails)">
+                      <i class="fa fa-arrow-up"></i>
+                    </button>
+                  </span>
+                  <span *ngIf="bscollapse" class="text-right pull-right">
+                    <button class="btn btn-widget back-btn1 mb-0" [disabled]="!defaultDownDisabled"
+                      title="Increase Height" (click)="changePageDownHeight(baseWidgetDetails)">
+                      <i class="fa fa-arrow-down"></i>
+                    </button>
+                  </span>
+                  <span class="text-right pull-right">
+                    <button class="btn btn-widget-collapse back-btn1 mb-0" 
+                    [title]="!bscollapse == true ? 'Expand' : 'Collapse'" (click)="accordianbase()">
+                      <i *ngIf="!bscollapse" class="fa fa-plus"></i>
+                      <i *ngIf="bscollapse" class="fa fa-minus"></i>
+                    </button>
+                  </span>
+                  <span class="text-right pull-right">
+                    <button class="btn btn-default back-btn mb-0" title="Back" (click)="resetDisplaySettings()">
+                      <!-- <span class="material-icons return">u_turn_left</span> -->
+                      <i class="fa-solid fa-arrow-left px-2"></i>
+                    </button>
+                  </span>
+                </div>
+              </div>
+              <hr class="hr-nova1 mb-0">
+              <div 
+                [ngClass]="ClassSetFullView === 'default' ? 'col-12 p-0 widget-cnt-hgt1' : ClassSetFullView === 'midView' ? 'col-12 p-0 widget-cnt-hgt1-50' : 'col-12 p-0 widget-cnt-hgt1-100'">
+                <!---CHART CONTENT STARTS-->
+                <div class="row m-0">
+                <article  [hidden]="!bscollapse" class="margin-b-0 mt-0 res-padding-2 padding-b-0 ng-scope brd h100-full ovfl-y">
+                  <article class="chat-content context-menu-area margin-b-0 h100-full"
+                    [ngClass]="baseWidgetDetails.ChartTemplateId === 7 || baseWidgetDetails.ChartTemplateId === 6 || baseWidgetDetails.ChartTemplateId === 14 || baseWidgetDetails.ChartTemplateId === 15 || baseWidgetDetails.ChartTemplateId === 16 || baseWidgetDetails.ChartTemplateId === 37 || baseWidgetDetails.showReset === true || baseWidgetDetails.ChartTemplateId === 40 || baseWidgetDetails.ChartTemplateId === 41 || baseWidgetDetails.ChartTemplateId === 42 || baseWidgetDetails.ChartTemplateId === 43 ? 'ic-show' : 'ic-none'">
+                    <div class="row m-0">
+                      <div class="col-12 text-right dis-in-fl brd-btm">
+                        <!-- Range Slider starts -->
+                        <div class="col-10 rn-sl pt-1" style="padding-left: 150px;"
+                          *ngIf="baseWidgetDetails.ChartTemplateId === 37 && baseWidgetDetails.Load_Data_Flag === 'Y'">
+                        </div>
+                        <!-- Range Slider ends -->
+                        <!-- Change Toggle For Measure Chart Starts -->
+                        <span class="col p-0">
+                          <span class="text-right p-0"
+                            *ngIf="(baseWidgetDetails.ChartTemplateId === 7 || baseWidgetDetails.ChartTemplateId === 6)  && baseWidgetDetails.Load_Data_Flag === 'Y'"
+                            style="padding-top: 2px !important;">
+                            <button class="btn btn-chart-more">
+                              <i class="far fa-clone" #changeChartType
+                                (click)="showChangeToggle(baseWidgetDetails);changeChartTypeTouch(baseWidgetDetails)"></i>
+                            </button>
+                          </span>
+                          <div
+                            *ngIf="(baseWidgetDetails.ChartTemplateId === 7 || baseWidgetDetails.ChartTemplateId === 6) && baseWidgetDetails.showToggle"
+                            [ngClass]="baseWidgetDetails.showToggle === 'true' ? 'charticon-none' : 'charticon-show'">
+                            <div class="chart-dropdown">
+                              <div class="row m-0 col-12 p-0 text-left">
+                                <span class="chart-drop-icon">
+                                  <button
+                                    [ngClass]="possiblepiechartactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                    title="Pie Chart" (click)="changeChart(baseWidgetDetails, 'pie')"><i
+                                      class="fa fa-pie-chart"></i></button>
+                                </span>
+                                <span class="chart-drop-icon">
+                                  <button
+                                    [ngClass]="possiblebar1chartactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                    title="Bar Chart" (click)="changeChart(baseWidgetDetails, 'bar')"><i
+                                      class="fa fa-bar-chart"></i></button>
+                                </span>
+                                <span class="chart-drop-icon">
+                                  <button
+                                    [ngClass]="possiblescatterchartactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                    title="Scatter Chart" (click)="changeChart(baseWidgetDetails, 'scatter')"><i
+                                      class="fa fa-try"></i></button>
+                                </span>
+                                <span class="chart-drop-icon">
+                                  <button
+                                    [ngClass]="possiblemeasurebandchartactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                    title="Measure Band Chart"
+                                    (click)="changeChart(baseWidgetDetails, 'MeasureBand')"><i
+                                      class="fa fa-tasks"></i></button>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- Change Toggle For Measure Chart Ends -->
+
+                          <!-- Change Toggle For GeoMap Measure Chart Starts -->
+                          <span class="text-right p-0"
+                            *ngIf="(baseWidgetDetails.ChartTemplateId === 40 || baseWidgetDetails.ChartTemplateId === 41)  && baseWidgetDetails.Load_Data_Flag === 'Y'"
+                            style="padding-top: 2px !important;">
+                            <button class="btn btn-chart-more">
+                              <i class="far fa-clone" #changeChartType
+                                (click)="showChangeToggleGeoMap(baseWidgetDetails);changeChartTypeTouch(baseWidgetDetails)"></i>
+                            </button>
+                          </span>
+                          <!-- change Toggle for network chart -->
+                          <span class="text-right p-0"
+                          *ngIf="baseWidgetDetails.ChartTemplateId === 37 || baseWidgetDetails.ChartTemplateId === 45"
+                           style="padding-top: 2px !important;">
+                          <button class="btn btn-chart-more">
+                            <i class="far fa-clone" #changeChartType
+                              (click)="showChangeToggleNetworkMap(baseWidgetDetails);changeChartTypeTouch(baseWidgetDetails)"></i>
+                          </button>
+                        </span>
+                          <div
+                            *ngIf="(baseWidgetDetails.ChartTemplateId === 40 || baseWidgetDetails.ChartTemplateId === 41) && baseWidgetDetails.showToggle"
+                            [ngClass]="baseWidgetDetails.showToggle === 'true' ? 'charticon-none' : 'charticon-show'">
+                            <div class="chart-dropdown">
+                              <div class="row m-0 col-12 p-0 text-left">
+                                <span class="chart-drop-icon">
+                                  <button
+                                    [ngClass]="possibledetailedgeomapactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                    title="Detailed Geo Map"
+                                    (click)="changeChartGeoMap(baseWidgetDetails, 'High Level Geo Map Chart')"><i
+                                      class="fas fa-map-marked-alt"></i></button>
+                                </span>
+                                <span class="chart-drop-icon">
+                                  <button
+                                    [ngClass]="possiblehighlevelgeomapactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                    title="High Level Geo Map"
+                                    (click)="changeChartGeoMap(baseWidgetDetails, 'Granular Level Geo Map Chart')"><i
+                                      class="fas fa-map"></i></button>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- Change Toggle For GeoMap Measure Chart Ends -->
+
+                          <!-- Change Toggle For TreeMap Measure Chart Starts -->
+                          <span class="text-right p-0"
+                            *ngIf="(baseWidgetDetails.ChartTemplateId === 42 || baseWidgetDetails.ChartTemplateId === 43)  && baseWidgetDetails.Load_Data_Flag === 'Y'"
+                            style="padding-top: 2px !important;">
+                            <button class="btn btn-chart-more">
+                              <i class="far fa-clone" #changeChartType
+                                (click)="showChangeToggleTreeMap(baseWidgetDetails);changeChartTypeTouch(baseWidgetDetails)"></i>
+                            </button>
+                          </span>
+                          <div
+                            *ngIf="(baseWidgetDetails.ChartTemplateId === 42 || baseWidgetDetails.ChartTemplateId === 43) && baseWidgetDetails.showToggle"
+                            [ngClass]="baseWidgetDetails.showToggle === 'true' ? 'charticon-none' : 'charticon-show'">
+                            <div class="chart-dropdown">
+                              <div class="row m-0 col-12 p-0 text-left">
+                                <span class="chart-drop-icon">
+                                  <button
+                                    [ngClass]="possibledetailedtreemapactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                    title="Granular Level Tree Map"
+                                    (click)="changeChartTreeMap(baseWidgetDetails, 'Granular Level Tree Map Chart')"><i
+                                      class="fas fa-project-diagram"></i></button>
+                                </span>
+                                <span class="chart-drop-icon">
+                                  <button
+                                    [ngClass]="possiblehighleveltreemapactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                    title="High Level Tree Map"
+                                    (click)="changeChartTreeMap(baseWidgetDetails, 'High Level Tree Map Chart')"><i
+                                      class="fas fa-bezier-curve"></i></button>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- Change Toggle For TreeMap Measure Chart Ends -->
+
+                          <!-- Change Toggle For Stacked column Measure Chart Starts -->
+
+                          <span class="text-right p-0"
+                          *ngIf="(baseWidgetDetails.ChartTemplateId === 31 || baseWidgetDetails.ChartTemplateId === 44)  && baseWidgetDetails.Load_Data_Flag === 'Y'"
+                          style="padding-top: 2px !important;">
+                          <button class="btn btn-chart-more">
+                            <i class="far fa-clone" #changeChartType
+                              (click)="showChangeToggleStackedChart(baseWidgetDetails);changeChartTypeTouch(baseWidgetDetails)"></i>
+                          </button>
+                        </span>
+                        <div
+                          *ngIf="(baseWidgetDetails.ChartTemplateId === 31 || baseWidgetDetails.ChartTemplateId === 44) && baseWidgetDetails.showToggle"
+                          [ngClass]="baseWidgetDetails.showToggle === 'true' ? 'charticon-none' : 'charticon-show'">
+                          <div class="chart-dropdown">
+                            <div class="row m-0 col-12 p-0 text-left">
+                              <span class="chart-drop-icon">
+                                <button
+                                  [ngClass]="possiblestackedcolumnactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                  title="Stacked Column"
+                                  (click)="changeStackedChart(baseWidgetDetails, 'Stacked Column')"><i
+                                    class="fa fa-server"></i></button>
+                              </span>
+                              <span class="chart-drop-icon">
+                                <button
+                                  [ngClass]="possiblegroupedbaractive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                  title="Grouped Bar"
+                                  (click)="changeStackedChart(baseWidgetDetails, 'Grouped Bar')"><i
+                                    class="far fa-chart-bar"></i></button>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Change Toggle For Stacked column Measure Chart Ends -->
+
+                          <!-- Change Toggle For Pattern Chart Starts -->
+                          <span class="text-right p-0"
+                            *ngIf="(baseWidgetDetails.ChartTemplateId === 14 || baseWidgetDetails.ChartTemplateId === 15 || baseWidgetDetails.ChartTemplateId === 16)  && baseWidgetDetails.Load_Data_Flag === 'Y'"
+                            style="padding-top: 2px !important;">
+                            <button class="btn btn-chart-more">
+                              <i class="far fa-clone" #changeChartType
+                                (click)="showChangeTogglePattern(baseWidgetDetails);changeChartTypeTouch(baseWidgetDetails)"></i>
+                            </button>
+                          </span>
+                          <div
+                            *ngIf="(baseWidgetDetails.ChartTemplateId === 14 || baseWidgetDetails.ChartTemplateId === 15 || baseWidgetDetails.ChartTemplateId === 16)  && baseWidgetDetails.showToggle"
+                            [ngClass]="baseWidgetDetails.showToggle === 'true' ? 'charticon-none' : 'charticon-show'">
+                            <div class="chart-dropdown">
+                              <div class="row m-0 col-12 p-0 text-left">
+                                <span class="chart-drop-icon">
+                                  <button
+                                    [ngClass]="possiblebarchartactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                    title="Pattern Band Chart"
+                                    (click)="changeChartViewType(baseWidgetDetails, 'bar')"><i
+                                      class="fa fa-tasks"></i></button>
+                                </span>
+                                <span class="chart-drop-icon">
+                                  <button
+                                    [ngClass]="possibleareachartactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                    title="Area Chart" (click)="changeChartViewType(baseWidgetDetails, 'areaspline')"><i
+                                      class="fa fa-area-chart"></i></button>
+                                </span>
+                                <span class="chart-drop-icon">
+                                  <button
+                                    [ngClass]="possiblescatterbandchartactive ? 'btn btn-charticon-active' : 'btn btn-charticon'"
+                                    title="Scatter Chart" (click)="changeChartViewType(baseWidgetDetails, 'scatter')"><i
+                                      class="fa fa-try"></i></button>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                        </span>
+                        <!-- Change Toggle For Pattern Chart Ends -->
+                        <!-- Save & Reset button starts -->
+                        <span class="" style="z-index: 1;">
+                          <button class="btn btn-sapphire btn-round  btn-chrt-save-full"
+                            *ngIf="baseWidgetDetails.ChartTemplateId === 7 || baseWidgetDetails.ChartTemplateId === 6 || baseWidgetDetails.ChartTemplateId === 14 || baseWidgetDetails.ChartTemplateId === 15 || baseWidgetDetails.ChartTemplateId === 16 || 
+                            baseWidgetDetails.ChartTemplateId === 37 || baseWidgetDetails.ChartTemplateId === 45 ||  baseWidgetDetails.ChartTemplateId === 40 || baseWidgetDetails.ChartTemplateId === 41 || baseWidgetDetails.ChartTemplateId === 42 || baseWidgetDetails.ChartTemplateId === 43 || baseWidgetDetails.ChartTemplateId === 31 || baseWidgetDetails.ChartTemplateId === 44"
+                            [disabled]="!baseWidgetDetails.showSelectedChart"
+                            (click)="saveChangeChart(baseWidgetDetails)">
+                            <i class="fa fa-floppy-o" aria-hidden="true"> </i>
+                          </button>
+                          <button class="btn btn-info-reset-full"
+                          *ngIf="(baseWidgetDetails.ChartTemplateId === 37 || baseWidgetDetails.ChartTemplateId === 45)  && baseWidgetDetails.showReset === true "
+                            (click)="clearNodeFilter(baseWidgetDetails)" title="Back to Base Chart">
+                            <i class="fa fa-undo"></i>
+                          </button>
+                        </span>
+                      </div>
+                    </div>
+                    <!-- widget initiate -->
+                   
+                    <div class="row m-0"
+                      *ngIf="!baseWidgetDetails.showSparkline&&baseWidgetDetails.Has_Access_Flag === 'Y' && baseWidgetDetails.Load_Data_Flag === 'Y'"
+                      init-widget [widget]="baseWidgetDetails" [refreshData]="baseWidgetDetails.refresh"
+                      (loadWidget)="setWidgetData($event, baseWidgetDetails, 'analyzer')">
+                      <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="baseWidgetDetails.displayWidget">
+                        <app-widget [widgetConfiguration]="baseWidgetDetails.data.widgetInfo" [widgetSize]="true"
+                          [events]="widgetEvent.asObservable()"
+                          (widgetEvent)="drilldownChange($event,'scoresummary','',baseWidgetDetails)">
+                        </app-widget>
+                      </div>
+                    </div>
+                 
+                    <!-- Image to load starts -->
+                    <div
+                      *ngIf="baseWidgetDetails.Has_Access_Flag === 'Y' && baseWidgetDetails.Load_Data_Flag === 'N' && !baseWidgetDetails.plFrmWidgetSave"
+                      class="row m-0 h100-full">
+                      <div class="col con chart-hgt-full">
+                        <p class="text-center centered">Please click to load chart <br>
+                          <button class="btn btn-sapphire"
+                            (click)="onDemandLoadWidget(baseWidgetDetails, '', '', $event.target)">Load
+                            Chart</button>
+                        </p>
+                        <img class="pull-center error-img normal-img resp-hgt"
+                          src="../../../../assets/img/on_load.png" />
+
+                      </div>
+                    </div>
+                    <!-- Image to load ends -->
+                    <!-- Sparkline Widget Starts -->
+                    <div class="row m-0 w-100" (loadWidget)="setWidgetData($event, baseWidgetDetails, 'analyzer')"
+                      init-widget [widget]="baseWidgetDetails" [refreshData]="baseWidgetDetails.refresh"
+                      *ngIf="baseWidgetDetails.showSparkline&& baseWidgetDetails.Has_Access_Flag === 'Y' && baseWidgetDetails.Load_Data_Flag === 'Y'">
+                      <div class="col-lg-12 col-md-12 col-sm-12 w-100">
+                        <div class="sparklineWrapper">
+                          <!-- top n table chart -->
+                          <div class="row m-0 sparkline-class1" *ngIf="!enableSparklineWidgetLoader">
+                            <div class="col-12 p-0">
+                              <table id="table-sparkline">
+                                <thead>
+                                  <tr>
+                                    <ng-container *ngFor="let column of baseWidgetDetails.data.columnProperties">
+                                      <th class="stickyColumnHeader" *ngIf="column['Visibility Flag'] == 'Y'">{{
+                                        column.Label }}</th>
+                                    </ng-container>
+                                  </tr>
+                                </thead>
+                                <tbody id="tbody-sparkline">
+                                  <tr *ngFor="let rowItem of baseWidgetDetails.data.GridData">
+                                    <td *ngFor="let key of rowItem.Dimension">{{ key.dimensionalityValue }}
+                                    </td>
+                                    <td style="text-align: right;">{{ rowItem.Current }}</td>
+                                    <td style="text-align: right;">{{ rowItem.Previous }}</td>
+                                    <td style="text-align: right;">{{ rowItem.Spike }}
+                                    </td>
+                                    <td>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                          <!-- Element loader -->
+                          <div class="col-lg-12 col-md-12 col-sm-12" style="height: 100px !important;"
+                            *ngIf="enableSparklineWidgetLoader">
+                            <!-- <app-element-loader></app-element-loader> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Sparkline Widget Ends -->
+                  </article>
+                </article>
+                </div>
+                <!----CHART CONTENT ENDS--->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- drilldown action view start -->
+      <div class="row m-0" *ngIf="isShowDrillDown">
+        <div class="col-12 pl-2 pr-2 pt-1">
+          <div class="card-body cb mb-0 mt-0 pb-0">
+            <div class="card-content">
+              <!-- Scatter chart starts -->
+              <section class="accordion-dashboard" id="service" *ngIf="drilldownAccordionScatter">
+                <div class="col container p-0">
+                  <div class="col-lg-12 col-md-12 col-sm-12 pad-rmv p-0">
+                    <div class="panel-group  brd-head-nova-level mb-0" id="accordion-eda" role="tablist"
+                      aria-multiselectable="true">
+                      <!-- accordion Tab 1 -->
+                      <div class="panel panel-default">
+                        <!-- accordion Header -->
+                        <div class="panel-heading" id="headingOne" for="collapseTwo" data-toggle="collapse"
+                          href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                          <h4 class="panel-title" style="margin-top: 0px !important;">
+                            <a (click)="accordionTwo()" [ngClass]="showsecondAccordion ? 'collapse' : 'collapsed'">
+                              <i class="fa fa-table"></i>&nbsp; {{accordiontitle}}
+                              <!-- Measure Scatter Chart -->
+                            </a>
+                          </h4>
+                        </div>
+                        <!-- accordion Content -->
+                        <div id="collapseTwo-scatter" #collapseTwo
+                          [ngClass]="showsecondAccordion ? 'expanded' : 'collapsed'">
+                          <div class="panel-body brd-nova" style="margin-top: -4px !important;"
+                            *ngIf="showsecondAccordion">
+                            <!---CHART CONTENT STARTS-->
+                            <article class="margin-b-0 res-padding-2 padding-b-0 ng-scope  brd">
+                              <article class="chat-content context-menu-area margin-b-0">
+                                <div class="col-lg-12">
+                                  <div class="row my-2"><span>
+                                      <div class="badge badge-secondary customBadge ml-3"
+                                        [style.border-color]="item['Color']"
+                                        *ngFor="let item of ScatterbreadCrumbTextArray">
+                                        <span [style.color]="item['Color']">{{ item['Previous Level Profile Tab']
+                                          }}</span>
+                                      </div>
+                                    </span>
+                                  </div>
+                                </div>
+                                <div class="info-nova">
+                                  <button (click)="setDynamicInforContent('', 'scatterInfo',baseWidgetDetails)"
+                                    *ngIf="!hideIcons" class="btn btn-info pull-right btn-round info-btn mr-3"
+                                    data-toggle="modal" data-target="#infoModal" data-backdrop="true">
+                                    <i class="fa fa-info" aria-hidden="true"></i>
+                                  </button>
+                                </div>
+                                <div class="row m-0" init-widget [widget]="analyzerScatterWidget"
+                                  (loadWidget)="setWidgetData($event, analyzerScatterWidget, 'analyzerScatter')">
+                                  <div class="col-lg-12 col-md-12 col-sm-12 pl-4 pr-4"
+                                    *ngIf="analyzerScatterWidget.displayWidget">
+                                    <app-widget [widgetConfiguration]="analyzerScatterWidget.data.widgetInfo"
+                                      [events]="widgetEvent.asObservable()"
+                                      (widgetEvent)="drilldownChange($event,'scatter','','')"
+                                      >
+                                    </app-widget>
+                                  </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12" style="height: 100px !important;"
+                                  *ngIf="!analyzerScatterWidget.displayWidget">
+                                  <!-- <app-element-loader></app-element-loader> -->
+                                </div>
+                              </article>
+                            </article>
+                            <!----CHART CONTENT ENDS--->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <!-- Scatter chart Ends -->
+              <!-- Dimensional Scatter Chart Starts -->
+              <section class="accordion-dashboard" id="service" *ngIf="drilldownDimensionalScatter">
+                <div class="col container p-0">
+                  <div class="col-lg-12 col-md-12 col-sm-12 pad-rmv p-0">
+                    <div class="panel-group  brd-head-nova-level mb-0" id="accordion-eda" role="tablist"
+                      aria-multiselectable="true">
+                      <!-- accordion Tab 1 -->
+                      <div class="panel panel-default">
+                        <!-- accordion Header -->
+                        <div class="panel-heading" id="headingOne" for="collapseTwo1" data-toggle="collapse1"
+                          href="#collapseTwo1" aria-expanded="true" aria-controls="collapseTwo1">
+                          <h4 class="panel-title" style="margin-top: 0px !important;">
+                            <a (click)="accordionTwo1()" [ngClass]="showsecondAccordion1 ? 'collapse' : 'collapsed'">
+                              <i class="fa fa-table"></i>&nbsp; Dimensional Scatter Chart
+                            </a>
+                          </h4>
+                        </div>
+                        <!-- accordion Content -->
+                        <div id="collapseTwo-scatter" #collapseTwo1
+                          [ngClass]="!showsecondAccordion1 ? 'collapse' : 'collapsed'">
+                          <div class="panel-body brd-nova" style="margin-top: -4px !important;">
+                            <!---CHART CONTENT STARTS-->
+                            <article class="margin-b-0 res-padding-2 padding-b-0 ng-scope  brd pb-4">
+                              <article class="chat-content context-menu-area margin-b-0">
+                                <div class="col-lg-12 mb-3">
+                                  <div class="row my-2"><span>
+                                      <div class="badge badge-secondary customBadge ml-3"
+                                        [style.border-color]="item['Color']"
+                                        *ngFor="let item of DimensionbreadCrumbTextArray">
+                                        <span *ngIf="item['Previous Level Profile Tab'] != 0"
+                                          [style.color]="item['Color']">{{ item['Previous Level Profile Tab'] }}</span>
+                                      </div>
+                                    </span>
+                                  </div>
+                                  <div class="scrollNav registry">
+                                    <div class="scrollmenu col-nav " #scrollMenu>
+                                      <div class="col1">
+                                        <nav>
+                                          <div class="nav nav-tabs hybrid-nav-tabs" id="nav-tab" role="tablist" #navTab>
+                                            <a *ngFor="let tab of dimensionalScatterWidget.Dimensions; let i=index"
+                                              (click)="onPrimaryTabChangeDimensionalScatter(tab, dimensionalScatterWidget, i)"
+                                              class="nav-item nav-link show" [class.active]="i==0"
+                                              [attr.id]="'nav-home-tab'+i" data-toggle="tab" [attr.href]="'#nav-home'+i"
+                                              role="tab" aria-controls="nav-home" aria-selected="true">
+                                              {{tab.DimensionName}}
+                                            </a>
+                                          </div>
+                                        </nav>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <hr class="tabHr">
+                                  <div class="info-nova">
+                                    <span><button (click)="setDynamicInforContent('', 'scatterInfo',baseWidgetDetails)"
+                                        class="btn btn-info pull-right btn-round info-btn mt-2" data-toggle="modal"
+                                        data-target="#infoModal" data-backdrop="true">
+                                        <i class="fa fa-info" aria-hidden="true"></i>
+                                      </button>
+                                    </span>
+                                  </div>
+                                </div>
+
+                                <div class="col-lg-12" init-widget [widget]="dimensionalScatterWidget"
+                                  (loadWidget)="setWidgetData($event, dimensionalScatterWidget, 'dimensionalScatter')">
+                                  <ng-template ngFor let-tab [ngForOf]="dimensionalScatterWidget?.Dimensions">
+                                    <div class="col-lg-12 col-md-12 col-sm-12"
+                                      *ngIf="dimensionalScatteractiveTab === tab?.DimensionName">
+                                      <app-widget
+                                        [widgetConfiguration]="dimensionalScatterWidget[dimensionalScatteractiveTab]?.widgetInfo"
+                                        [events]="widgetEvent.asObservable()"
+                                        (widgetEvent)="drilldownChange($event,'dimensionalScatter','','')"
+                                       >
+                                      </app-widget>
+                                    </div>
+                                  </ng-template>
+                                  <div class="profile-n-loader-tab" style="height: 20px;"
+                                    *ngIf="loaderForDimensionalScatter">
+                                    <!-- <app-element-loader></app-element-loader> -->
+                                  </div>
+                                </div>
+                              </article>
+                            </article>
+                            <!----CHART CONTENT ENDS--->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <!-- Dimensional Scatter Chart Ends -->
+              <!-- Profiler Starts  -->
+              <section id="service" *ngIf="drilldownSecondAccordionProfiler">
+                <div class="col container p-0 tree-profiler">
+                </div>
+              </section>
+              <!-- Profiler Ends -->
+              <!-- Participant List Starts -->
+              <section class="accordion-dashboard" id="service" *ngIf="drilldownAccordionParticipantList">
+
+
+                <div class="col container p-0">
+                  <div class="col-lg-12 col-md-12 col-sm-12 pad-rmv p-0">
+                    <div class="panel-group  brd-head-nova-level mb-0" id="accordion-eda" role="tablist"
+                      aria-multiselectable="true">
+                      <!-- Accordian Participant Tab  -->
+                      <div class="panel panel-default">
+                        <!-- Accordian Header -->
+                        <div class="panel-heading" id="headingOne" for="collapseThreeParticipantsList"
+                          data-toggle="collapse" href="#collapseThreeParticipantsList" aria-expanded="true"
+                          aria-controls="collapseThreeParticipantsList">
+                          <h4 class="panel-title" style="margin-top: 0px !important;">
+                            <a (click)="accordionThree()" [ngClass]="showthirdAccordion ? 'collapse' : 'collapsed'"
+                              style="padding-bottom: 14px;">
+                              <i class="fa fa-table"></i>&nbsp; Participant List
+                            </a>
+                          </h4>
+                        </div>
+                        <!-- Accordian Content for participation list-->
+                        <div id="collapseThree-participantsList" #collapseThreeParticipantsList
+                          [ngClass]="showthirdAccordion ? 'collapse show' : 'collapse'">
+                          <div class="panel-body brd-nova" *ngIf="showthirdAccordion">
+                            <article class="margin-b-0 res-padding-2 padding-b-0 ng-scope  brd pt-2">
+                              <span class="">
+                                <div class="badge badge-secondary customBadge ml-3" [style.border-color]="item['Color']"
+                                  *ngFor="let item of participantBadges">
+                                  <span *ngIf="item['Previous Level Profile Tab'] != null"
+                                    [style.color]="item['Color']">{{item['Previous Level Profile Tab']}}</span>
+                                  <span *ngIf="item['Previous Level Profile Bar'] != null"
+                                    [style.color]="item['Color']">: {{item['Previous Level Profile Bar']}}</span>
+                                </div>
+
+                                <div class="col-1 info-nova" style="float: right">
+                                  <button (click)="setDynamicInforContent('', 'participantInfo',baseWidgetDetails)"
+                                    *ngIf="!hideIcons" class="btn btn-info pull-right btn-round info-btn mr-3"
+                                    data-toggle="modal" data-target="#infoModal" data-backdrop="true">
+                                    <i class="fa fa-info" aria-hidden="true"></i>
+                                  </button>
+                                </div>
+                              </span>
+                              <div *ngIf="loadParticipantList" id="menuToggle">
+                                <!-- & Tab Content End-->
+                              </div>
+                              <div class="col-lg-12 col-md-12 col-sm-12" style="height: 100px !important;"
+                                *ngIf="loadAccordionParticipantWidget">
+                              </div>
+                              <!---TABINATION NEW ENDS-->
+                              <!---Tabination Ends-->
+                            </article>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- full widget design ends -->
+
+    </ng-template>
+    <!-- base code implementation end -->
+    </div>
+  </div>
+
+
+
+

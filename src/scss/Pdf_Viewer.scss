@@ -1,0 +1,686 @@
+@import '../scss/Variables.scss';
+
+/*  Thumbnail Style Starts */
+
+.pdf-thumb {
+    .open {
+        width: 117px;
+    }
+    label.thumbnail-label {
+        color: $Split_Header;
+        padding: 5px;
+        font-weight: 600;
+        background-color: $PdfViewer_Toolbar_Background;
+    }
+    .range-tag{
+        background-color: $PdfViewer_Toolbar_Background;   
+    }
+}
+
+.thumbnail {
+    height: calc(90vh - 34px);
+    overflow-y: auto;
+    background-color: $PdfViewer_Toolbar_Background;
+
+    &.select-range{
+        height: calc(90vh - 63px);
+        padding-top: 6px;
+    }
+
+    .pdf-viewer-toolbar-container {
+        background-color: $PdfViewer_Toolbar_Background;
+        height: 34px;
+        text-align: center;
+
+        .container {
+            height: 121px;
+            width: 84%;
+            background: $White;
+            margin-top: 5px;
+            margin-bottom: 35px;
+            padding-left: 0px;
+            padding-right: 0px;
+            box-shadow: 0 4px 4px rgb(0 0 0 / 21%);
+
+            .un-check {
+                right: 15px !important;
+                position: absolute;
+                margin-top: 4px;
+                display: block;
+                cursor: pointer;
+
+                .fa {
+                    font-size: 20px;
+                    color: $Gray;
+                }
+            }
+
+            .check {
+                display: none;
+            }
+
+            &.highlight {
+                .check {
+                    right: 15px !important;
+                    position: absolute;
+                    margin-top: 4px;
+                    display: block;
+                    cursor: pointer;
+
+                    .fa {
+                        font-size: 20px;
+                        color: $Light_Green;
+                    }
+                }
+
+                .un-check {
+                    display: none;
+                }
+            }
+
+        }
+
+        .row {
+            overflow-y: auto;
+
+            .col-12 {
+                .page-number {
+                    font-size: 13px;
+                }
+            }
+        }
+
+    }
+
+    .highlight {
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+        border: 2px solid $Gray;
+    }
+}
+
+/*  Thumbnail Style Ends */
+
+/*  Pdf Viewer Style starts */
+
+.right-panel {
+
+    .thumb-button {
+        z-index: 3;
+        position: absolute;
+        left: -19px;
+        height: 31px;
+        width: 18px;
+        border-radius: 4px 0px 0px 4px;
+        background: $Primary;
+        border: 0px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+        text-align: center;
+        padding: 0px;
+
+        a{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 2px;
+        }
+
+        .fa {
+            color: $White;
+            font-size: 12px;
+        }
+    }
+
+    .pdf-viewer {
+        height: 90vh;
+        border: 1px solid $Partition_Line;
+        overflow: hidden;
+
+
+        .pdf-viewer-toolbar-container {
+            background-color: $PdfViewer_Toolbar_Background;
+            height: 34px;
+            box-shadow: 0 4px 4px rgb(0 0 0 / 21%);
+
+            .pdf-viewer-toolbar {
+                display: inline-flex;
+                padding: 0px 8px;
+
+                .pdf-name {
+                    font-size: 14px;
+                    color: $Dark_Gray;
+                    margin-bottom: 0px;
+                    padding-top: 6px;
+                    max-width: 27%;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    padding-right: 14px;
+                    letter-spacing: 0px;
+                }
+
+                .pdf-icon-container {
+                    height: 34px;
+                    margin-top: -2px;
+                    display: flex;
+                    justify-content: center;
+                    padding-right: 75px;
+                    padding-left: 0px;
+
+                    .pdf-pages {
+                        padding-right: 19px;
+                        margin-top: 6px;
+                        white-space: nowrap;
+
+                        .page-input {
+                            color: $Gray_Label;
+                            border-bottom: 1px solid $PdfViewer_Toolbar_Page_Border;
+                            font-size: 13px;
+                        }
+
+                        .total-pages {
+                            color: $Mid_Gray;
+                            font-size: 13px;
+                        }
+
+                        .input-enter {
+                            background: none;
+                            border: none;
+                            font-size: 13px;
+                            color: #7d7d7d;
+                            text-align: center;
+                            height: 16px;
+                            border-bottom: 1px solid #d5d6d7;
+                            width: 30px;
+                            padding-bottom: 5px;
+                            margin-right: 5px;
+                        }
+                    }
+
+                    .pdf-icon {
+                        padding-right: 19px;
+                        cursor: pointer;
+
+                        .uil {
+                            color: $Mid_Gray;
+                            font-size: 24px;
+                        }
+
+                        svg {
+                            margin-top: 6px;
+                            height: 24px;
+                        }
+                    }
+
+                    .pdf-search {
+                        display: inline-flex;
+                        width: 41%;
+
+                        .pdf-search-inp {
+                            border: 1px solid $PdfViewer_Toolbar_Search_Border;
+                            background-color: $White;
+                            height: 21px;
+                            padding: 1px 4px;
+                            margin-top: 8px;
+                            color: $Black;
+                            font-size: 13px;
+                            margin-top: 9px;
+                            margin-right: 10px;
+                            width: 100%;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                            white-space: nowrap;
+                        }
+
+                        .pdf-search-inp.inp-highlight {
+                            border: 1px solid #2B93DE;
+                        }
+
+                        .pdf-icon {
+                            padding-right: 10px;
+
+                            .uil {
+                                color: $Mid_Gray;
+                                font-size: 24px;
+                            }
+                        }
+
+                        .pdf-nav-pages {
+                            .pdf-nav-pages-values {
+                                font-size: 13px;
+                                margin-top: 10px;
+                                color: $Mid_Gray;
+                            }
+                        }
+                    }
+
+                    .pdf-icon-space {
+                        padding-right: 0.8%;
+                        display: inline-flex;
+                    }
+
+                }
+            }
+        }
+    }
+
+    .bk-file-icon {
+        position: absolute;
+        right: 20px;
+        z-index: 1;
+        font-size: 20px;
+        top: 0px;
+        cursor: pointer;
+
+        .fa,
+        .fas,
+        .far {
+            color: $PdfViewer_Toolbar_Bookmark;
+            font-size: 60px;
+        }
+    }
+
+    .pdf-thumbnail {
+        width: calc(100% - 117px);
+
+        .pdf-viewer {
+            .pdf-viewer-toolbar-container {
+                .pdf-viewer-toolbar {
+                    .pdf-name {
+                        width: 18%;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                        padding-right: 10px;
+                    }
+
+                    .pdf-icon-container {
+                        justify-content: center;
+
+                        .pdf-pages {
+                            padding-right: 19px;
+                        }
+
+                        .pdf-icon {
+                            padding-right: 19px;
+                        }
+
+                        .pdf-search {
+                            width: 41%;
+
+                            .pdf-icon{
+                                padding-right: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .pdf-normal {
+        .pdf-viewer {
+            .pdf-viewer-toolbar-container {
+
+                .pdf-viewer-toolbar {
+
+                    .pdf-name {
+                        width: 20%;
+                        padding-right: 14px;
+                    }
+
+                    .pdf-icon-container {
+                        justify-content: left;
+
+                        .pdf-pages {
+                            padding-right: 14px;
+                        }
+
+                        .pdf-icon {
+                            padding-right: 14px;
+                        }
+
+                        .pdf-search {
+                            width: 27%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.drag-knob {
+    border-radius: 0px 5px 5px 0px;
+    background-color: $Primary;
+    position: absolute;
+    z-index: 1;
+    height: 125px;
+    width: 9px;
+    top: 40%;
+    cursor: w-resize;
+}
+
+.drag-knob-thumbnail{
+    border-radius: 0px 5px 5px 0px;
+    background-color: $Primary;
+    position: absolute;
+    z-index: 1;
+    height: 125px;
+    width: 9px;
+    top: 40%;
+    cursor: w-resize;
+    left: 117px;
+}
+
+.center-content-both {
+    margin-top: 8px;
+
+    .textLayer {
+        width: 85% !important;
+        position: absolute;
+        overflow-y: scroll;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+
+        .pdfContainer {
+            position: relative !important;
+            width: 100%;
+            height: 735px !important;
+            padding: 0px !important;
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+    }
+}
+
+.center-content-right {
+    margin-top: 8px;
+
+    .textLayer {
+        width: 90% !important;
+        position: absolute;
+        left: 0;
+        overflow-y: scroll;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+    .pdfContainer {
+        width: 100% !important;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+}
+
+.center-content-left {
+    margin-top: 8px;
+
+    .textLayer {
+        width: 85% !important;
+        position: absolute;
+        overflow-y: scroll;
+        height: 76vh;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+}
+
+.center-content-non {
+    margin-top: 8px;
+
+    .textLayer {
+        width: 100% !important;
+        position: absolute;
+        left: 0;
+        height: 82vh;
+        overflow-y: hidden;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+}
+
+.pdfContainer.container {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    height: 100%;
+    .height-fullview{
+        height: 100%;
+    }
+}
+
+.ng2-pdf-viewer-container {
+    .pdfViewer {
+        .page {
+            .textLayer {
+                overflow: hidden;
+            }
+        }
+    }
+}
+
+.pdf-viewer-cont {
+    height: 100% !important;
+    max-height: 1000vh !important;
+    min-height: 80vh;
+}
+
+
+
+// Pdf Header Button styles
+.pdf-quality {
+    margin-left: 8px;
+
+    .btn.btn-pdf-high {
+        margin-bottom: 0px;
+        margin-top: 8px;
+        margin-left: 0.5px;
+        padding: 4px !important;
+        padding-top: 0px !important;
+        border-radius: 19px;
+        height: 22px !important;
+        font-size: 12px !important;
+        background-color: $White !important;
+        border: 2px solid $Secondary !important;
+        color: $Black !important;
+        padding-bottom: 1px !important;
+        line-height: normal;
+    }
+
+    .btn.btn-pdf-high-active {
+        margin-bottom: 0px;
+        margin-top: 8px;
+        margin-left: 0.5px;
+        padding: 4px !important;
+        padding-top: 0px !important;
+        border-radius: 19px;
+        height: 22px !important;
+        font-size: 12px !important;
+        background-color: $Secondary !important;
+        border: 1px solid $Secondary !important;
+        color: $White !important;
+        font-weight: 600;
+        padding-bottom: 1px !important;
+        line-height: normal;
+    }
+
+    .btn.btn-pdf-select {
+        margin-bottom: 4px;
+        margin-top: 4px;
+        margin-left: 0.5px;
+        padding: 4px !important;
+        padding-top: 0px !important;
+        border-radius: 4px;
+        height: 20px !important;
+        font-size: 12px !important;
+        background-color: $White !important;
+        border: 1px solid $Dark_Gray !important;
+        color: $Black !important;
+        padding-bottom: 1px !important;
+        line-height: normal;
+        font-weight: 600;
+    }
+
+    .btn.btn-pdf-select-active {
+        margin-bottom: 4px;
+        margin-top: 4px;
+        margin-left: 0.5px;
+        padding: 4px !important;
+        padding-top: 0px !important;
+        border-radius: 4px;
+        height: 20px !important;
+        font-size: 12px !important;
+        background-color: $Filter_Active !important;
+        border: 1px solid $Dark_Gray !important;
+        color: $Black !important;
+        font-weight: 600;
+        padding-bottom: 1px !important;
+        line-height: normal;
+    }
+
+    .btn.btn-pdf-medium {
+        margin-bottom: 0px;
+        margin-top: 8px;
+        margin-left: 3px;
+        padding: 6px !important;
+        padding-top: 0px !important;
+        border-radius: 19px;
+        height: 22px !important;
+        font-size: 0.7rem !important;
+        background-color: $White !important;
+        border: 2px solid $info-icon2 !important;
+        color: $Black !important;
+        padding-bottom: 1px !important;
+        line-height: normal;
+    }
+
+    .btn.btn-pdf-medium-active {
+        margin-bottom: 0px;
+        margin-top: 8px;
+        margin-left: 3px;
+        padding: 6px !important;
+        padding-top: 0px !important;
+        border-radius: 19px;
+        height: 22px !important;
+        font-size: 0.7rem !important;
+        background-color: $info-icon2 !important;
+        border: 1px solid $info-icon2 !important;
+        color: $White !important;
+        font-weight: 600;
+        padding-bottom: 1px !important;
+        line-height: normal;
+    }
+
+    .btn.btn-pdf-low {
+        margin-bottom: 0px;
+        margin-top: 8px;
+        margin-left: 3px;
+        padding: 6px !important;
+        padding-top: 0px !important;
+        border-radius: 19px;
+        height: 22px !important;
+        font-size: 0.7rem !important;
+        background-color: $White !important;
+        border: 2px solid $danger !important;
+        color: $Black !important;
+        padding-bottom: 1px !important;
+        line-height: normal;
+    }
+
+    .btn.btn-pdf-low-active {
+        margin-bottom: 0px;
+        margin-top: 8px;
+        margin-left: 3px;
+        padding: 6px !important;
+        padding-top: 0px !important;
+        border-radius: 19px;
+        height: 22px !important;
+        font-size: 0.8rem !important;
+        background-color: $danger !important;
+        border: 1px solid $danger !important;
+        color: $White !important;
+        font-weight: 600;
+        padding-bottom: 1px !important;
+        line-height: normal;
+    }
+
+    .btn.btn-pdf-all {
+        margin-bottom: 0px;
+        margin-top: 8px;
+        margin-left: 3px;
+        padding: 6px !important;
+        padding-top: 0px !important;
+        border-radius: 19px;
+        height: 22px !important;
+        font-size: 0.7rem !important;
+        background-color: $White !important;
+        border: 2px solid $Primary !important;
+        color: $Black !important;
+        padding-bottom: 1px !important;
+        line-height: normal;
+    }
+
+    .btn.btn-pdf-all-active {
+        margin-bottom: 0px;
+        margin-top: 8px;
+        margin-left: 3px;
+        padding: 6px !important;
+        padding-top: 0px !important;
+        border-radius: 19px;
+        height: 22px !important;
+        font-size: 0.7rem !important;
+        background-color: $Primary !important;
+        border: 1px solid $Primary !important;
+        color: $White !important;
+        font-weight: 600;
+        padding-bottom: 1px !important;
+        line-height: normal;
+    }
+}
+
+/*  Pdf Viewer Style ends */
+
+.explore-details-modal {
+    .pdf-viewer{
+        .navigation-control-value{
+            padding-top: 3px;
+        }
+
+        .tiff-viewer{
+            height: calc(100vh - 86px);
+            overflow-y: auto;
+        }
+        
+        .navigation-controls-container {
+            display: flex;
+            padding-left: 8px;
+            justify-content: center;
+
+            .navigation-controls-container-set {
+                display: inline-flex;
+                background-color: $White;
+                padding: 0px 2px 0px 2px;
+                border: 1px solid $Transparent;
+                border-radius: 4px;
+                margin: 0px 0px 0px 0px;
+                box-shadow: 0 2px 3px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+                height: 30px;
+                margin-top: 1px;
+
+                .navigation-control-value {
+                    font-size: 15px;
+                }
+
+                .navigation-button {
+                    background-color: $Transparent;
+                    border: none;
+                    margin-left: 6px;
+
+                    .fa,
+                    .fas {
+                        color: $Mid_Gray;
+                    }
+                }
+            }
+        }
+    }
+}

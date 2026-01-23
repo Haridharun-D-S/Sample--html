@@ -1,0 +1,10 @@
+<!-- <button (click)="chartType('G')">Grouped Chart</button>
+<Button (click)="chartType('SC')">Stacked Column Chart</Button> -->
+<div *ngIf="showChart" class="chart-element" #chartEl></div>
+<div *ngIf="!showChart"  class="col-12 p-0 chart-nodata">
+    <p class="text-center centered">No data available. You may choose a different time period and check</p>
+    <img src="../../../../assets/Images/on_load.png">
+  </div>
+<app-context-menu *ngIf="showContextMenu" [chartData]="chartData" 
+[drilldownActions]="chartData?.drilldownActions"
+(contextMenuEmit)="ContextMenuEmitter($event)"></app-context-menu>

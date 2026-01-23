@@ -1,0 +1,7 @@
+<span>
+<select class="data-content-select" name="dropdownSelectedValue" [value]="params.value" (change)="onChange($event)">
+    <option value="">Select</option>
+    <option value="{{item.id}}" *ngFor="let item of value.ownerDropdown">{{item.value}}</option>
+</select>
+<span class="fa fa-select-caret"></span>
+</span>

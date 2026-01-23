@@ -1,0 +1,13 @@
+
+<div class="chart-element" #chartEl></div>
+<div #legend class="row m-0 col-12 pr-0 custom-leg-others" style="text-align: left;justify-content: center;max-height: 32px;line-height: 16px;overflow: hidden;padding-left: 100px;"></div>
+
+<div class="info2-position">
+  <button *ngIf="showFilter" class="btn btn-info2">
+    <i class="fa fa-filter"> filter</i></button>
+    <button class="btn btn-info2" (click)="scatterLabel(chartData)">
+      <i [ngClass]="toggleLegend ? 'fa fa-toggle-on' : 'fa fa-toggle-off'"> label</i></button>
+</div>
+<app-context-menu *ngIf="showContextMenu" [chartData]="chartData" 
+[drilldownActions]="chartData?.drilldownActions"
+(contextMenuEmit)="ContextMenuEmitter($event)"></app-context-menu>

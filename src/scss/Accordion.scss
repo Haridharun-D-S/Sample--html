@@ -1,0 +1,142 @@
+@import '../scss/Variables.scss';
+
+/*  Dashboard Accordion - starts */
+
+.accordion-dashboard {
+    margin-top: 6px;
+    margin-bottom: 9px;
+
+    .dashboard-nav-btn-left {
+        position: absolute;
+        top: 47%;
+        z-index: 1;
+        left: -18px;
+
+        button {
+            border: 2px solid $White;
+            background-color: $White;
+            padding: 4px 3px 0px 3px;
+            height: 32px;
+
+            .fa,
+            .fas {
+                color: $Primary;
+                font-size: 20px;
+            }
+        }
+    }
+
+    .dashboard-nav-btn-right {
+        position: absolute;
+        top: 47%;
+        z-index: 1;
+        right: -18px;
+
+        button {
+            border: 2px solid $White;
+            background-color: $White;
+            padding: 4px 3px 0px 3px;
+            height: 32px;
+
+            .fa,
+            .fas {
+                color: $Primary;
+                font-size: 20px;
+            }
+        }
+    }
+
+    .dashborad-nav-btn-none {
+        display: none;
+    }
+
+    .accordion-header {
+        background-color: $White;
+        display: flex;
+        height: 46px;
+        border-radius: 5px 5px 0px 0px;
+        text-align: left;
+        cursor: pointer;
+        padding: 0.6rem 1.25rem 0.4rem 1.25rem;
+        width: 100%;
+        border: none;
+
+        h6 {
+            font-size: 21px;
+            color: $Black;
+            font-weight: 600;
+            letter-spacing: 0px;
+        }
+
+        .dashboard-icon {
+            fill: $Primary;
+            margin-top: -5px;
+        }
+
+        .collapse-icon.fa,
+        .collapse-icon.fas {
+            color: $Black_Label;
+            margin-top: 6px;
+        }
+    }
+
+    .accordion-content-none {
+        display: none;
+    }
+
+    .accordion-content {
+        background-color: $Accordion_Content_Background;
+        padding: 8px 4px 0px 4px;
+        overflow: visible;
+        border: 2px solid $White;
+        border-radius: 0px 0px 5px 5px;
+    }
+
+}
+
+/*  Dashboard Accordion - ends */
+
+/*  Case Accordion - starts */
+
+.case-accordion {
+    margin-top: 12px;
+
+    .accordion-content-none {
+        display: none;
+    }
+
+    .accordion-content {
+        border: 1px solid $Accordion_Case_Border;
+        border-top: none;
+        border-radius: 0px 0px 7px 7px;
+        height: auto;
+        overflow: hidden;
+        padding: 10px 0px 15px 0px;
+    }
+
+    .accordion-header {
+        background-color: $Accordion_Case_Header_Background;
+        border-radius: 7px 7px 0px 0px;
+        margin: 5px 0px 0px 0px;
+        width: 100%;
+        border-bottom: $White;
+        border-right: $White;
+        border: 1px solid $Accordion_Case_Border;
+        padding-left: 0px;
+        padding-right: 0px;
+
+        h6,
+        span {
+            color: $Accordion_Header_Font_Color;
+            padding: 6px 15px 2px 15px;
+            margin-bottom: 0px;
+        }
+
+        .fa,
+        .fas {
+            color: $Accordion_Header_Font_Color;
+        }
+    }
+}
+
+/*  Case Accordion - ends */

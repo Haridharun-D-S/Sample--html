@@ -1,0 +1,31 @@
+<!-- bar chart -->
+<app-bar-chart [data]='data' *ngIf="data.type == 'bar'"
+(chartEvent)="dispatchChartEvent($event)">
+</app-bar-chart>
+
+<!-- pie chart -->
+<app-pie-chart *ngIf="data.type == 'pie'"
+[data]='data'
+(chartEvent)="dispatchChartEvent($event)">
+
+</app-pie-chart>
+<!-- scatter chart -->
+<app-scatter-chart  *ngIf="data.type == 'scatter'"
+[data]='data'
+(chartEvent)="dispatchChartEvent($event)">
+
+</app-scatter-chart>
+<!-- grouped / stacked chart-->
+<app-GroupedandStacked-chart *ngIf="data.type == 'Stacked Column'"
+[data]='data'
+(chartEvent)="dispatchChartEvent($event)">
+</app-GroupedandStacked-chart>
+<!-- Bubble chart-->
+<app-bubble-chart *ngIf="data.type == 'bubble'" [data]='data'
+(chartEvent)="dispatchChartEvent($event)" (sendWidgetChanges)="chartCompwidgetchanges($event)">
+</app-bubble-chart>
+<!-- Combined series chart-->
+<app-combination-chart *ngIf="data.type == 'combinedSeries'" [data]='data'
+(chartEvent)="dispatchChartEvent($event)" (sendWidgetChanges)="chartCompwidgetchanges($event)"> 
+</app-combination-chart>
+

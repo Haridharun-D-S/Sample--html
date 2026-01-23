@@ -1,0 +1,109 @@
+
+
+<div class="form-inline mx-auto search-form navbar-form main-search place-c ">
+    <div class="input-group" *ngIf="showSearch">
+        <input type="text" aria-label="Search" [(ngModel)]="searchInputs" (ngModelChange)="searchFun($event)"
+            (click)="searchOpen()"
+            onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 8 || event.charCode == 32 || (event.charCode >= 48 && event.charCode <= 57));"
+            class="form-control mr-sm-2 searchBox" placeholder="Search Measure or Patterns ...">
+        <span class="input-group-btn">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="button"><i class="fa fa-search"
+                    aria-hidden="true"></i></button>
+        </span>
+
+    </div>
+
+    <article class="details-search-box style-template-2 border-1 margin-b-0 cls-srch" *ngIf="searchClose">
+        <header>
+            <article class="margin-b-20-lg">
+                <ul class="nav nav-tabs tabs-3 place-l pull-justify" role="tablist"></ul>
+                <button type="button" class="close main-search-close place-tr padding-10 fn icn"
+                    data-dismiss="main-search" aria-label="Close" (click)="closeIcon()">
+                    <!-- <span aria-hidden="true"><i class="fa fa-times-circle" (click)="closeIcon()" aria-hidden="true"></i></span> -->
+                </button>
+            </article>
+        </header>
+
+        <article class="margin-b-0">
+            <div class="tab-content margin-b-0">
+                <div class="tab-pane fadeInUp animated in active margin-b-0" id="search-all" role="tabpanel">
+
+                    <article class="search-controls res-padding-2 padding-t-0 margin-b-0">
+                        <article class="search-item" *ngIf="msgContent">
+                            <p style="width:100%">
+                                No charts are associated with this category.
+                                Please modify your search and try again.
+                            </p>
+                        </article>
+                        <!-- ngRepeat: search in SearchResults | filter:searchTerm -->
+                        <div *ngIf="searchContent">
+                            <article class="search-item" *ngFor="let item of searchData">
+
+                                <p class="search-sm">
+                                    <i class="{{item?.ChartIconI}}"></i>&nbsp;
+                                    <a class="hlink-x-x" title="{{item?.ObjectName}}"> {{item?.ObjectName}}</a> &nbsp;
+                                </p>
+                                <ul class="controls-list controls-list-1 place-r" *ngIf="searchClose"
+                                    [ngStyle]="{'display': searchClose ? 'contents' : ''}">
+                                    <li class="search-add" *ngIf="item.ChartIconI !== '' ">
+                                        <a title="Click to add the Insight Item to the dashboard"
+                                            (click)="addChartsToDashboard(item,item.ChartTemplateI)">
+                                            <i class="{{item.ChartIconI}} clr1">
+                                            </i>
+
+                                        </a>
+                                    </li>
+                                    <li class="search-download" *ngIf="item.ChartIconII !== '' " style="font-size:12px">
+                                        <a title="Click to add the Insight Item to the dashboard"
+                                            (click)="addChartsToDashboard(item,item.ChartTemplateII)">
+                                            <i class="{{item.ChartIconII}} clr2">
+                                            </i>
+                                        </a>
+                                    </li>
+                                    <li class="search-download" *ngIf="item.ChartIconIII !== '' "
+                                        style="font-size:12px">
+                                        <a title="Click to add the Insight Item to the dashboard"
+                                            (click)="addChartsToDashboard(item,item.ChartTemplateIII)">
+                                            <i class="{{item.ChartIconIII}} clr3"></i>
+                                        </a>
+                                    </li>
+                                    <li class="search-download" *ngIf="item.ChartIconIV !== '' " style="font-size:12px">
+                                        <a title="Click to add the Insight Item to the dashboard"
+                                            (click)="addChartsToDashboard(item,item.ChartTemplateIV)">
+                                            <i class="{{item.ChartIconIV}} clr4">
+                                            </i>
+                                        </a>
+                                    </li>
+                                    <li class="search-download" *ngIf="item.ChartIconV !== '' " style="font-size:12px">
+                                        <a title="Click to add the Insight Item to the dashboard"
+                                            (click)="addChartsToDashboard(item,item.ChartTemplateV)">
+                                            <i class="{{item.ChartIconV}} clr5"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </article>
+                        </div>
+                    </article>
+                </div>
+                <div class="tab-pane fadeInUp animated in margin-b-0" id="search-charts" role="tabpanel">
+                    <p>Search Charts List</p>
+                </div>
+                <div class="tab-pane fadeInUp animated in margin-b-0" id="search-maps" role="tabpanel">
+                    <p>Search Maps List</p>
+                </div>
+                <div class="tab-pane fadeInUp animated in margin-b-0" id="search-data-tables" role="tabpanel">
+                    <p>Search Data Tables List</p>
+                </div>
+                <div class="tab-pane fadeInUp animated in margin-b-0" id="search-contents" role="tabpanel">
+                    <p>Search Text Contents List</p>
+                </div>
+            </div>
+
+        </article>
+
+
+
+
+    </article>
+</div>

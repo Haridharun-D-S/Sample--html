@@ -5,9 +5,13 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "strict": false,
+    "strictNullChecks": false,
+    "resolveJsonModule":true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
+    "noPropertyAccessFromIndexSignature": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
@@ -19,16 +23,21 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
+    "types": ["node"],
     "lib": [
       "ES2022",
       "dom"
-    ],
-     "skipLibCheck": true
+    ]
   },
+  // "exclude": [
+  //   "src/app/bar-chart/**",
+  //   "src/app/pie-chart/**"
+  // ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "enableIvy": true
   }
 }
