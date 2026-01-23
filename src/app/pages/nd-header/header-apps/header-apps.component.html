@@ -1,0 +1,51 @@
+<header class="header-container">
+  <!-- Left: Logo and Title -->
+  <div class="left-section">
+    <img *ngIf="imgLogoPath" [src]="imgLogoPath" alt="Logo" class="logo" />
+    <h2 *ngIf="title" class="title">{{ title }}</h2>
+  </div>
+
+  <!-- Center: Search bar -->
+  <div class="center-section" *ngIf="isSearchEnabled">
+    <div class="search-box">
+      <input type="text" class="search-input" [(ngModel)]="searchText" (input)="onSearchChange()"
+        placeholder="Search" />
+      <button class="search-btn" (click)="onSearchClick()">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="right-section">
+
+    <!-- Center Section: Menus -->
+    <nav *ngIf="isMenuEnabled" class="menu-container">
+      <div class="menu-item" *ngFor="let menu of menus" (click)="onMenuClick(menu)"
+        [class.active]="activeDropdown === menu.label">
+        {{ menu.label }}
+        <span *ngIf="menu.submenu" class="arrow"></span>
+
+        <!-- Dropdown Menu -->
+        <ul class="dropdown" *ngIf="menu.submenu && activeDropdown === menu.label">
+          <li *ngFor="let subItem of menu.submenu" (click)="onSubMenuClick(subItem)">
+            {{ subItem }}
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+
+
+    <!-- Welcome text -->
+    <div *ngIf="isUserInfoEnabled" class="user-info">
+      <i class="fas fa-user-circle user-icon"></i>
+      <span class="welcome-text">Welcome, <b>{{ fullName }}</b>!</span>
+    </div>
+
+
+    <!-- Logout -->
+    <button *ngIf="isLogoutEnabled" class="logout-btn" (click)="onLogout()">
+      <i class="fas fa-power-off"></i>
+    </button>
+  </div>
+</header>

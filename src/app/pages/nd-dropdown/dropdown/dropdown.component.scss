@@ -1,0 +1,24 @@
+.full-width {
+  width: 100%;
+}
+
+.search-field {
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkbox {
+  scale: 1.2;
+}
+
+.label {
+  font-size: 14px;
+}

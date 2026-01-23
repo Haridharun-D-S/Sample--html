@@ -1,4 +1,4 @@
-# framework-ui
+# custom-highchart-framework
 
 
 
@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://gitlab.com/ecare-project/framework-ui.git
+git remote add origin https://gitlab.com/ecare-project/custom-highchart-framework.git
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.com/ecare-project/framework-ui/-/settings/integrations)
+- [ ] [Set up project integrations](https://gitlab.com/ecare-project/custom-highchart-framework/-/settings/integrations)
 
 ## Collaborate with your team
 

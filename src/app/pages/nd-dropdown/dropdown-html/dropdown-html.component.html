@@ -1,0 +1,126 @@
+<!--------------------------- Html Dropdown Starts -------------------------------->
+
+<!-- ================== TYPE : SINGLE ================== -->
+<select *ngIf="dropdownType === 'single'">
+  <option disabled selected>Select value</option>
+  <option *ngFor="let item of dropdownData" [value]="item.id">
+    {{ item.name }}
+  </option>
+</select>
+
+
+<!-- ================== TYPE : MULTI ================== -->
+<div class="multi-container" *ngIf="dropdownType === 'multi'">
+  <input type="text"
+         class="dropdown-input"
+         placeholder="{{ label }}"
+         readonly
+         (click)="showDropdown = !showDropdown"
+         [value]="selectedNames" />
+
+  <div class="dropdown-panel" *ngIf="showDropdown">
+    <label *ngFor="let item of dropdownData" class="checkbox-item">
+      <input type="checkbox"
+             [checked]="selectedValues.includes(item.id)"
+             (change)="updateCheckbox($event, item.id)" />
+      {{ item.name }}
+    </label>
+  </div>
+</div>
+
+
+<!-- ================== TYPE : AUTOCOMPLETE ================== -->
+<div *ngIf="dropdownType === 'autocomplete'" class="dropdown-container" #dropdownRef>
+
+  <input type="text"
+         placeholder="Search..."
+         [(ngModel)]="searchText"
+         [value]="selectedNamesAutocomplete"
+         (focus)="showDropdown = true"
+         class="search-input" />
+
+  <div class="dropdown-panel" *ngIf="showDropdown">
+    <select size="6" class="serach-option" (change)="selectAutocomplete($event)">
+      <option class="search-option"
+              *ngFor="let item of dropdownData | filter: searchText"
+              [value]="item.id">
+        {{ item.name }}
+      </option>
+    </select>
+  </div>
+
+</div>
+
+
+<!-- ============= TYPE : MULTI-SEARCH ================= -->
+<div *ngIf="dropdownType === 'multi-search'" class="dropdown-container" #dropdownRef>
+
+  <input type="text"
+         class="dropdown-input"
+         placeholder="Search values..."
+         [value]="selectedNames"
+         (focus)="showDropdown = true"
+         readonly />
+
+  <div class="dropdown-panel" *ngIf="showDropdown">
+
+    <input type="text"
+           class="dropdown-search"
+           placeholder="Search values..."
+           [(ngModel)]="searchText" />
+
+    <div class="multi-item" *ngFor="let item of dropdownData | filter:searchText">
+      <input type="checkbox"
+             [checked]="selectedValues.includes(item.id)"
+             (change)="updateCheckbox($event, item.id)" />
+      <label>{{ item.name }}</label>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ================== TYPE : NESTED (Parent → Child) ================== -->
+<div *ngIf="dropdownType === 'nested'" class="dropdown-wrapper" #dropdownRef>
+
+  <!-- Input -->
+  <div class="dropdown-input" (click)="showDropdown = !showDropdown">
+    <span>{{ selectedNames || 'Select Nested Option' }}</span>
+    <span class="dropdown-arrow" [ngClass]="{ rotate: showDropdown }">▼</span>
+  </div>
+
+  <!-- Dropdown Panel -->
+  <div class="dropdown-panel" *ngIf="showDropdown">
+
+    <div class="nested-parent"
+         *ngFor="let parent of lookupResponse.LookupData"
+         (click)="toggleParent(parent.id)">
+
+      <div class="nested-parent-title">
+        {{ parent.name }}
+        <span class="dropdown-arrow" [ngClass]="{ rotate: expandedParent === parent.id }">›</span>
+      </div>
+
+      <!-- Child section -->
+      <div *ngIf="expandedParent === parent.id" class="nested-child-area">
+
+        <label *ngFor="let child of parent.children"
+               class="multi-item"
+               (click)="$event.stopPropagation()"> <!-- ✅ prevents dropdown close -->
+
+          <input type="checkbox"
+                [checked]="selectedValues.includes(child.id)"
+                (change)="updateCheckbox($event, child.id); $event.stopPropagation()" /> <!-- ✅ -->
+
+          {{ child.name }}
+        </label>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!--------------------------- Html Dropdown Ends -------------------------------->

@@ -1,0 +1,14 @@
+<div class="nd-toast-container">
+  <div
+    role="alert"
+    *ngFor="let toast of toastService.toasts; let i = index"
+    class="nd-toast"
+    [class.success]="toast.type === 'success'"
+    [class.error]="toast.type === 'error'"
+    [class.warning]="toast.type === 'warning'"
+    [class.info]="toast.type === 'info'">
+    <span>{{ toast.message }}</span>
+    <button class="nd-close-btn" (click)="removeToast(i)">×</button>
+  </div>
+</div>
+

@@ -1,0 +1,37 @@
+.split-form {
+  display: grid;
+  grid-template-columns: 150px 200px;
+  gap: 10px;
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+.preview-box {
+  height: 420px;
+  border: 1px solid #ccc;
+}
+
+
+.split-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+
+  .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+
+    .form-field {
+      flex: 1 1 200px;   // grow/shrink, min width 200px
+      min-width: 200px;  // ensures proper spacing
+    }
+  }
+}
+
+.preview-box {
+  height: 420px;
+  border: 1px solid #ccc;
+  padding: 8px;
+}

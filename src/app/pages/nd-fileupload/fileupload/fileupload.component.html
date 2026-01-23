@@ -1,0 +1,75 @@
+<div
+  class="file-upload-container"
+  *ngIf="!isShowFileDetails"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)"
+  [class.dragover]="isDragging"
+>
+  <div class="row m-0 justify-content-center text-center">
+
+    <!-- Optional Upload Image -->
+    <div class="col-12 text-center" *ngIf="config.showImage">
+      <img
+        [src]="config.imagePath || 'assets/images/File upload.png'"
+        [alt]="config.title || 'file-upload'"
+        [height]="config.imageHeight || 200"
+      />
+    </div>
+
+    <!-- Upload Zone -->
+    <div class="col-10 p-0 upload-file-line">
+      <div class="upload-info">
+        <span class="left-upload-cloud">
+          <i class="fa fa-cloud-upload"></i>
+        </span>
+
+        <!-- Dynamic Title -->
+        <p *ngIf="isFileValid; else invalidMsg">
+          {{ config.title || 'Upload File' }}
+          <span *ngIf="config.allowedTypes?.length">
+            ({{ config.allowedTypes?.join(', ') ?? '' }})
+            <sup class="text-danger">*</sup>
+          </span>
+        </p>
+
+        <!-- Invalid Message -->
+        <ng-template #invalidMsg>
+          <p style="color: #d32f2f;">
+            Please upload valid file(s) ({{ config.allowedTypes?.join(', ') }})
+          </p>
+        </ng-template>
+
+        <!-- File Name(s) -->
+        <div *ngIf="selectedFiles.length > 0" class="file-list">
+          <p *ngFor="let file of selectedFiles">{{ file.name }}</p>
+        </div>
+      </div>
+
+      <!-- Hidden File Input -->
+      <input
+        type="file"
+        #fileInput
+        class="d-none"
+        [accept]="getAcceptedTypes()"
+        [multiple]="config.allowMultiple || false"
+        (change)="onFileSelected($event)"
+      />
+
+      <!-- Buttons -->
+      <div class="mt-2">
+        <button class="btn btn-primary upl-btn" (click)="fileInput.click()">
+          {{ config.selectButtonLabel || 'Choose File' }}
+        </button>
+
+        <button
+          class="btn btn-success upl-btn ms-2"
+          [disabled]="selectedFiles.length === 0 || isUploading"
+          (click)="uploadFiles()"
+        >
+          {{ isUploading ? 'Uploading...' : (config.uploadButtonLabel || 'Upload') }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

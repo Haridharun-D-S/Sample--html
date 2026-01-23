@@ -1,0 +1,11 @@
+<div class="nav-tabs-wrapper">
+    <ul class="nav-tabs">
+        <li class="nav-tab" *ngFor="let tab of tabs; let i = index">
+            <button class="nav-tab-link" [class.active]="activeTab === i" *ngIf='tab.show' [disabled]="tab.disabled"
+                (click)="selectTab(i)" type="button">
+                <i [title]="tab.label" [class]="tab.icon"></i>
+                <span>{{ tab.label }}</span>
+            </button>
+        </li>
+    </ul>
+</div>

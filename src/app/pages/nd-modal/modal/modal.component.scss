@@ -1,0 +1,25 @@
+.nd-mat-popup-header{
+  padding-bottom: 12px !important;
+    i{
+        margin-right: 10px;
+        color: #005EA2;
+    }
+}
+.nd-mat-header{
+  display: flex;
+  justify-content: space-between !important;
+  align-items: center !important;
+  height: 45px;
+}
+
+.nd-mat-popup-close{
+  background-color: transparent;
+  border: none;
+  outline: none;
+
+  i{
+    color: #dc3545;
+    font-size: 28px;
+    margin-right: 12px;
+  }
+}

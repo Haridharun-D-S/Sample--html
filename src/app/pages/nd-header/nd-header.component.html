@@ -1,0 +1,170 @@
+<mat-tab-group animationDuration="0ms">
+  <mat-tab label="OVERVIEW (Implementation Guide)">
+    <div class="container p-4 setup-guide">
+
+      <h1> Header Component Overview</h1>
+
+      <p>
+        The <strong>Reusable Header Component</strong> provides a flexible and dynamic header layout for Angular
+        applications.
+        It allows complete customization via JSON configuration or input bindings. The header supports
+        <b>dynamic menus</b>, <b>search functionality</b>, <b>user information display</b>,
+        and <b>logout actions</b> all controlled by boolean flags and user-defined inputs.
+      </p>
+
+      <p>
+        This component is built using <strong>pure HTML, CSS, and Angular</strong>, without external UI frameworks
+        like Bootstrap or Angular Material.
+      </p>
+
+      <hr />
+
+      <h2>HTML Template</h2>
+      <p>
+        This structure defines the header layout with optional elements that are shown or hidden dynamically.
+      </p>
+
+      <h4>Key Layout Features:</h4>
+      <ul>
+        <li>Wrapper for the full header bar.</li>
+        <li> Holds the logo image and title text.</li>
+        <li> Conditionally shown search input with a search icon.</li>
+        <li> Dynamic menu icons generated from JSON or input array.</li>
+        <li> Displays welcome text and logout icon based on user preferences.</li>
+      </ul>
+
+      <hr />
+
+      <h2>CSS Styles</h2>
+      <p>
+        The styling ensures a clean, modern, and responsive header design with hover effects and flexible layouts.
+      </p>
+
+      <h4>Key Style Features:</h4>
+      <ul>
+        <li>Flex layout for evenly spaced alignment.</li>
+        <li>Soft hover effects for interactivity.</li>
+        <li>Icons aligned with text and inputs.</li>
+        <li>Clear separation between menus, search, and user section.</li>
+      </ul>
+
+      <hr />
+
+      <h2>TypeScript Logic</h2>
+      <p>
+        This logic controls the visibility, menu interaction, and event emission of the header component.
+      </p>
+
+      <div class="section">
+        <h3>Header Configuration Options</h3>
+        <table class="table table-bordered table-striped">
+          <thead class="table-light">
+            <tr>
+              <th>Property</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of headerConfigOptions">
+              <td>{{ item.property }}</td>
+              <td>{{ item.type }}</td>
+              <td>{{ item.default }}</td>
+              <td>{{ item.description }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 class="mt-5">Header Output Events</h3>
+        <table class="table table-bordered table-striped">
+          <thead class="table-light">
+            <tr>
+              <th>Event</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let event of headerOutputEvents">
+              <td>{{ event.event }}</td>
+              <td>{{ event.type }}</td>
+              <td>{{ event.description }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <h2>Example Usage</h2>
+      <p>Integrate this component into your parent template as shown below:</p>
+
+      <pre class="code-block">
+&lt;app-header-apps
+  [title]="'Sapphire Vantage'"
+  [imgLogoPath]="'assets/img/logo.png'"
+  [fullName]="'User'"
+  [menus]="menuItems"
+  [isSearchEnabled]="true"
+  [isMenuEnabled]="true"
+  [isUserInfoEnabled]="true"
+  [isLogoutEnabled]="true"
+  (menuClick)="handleMenuClick($event)"
+  (logout)="onLogout()"
+  (searchChange)="onSearch($event)"&gt;
+&lt;/app-header-apps&gt;
+      </pre>
+    </div>
+
+
+
+  </mat-tab>
+  <mat-tab label="Code">
+    <mat-tab-group animationDuration="0ms">
+      <mat-tab label="HTML">
+        <div>
+          <button mat-icon-button (click)="copyToClipboard(htmlheaderCode)">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+          <pre><code>{{htmlheaderCode}}</code></pre>
+        </div>
+
+      </mat-tab>
+      <mat-tab label="CSS">
+        <div>
+          <button mat-icon-button (click)="copyToClipboard(cssheaderCode)">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+          <pre><code>{{cssheaderCode}}</code></pre>
+        </div>
+
+      </mat-tab>
+      <mat-tab label="TS">
+        <div>
+          <button mat-icon-button (click)="copyToClipboard(tsheaderCode)">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+          <pre><code>{{tsheaderCode}}</code></pre>
+        </div>
+
+      </mat-tab>
+    </mat-tab-group>
+  </mat-tab>
+  <mat-tab label="Examples">
+    <app-header-apps
+  [title]="'Sapphire Vantage'"
+  [fullName]="'User'"
+  [menus]="[
+   
+    { label: 'Settings', submenu: ['Profile'] }
+  ]"
+  [isSearchEnabled]="true"
+  [isMenuEnabled]="true"
+  [isUserInfoEnabled]="true"
+  [isLogoutEnabled]="true"
+
+  (logout)="onLogout()"
+></app-header-apps>
+
+  </mat-tab>
+</mat-tab-group>

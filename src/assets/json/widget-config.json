@@ -1,0 +1,63 @@
+{
+  "widgetConfigurationOptions": [
+    {
+      "property": "title",
+      "type": "string",
+      "default": "Title",
+      "description": "set widget title name"
+    },
+    {
+      "property": "uniqueId",
+      "type": "string",
+      "default": "Widget-1",
+      "description": "set a unique ID for widgets"
+    },
+    {
+      "property": "titleIdentification",
+      "type": "string",
+      "default": "For Me",
+      "description": "set title Identification (e.g., 'For Me', 'For Everyone')"
+    },
+    {
+      "property": "size",
+      "type": "string",
+      "default": "medium",
+      "description": "set the widget size. available values: 'small', 'medium', 'large', 'large-x'"
+    },
+    {
+      "property": "infoActionGroup",
+      "type": "WidgetActionBarConfig {}",
+      "default": "{ default:true, showSave:true, showInfo:true, disableSave:false, disableInfo:false }",
+      "description": "set show/hide, disable/enable, and default for show all"
+    },
+    {
+      "property": "widgetFilterBar",
+      "type": "boolean",
+      "default": "FALSE",
+      "description": "show/hide widget's toolbar"
+    },
+    {
+      "property": "widgetFilterBarOptions",
+      "type": "WidgetFilterBarOptions {}",
+      "default": "{ firstDropdownValue: { label:'Time', show:true, dropdownOptions:[], icon:'fa fa-calendar-check-o' }, secondDropdownValue: { label:'Organization', show:true, dropdownOptions:[], icon:'fa fa-sitemap' } }",
+      "description": "set the filter with label, show, dropdownOptions and icon"
+    }
+  ],
+  "widgetOutputEvents": [
+    {
+      "event": "widgetActionClicked",
+      "type": "any | string",
+      "description": "fires when clicking control icon on widget ('Increase', 'Decrease', 'Collapse', 'FullViewWidget', 'DragAndDrop')"
+    },
+    {
+      "event": "selectedItem",
+      "type": "any | object",
+      "description": "fires when selecting a dropdown option, returns {label:'', value:''}"
+    },
+    {
+      "event": "infoActionClicked",
+      "type": "any | string",
+      "description": "fires when clicking any action icon (save / info)"
+    }
+  ]
+}

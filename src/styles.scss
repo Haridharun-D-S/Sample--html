@@ -1,0 +1,37 @@
+/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif !important;
+  overflow: hidden;
+}
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web:200,200i,300,300i,400,400i,600,600i,700,700i,900');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap');
+
+/* ✅ Bootstrap 5 */
+@import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css');
+
+/* ✅ Latest Font Awesome */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+@import url('https://use.fontawesome.com/releases/v5.5.0/css/all.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+
+/* ✅ Material Icons */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+
+.ag-aria-description-container{
+    display: none !important;
+}
+
+
+.mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab{
+    width: 33%;
+}
+.mat-mdc-tab-body-content{
+    padding: 15px;
+    border: 1px solid #ccc;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

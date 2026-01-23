@@ -1,0 +1,141 @@
+<app-toaster></app-toaster>
+
+<mat-tab-group animationDuration="0ms" [dynamicHeight]="true" mat-align-tabs="start" >
+    <mat-tab label="OVERVIEW (Implementation Guide)">
+        <div class="readme">
+            <div class="doc-container">
+
+                <h1>🔔 Toast Notification Component (Angular)</h1>
+                <p>
+                    A reusable notification component supporting success, error, warning and info messages.
+                    Works without any third-party libraries.
+                </p>
+
+                <hr />
+
+                <h2>🔹 Step 1: Add to Shared Module</h2>
+                <p>Add ToasterComponent and ToastService in SharedModule and export the component.</p>
+
+                <pre class="nd-pre">
+NgModule(
+  declarations: [ToasterComponent],
+  exports: [ToasterComponent],
+  providers: [ToastService]
+)
+export class SharedModule;
+  </pre>
+
+                <hr />
+
+                <h2>🔹 Step 2: Insert Toaster in Root HTML</h2>
+                <p>Place inside app.component.html so toast appears globally.</p>
+
+                <pre class="nd-pre">
+&lt;app-toaster&gt;&lt;/app-toaster&gt;
+  </pre>
+
+                <hr />
+
+                <h2>🔹 Step 3: Use Toast Service in Any Component</h2>
+                <p>Inject ToastService and call the required method.</p>
+
+                <pre class="nd-pre">
+constructor(private toast: ToastService);
+onSave()  ->  toast.success('Saved successfully');
+onError() ->  toast.error('Submission failed');
+onWarn()  ->  toast.warning('Check your input');
+onInfo()  ->  toast.info('Processing started');
+  </pre>
+
+                <hr />
+
+                <h2>🔹 Available Methods</h2>
+                <ul>
+                    <li>toast.success(message)</li>
+                    <li>toast.error(message)</li>
+                    <li>toast.warning(message)</li>
+                    <li>toast.info(message)</li>
+                </ul>
+
+                <hr />
+
+                <h2>✨ Features</h2>
+                <ul>
+                    <li>Success / Error / Warning / Info</li>
+                    <li>Auto close (3 seconds)</li>
+                    <li>Manual close button</li>
+                    <li>Stacking support</li>
+                    <li>Smooth animation</li>
+                    <li>Works from Shared Library</li>
+                </ul>
+
+            </div>
+
+
+        </div>
+
+    </mat-tab>
+    <mat-tab label="Code">
+        <mat-tab-group animationDuration="0ms">
+            <mat-tab label="HTML">
+                <div>
+                    <button mat-icon-button appCopy="{{htmlToasterCode}}">
+                        <mat-icon>content_copy</mat-icon>
+                    </button>
+                    <pre><code>{{htmlToasterCode}}</code></pre>
+                </div>
+            </mat-tab>
+            <mat-tab label="CSS">
+                <div>
+                    <button mat-icon-button appCopy="{{cssToasterCode}}">
+                        <mat-icon>content_copy</mat-icon>
+                    </button>
+                    <pre><code>{{cssToasterCode}}</code></pre>
+                </div>
+            </mat-tab>
+            <mat-tab label="TS">
+                <div>
+                    <button mat-icon-button appCopy="{{tsToasterCode}}">
+                        <mat-icon>content_copy</mat-icon>
+                    </button>
+                    <pre><code>{{tsToasterCode}}</code></pre>
+                </div>
+            </mat-tab>
+            <mat-tab label="Service">
+                <div>
+                    <button mat-icon-button appCopy="{{serviceToasterCode}}">
+                        <mat-icon>content_copy</mat-icon>
+                    </button>
+                    <pre><code>{{serviceToasterCode}}</code></pre>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-tab>
+    <mat-tab label="Examples">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <button class="btn btn-success" (click)="showAlert('success')">
+                        Success
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-warning" (click)="showAlert('warning')">
+                        Warning
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-info" (click)="showAlert('info')">
+                        Information
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-danger" (click)="showAlert('danger')">
+                        Error
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </mat-tab>
+</mat-tab-group>

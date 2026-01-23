@@ -1,0 +1,76 @@
+{
+  "headerConfigOptions": [
+    {
+      "property": "title",
+      "type": "string",
+      "default": "'Conversational Data Explorer'",
+      "description": "Sets the header title displayed next to the logo."
+    },
+    {
+      "property": "imgLogoPath",
+      "type": "string",
+      "default": "'assets/img/svam2.png'",
+      "description": "Defines the logo image path to be shown in the header."
+    },
+    {
+      "property": "fullName",
+      "type": "string",
+      "default": "''",
+      "description": "Displays the logged-in user's name on the right side of the header."
+    },
+    {
+      "property": "menus",
+      "type": "Array",
+      "default": "[]",
+      "description": "List of menu items dynamically shown in the header (e.g., Dashboard, Reports, etc.)."
+    },
+    {
+      "property": "searchText",
+      "type": "string",
+      "default": "''",
+      "description": "Model bound to the search input field value."
+    },
+    {
+      "property": "isSearchEnabled",
+      "type": "boolean",
+      "default": "true",
+      "description": "Toggles visibility of the search bar."
+    },
+    {
+      "property": "isMenuEnabled",
+      "type": "boolean",
+      "default": "true",
+      "description": "Toggles visibility of the dynamic menus."
+    },
+    {
+      "property": "isUserInfoEnabled",
+      "type": "boolean",
+      "default": "true",
+      "description": "Toggles visibility of the user info section."
+    },
+    {
+      "property": "isLogoutEnabled",
+      "type": "boolean",
+      "default": "true",
+      "description": "Toggles visibility of the logout button."
+    }
+  ],
+
+  "headerOutputEvents": [
+    {
+      "event": "searchChange",
+      "type": "EventEmitter<string>",
+      "description": "Emits the current search text whenever it changes or when the search button is clicked."
+    },
+    {
+      "event": "menuClick",
+      "type": "EventEmitter<string>",
+      "description": "Emits the menu item name whenever a user clicks on a specific menu."
+    },
+    {
+      "event": "logout",
+      "type": "EventEmitter<void>",
+      "description": "Emits an event when the logout button is clicked."
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+<mat-tab-group animationDuration="0ms">
+  <mat-tab label="OVERVIEW (Implementation Guide)">
+    <div class="container p-4 setup-guide">
+      <h1>Loader Setup Guide</h1>
+
+      <h2>Step 1: Clone the Repository</h2>
+      <ol>
+        <li>
+          Access the repository from:
+          <a href="https://gitlab.com/ecare-project/framework-ui" target="_blank">
+            https://gitlab.com/ecare-project/framework-ui
+          </a>
+        </li>
+        <li>Ensure you have access permissions.</li>
+        <li>Clone using <strong>Node.js version 20</strong>.</li>
+        <li>Branch: <code>dev-ui</code></li>
+      </ol>
+
+      <h2>Step 2: Component Integration</h2>
+      <ol>
+        <li>Import <strong>LoaderComponent</strong> in your module or shared module.</li>
+        <li>
+          Use the loader in any component HTML:
+          <pre><code>&lt;app-loader [message]="'Loading data...'"&gt;&lt;/app-loader&gt;</code></pre>
+        </li>
+        <li>
+          The loader will display a small box with text. You can customize text through
+          the <code>[message]</code> input.
+        </li>
+      </ol>
+      <h2>Note: Add Loader GIF</h2>
+      <ol>
+
+        Place your loader image file inside the assets folder at:
+        <code>src/assets/img/loader-svam.gif</code>
+      </ol>
+    </div>
+
+    <!-- CONFIGURATION TABLE -->
+    <div class="container mt-3">
+      <h3><b>Loader Configuration Options</b></h3>
+      <table class="table table-bordered table-striped">
+        <thead class="table-light">
+          <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of loaderConfigOptions">
+            <td>{{ item.property }}</td>
+            <td>{{ item.type }}</td>
+            <td>{{ item.default }}</td>
+            <td>{{ item.description }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+
+  </mat-tab>
+  <mat-tab label="Code">
+    <mat-tab-group animationDuration="0ms">
+      <mat-tab label="HTML">
+        <div>
+          <button mat-icon-button (click)="copyToClipboard(htmlloaderCode)">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+          <pre><code>{{htmlloaderCode}}</code></pre>
+        </div>
+      </mat-tab>
+      <mat-tab label="CSS">
+        <div>
+          <button mat-icon-button (click)="copyToClipboard(cssloaderCode)">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+          <pre><code>{{cssloaderCode}}</code></pre>
+        </div>
+      </mat-tab>
+      <mat-tab label="TS">
+        <div>
+          <button mat-icon-button (click)="copyToClipboard(tsloaderCode)">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+          <pre><code>{{tsloaderCode}}</code></pre>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-tab>
+  <mat-tab label="Examples">
+
+    <div class="loader-box text-center mt-4">
+      <div class="loader-container">
+        <img src="assets/img/loader-svam.gif" alt="Loading..." class="loader-gif" />
+        <p class="loader-text mt-2">Page Loading...</p>
+      </div>
+
+      <!-- <app-loader [message]="' Loading...'"></app-loader> -->
+    </div>
+  </mat-tab>
+</mat-tab-group>

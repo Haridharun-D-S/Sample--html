@@ -1,0 +1,155 @@
+<mat-tab-group animationDuration="0ms">
+    <mat-tab label="OVERVIEW (Implementation Guide)">
+        <div>
+           <div class="container p-4 setup-guide">
+  <h1>Modal Implementation Guide</h1>
+
+  <h2>Step 1: Open Modal</h2>
+  <ol>
+    <li>Use Angular Material <code>MatDialog</code> service to open the modal.</li>
+    <li>Pass data as <code>header</code>, <code>data</code>, and <code>type</code>.</li>
+    <li>The modal supports <strong>'medium'</strong> and <strong>'dynamic'</strong> views.</li>
+  </ol>
+
+  <h2>Step 2: Required Inputs</h2>
+  <ul>
+    <li><strong>ndModalType</strong>: 'medium' or 'dynamic'</li>
+    <li><strong>getHeaderValue</strong>: title to show in header</li>
+    <li><strong>getDataValue</strong>: array of (title, description )</li>
+  </ul>
+
+  <h2>Step 3: Render Modal</h2>
+  <p>
+    Once inputs are received, the HTML sections are displayed conditionally using
+    <code>*ngIf</code>. Actions available:
+  </p>
+  <ul>
+    <li><strong>Submit</strong> → triggers <code>onSubmit()</code></li>
+    <li><strong>Cancel</strong> → triggers <code>close()</code></li>
+  </ul>
+
+  <h2>Step 4: Close Modal</h2>
+  <ol>
+    <li>Use the top right close icon or <strong>Cancel</strong> button.</li>
+    <li>
+      Ensure the <code>close()</code> method triggers
+      <code>dialogRef.close()</code> to terminate the popup safely.
+    </li>
+  </ol>
+</div>
+
+        </div>
+    </mat-tab>
+    <mat-tab label="Code">
+        <mat-tab-group animationDuration="0ms">
+            <mat-tab label="HTML">
+                <div>
+                    <button mat-icon-button (click)="copyToClipboard(htmlModalCode)">
+                        <mat-icon>content_copy</mat-icon>
+                    </button>
+                    <pre><code>{{htmlModalCode}}</code></pre>
+                </div>
+            </mat-tab>
+            <mat-tab label="CSS">
+                <div>
+                    <button mat-icon-button (click)="copyToClipboard(cssModalCode)">
+                        <mat-icon>content_copy</mat-icon>
+                    </button>
+                    <pre><code>{{cssModalCode}}</code></pre>
+                </div>
+            </mat-tab>
+            <mat-tab label="TS">
+                <div>
+                    <button mat-icon-button (click)="copyToClipboard(tsModalCode)">
+                        <mat-icon>content_copy</mat-icon>
+                    </button>
+                    <pre><code>{{tsModalCode}}</code></pre>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-tab>
+    <mat-tab label="Examples">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <form [formGroup]="formGroup" class="dynamic-dialog-form">
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Width</mat-label>
+                            <input matInput formControlName="width" placeholder="Ex: 400px or 50%">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Height</mat-label>
+                            <input matInput formControlName="height" placeholder="Ex: 300px or auto">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Min Width</mat-label>
+                            <input matInput formControlName="minWidth" placeholder="Ex: 200px">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Max Width</mat-label>
+                            <input matInput formControlName="maxWidth" placeholder="Ex: 90vw or 800px">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Min Height</mat-label>
+                            <input matInput formControlName="minHeight" placeholder="Ex: 150px">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Max Height</mat-label>
+                            <input matInput formControlName="maxHeight" placeholder="Ex: 90vh or 600px">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Panel Class</mat-label>
+                            <input matInput formControlName="panelClass" placeholder="Ex: nd-custom-class">
+                        </mat-form-field>
+
+                        <div class="checkbox-row">
+                            <mat-checkbox formControlName="disableClose">Disable Close</mat-checkbox>
+                            <mat-checkbox formControlName="hasBackdrop">Has Backdrop</mat-checkbox>
+                        </div>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Backdrop Class</mat-label>
+                            <input matInput formControlName="backdropClass" placeholder="Ex: custom-backdrop-blue">
+                        </mat-form-field>
+
+                        <div formGroupName="position" class="position-grid">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Top</mat-label>
+                                <input matInput formControlName="top" placeholder="Ex: 50px">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Bottom</mat-label>
+                                <input matInput formControlName="bottom" placeholder="Ex: 20px">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Left</mat-label>
+                                <input matInput formControlName="left" placeholder="Ex: 20px">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Right</mat-label>
+                                <input matInput formControlName="right" placeholder="Ex: 50px">
+                            </mat-form-field>
+                        </div>
+                    </form>
+
+                </div>
+
+                <div class="col-md-12" style="display: flex;justify-content: space-between;" >
+                    <button mat-raised-button color="primary" (click)="openModal()">Open Modal with medium data</button>
+                    <button *ngIf="modalResult" mat-stroked-button color="accent">{{modalResult}}</button>
+                    <button mat-raised-button color="primary" (click)="openDynamicModal()">Open Dynamic
+                        Modal</button>
+                </div>
+            </div>
+        </div>
+    </mat-tab>

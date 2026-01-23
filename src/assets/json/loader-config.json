@@ -1,0 +1,10 @@
+{
+  "loaderConfigOptions": [
+    {
+      "property": "message",
+      "type": "string",
+      "default": "'Page Loading...'",
+      "description": "Sets the loading message text"
+    }
+]
+}

@@ -1,0 +1,102 @@
+<mat-tab-group animationDuration="0ms">
+  <mat-tab label="OVERVIEW (Implementation Guide)">
+
+
+      <h1>Datepicker Setup Guide</h1>
+        <div class="section">
+    <h2>Introduction</h2>
+    <p>
+      The <b>Datepicker Component</b> provides flexible date selection options, 
+      including single-date selection, range selection, filtering (weekends, etc.), 
+      and datepicker with custom action buttons.
+    </p>
+  </div>
+ <div class="section">
+    <h2>Available Variants</h2>
+    <ol>
+      <li><b>Basic Datepicker:</b> Allows single date selection with min/max limits.</li>
+      <li><b>Date Range Picker:</b> Allows users to select a range (start and end dates).</li>
+      <li><b>Datepicker with Filter:</b> Disables weekends or specific days.</li>
+      <li><b>Datepicker with Action Buttons:</b> Includes Apply and Cancel actions.</li>
+      <li><b>Date Range (From - To):</b> Two separate fields for from/to date selection.</li>
+    </ol>
+  </div>
+
+  
+      <h3>Datepicker Configuration Options</h3>
+      <table class="table table-bordered table-striped">
+        <thead class="table-light">
+          <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of datepickerConfigurationOptions">
+            <td>{{ item.property }}</td>
+            <td>{{ item.type }}</td>
+            <td>{{ item.default }}</td>
+            <td>{{ item.description }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="mt-5">Datepicker Output Events</h3>
+      <table class="table table-bordered table-striped">
+        <thead class="table-light">
+          <tr>
+            <th>Event</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let event of datepickerOutputEvents">
+            <td>{{ event.event }}</td>
+            <td>{{ event.type }}</td>
+            <td>{{ event.description }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+  </mat-tab>
+  <mat-tab label="Code">
+    <mat-tab-group animationDuration="500ms">
+      <mat-tab label="HTML">
+        <div>
+          <button mat-icon-button (click)="copyToClipboard(htmldatepickerCode)">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+          <pre><code>{{htmldatepickerCode}}</code></pre>
+        </div>
+
+      </mat-tab>
+      <mat-tab label="CSS">
+        <div>
+          <button mat-icon-button (click)="copyToClipboard(cssdatepickerCode)">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+          <pre><code >{{cssdatepickerCode}}</code></pre>
+
+        </div>
+
+      </mat-tab>
+      <mat-tab label="TS">
+        <div>
+          <button mat-icon-button (click)="copyToClipboard(tsdatepickerCode)">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+          <pre><code >{{tsdatepickerCode}}</code></pre>
+        </div>
+
+      </mat-tab>
+    </mat-tab-group>
+  </mat-tab>
+  <mat-tab label="Example">
+    <app-datepicker [selectedDate]="initialDate" [minDate]="minDate" [maxDate]="maxDate" [enableFilter]="true"
+      (selectedChange)="onSelectedDate($event)" (rangeChange)="onRangeChanged($event)"
+      (monthSelected)="onMonthSelected($event)" (yearSelected)="onYearSelected($event)"></app-datepicker>
+  </mat-tab>
+</mat-tab-group>
