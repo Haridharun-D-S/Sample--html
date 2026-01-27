@@ -6,7 +6,7 @@ app=Flask(__name__)
 def home():
     return render_template("index.html")
 @app.route('/health')
-def health:
+def health():
     return "OK",200
  
 if __name__=="__main__":
