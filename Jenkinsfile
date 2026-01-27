@@ -15,7 +15,7 @@ pipeline {
                 echo 'container creation'
                 sh '''
                   docker rm -f demo || true
-                  docker run -d -p 5000:50 --name demo py:${BUILD_NUMBER}
+                  docker run -d -p 5000:5050 --name demo py:${BUILD_NUMBER}
                 '''
             }
         }
