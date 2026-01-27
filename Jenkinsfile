@@ -6,7 +6,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Image building'
-                sh 'docker build -t htm:${BUILD_NUMBER} .'
+                sh 'docker build -t py:${BUILD_NUMBER} .'
             }
         }
 
@@ -15,7 +15,7 @@ pipeline {
                 echo 'container creation'
                 sh '''
                   docker rm -f demo || true
-                  docker run -d -p 1000:80 --name demo htm:${BUILD_NUMBER}
+                  docker run -d -p 1000:80 --name demo py:${BUILD_NUMBER}
                 '''
             }
         }
