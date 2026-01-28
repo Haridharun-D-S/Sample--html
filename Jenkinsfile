@@ -1,5 +1,6 @@
 pipeline{
     agent any
+    
     environment{
         prev = "${env.BUILD_NUMBER.toInteger() - 1}"
     }
