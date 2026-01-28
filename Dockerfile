@@ -1,8 +1,8 @@
 FROM nginx:alpine
 
-WORKDIR usr/share/nginx/html/
+#WORKDIR usr/share/nginx/html/
 
-COPY /templates/ .
+COPY /templates/ usr/share/nginx/html/
 
 #RUN tsc main.ts --target ES6 --module ES6
 
