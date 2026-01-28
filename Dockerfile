@@ -4,6 +4,6 @@ FROM nginx:alpine
 
 COPY /templates/ usr/share/nginx/html/
 
-#RUN tsc main.ts --target ES6 --module ES6
+RUN tsc main.ts --target ES6 --module ES6
 
 EXPOSE 80
