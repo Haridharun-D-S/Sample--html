@@ -5,12 +5,6 @@ pipeline{
         prev = "${env.BUILD_NUMBER.toInteger() - 1}"
     }
     stages{
-        stage('Checkout'){
-            steps{
-                echo "Checking scm from git"
-                checkout scm
-            }
-        }
         stage('Clean'){
             steps{
                 echo "Cleaing older images and containers"
