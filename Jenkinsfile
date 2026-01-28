@@ -29,7 +29,7 @@ pipeline{
         stage('Launch'){
             steps{
                 echo "App launching"
-                sh "docker run -d -p 5000:5000 --name demo app:${BUILD_NUMBER}"
+                sh "docker run -d -p 8000:80 --name demo app:${BUILD_NUMBER}"
             }
         }
     }

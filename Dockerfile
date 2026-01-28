@@ -1,14 +1,9 @@
-FROM python:3.11-slim
+FROM nginx:alpine
 
-WORKDIR /app
+WORKDIR usr/share/nginx/html/
 
-COPY requirements.txt .
+COPY /templates/ .
 
-COPY templates ./templates
-RUN pip install -r requirements.txt
+RUN tsc main.ts --target ES6 --module ES6
 
-COPY app.py .
-
-EXPOSE 5000
-
-CMD ["python","app.py"]
+EXPOSE 80
